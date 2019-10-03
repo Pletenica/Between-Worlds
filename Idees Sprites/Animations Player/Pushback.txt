@@ -1,0 +1,20 @@
+idle.PushBack({ 0, 0, 32, 32 });
+idle.PushBack({ 32, 0, 32, 32 });
+idle.PushBack({ 64, 0, 32, 32 });
+idle.speed = 0.2f;
+
+jump.PushBack({ 0, 32, 32, 32 });
+jump.PushBack({ 32, 32, 32, 32 });
+jump.PushBack({ 64, 32, 32, 32 });
+jump.speed = 0.2f;
+
+walk.PushBack({ 0, 64, 32, 32 });
+walk.PushBack({ 32, 64, 32, 32 });
+walk.PushBack({ 64, 64, 32, 32 });
+walk.PushBack({ 96, 64, 32, 32 });
+walk.speed = 0.2f;
+
+liana.PushBack({ 0, 96, 32, 32 });
+liana.PushBack({ 32, 96, 32, 32 });
+liana.PushBack({ 64, 96, 32, 32 });
+liana.speed = 0.2f;
