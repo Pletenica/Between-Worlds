@@ -116,8 +116,15 @@ public:
 	inputout inputstateout[INPUTSOUTS];
 	Collider* body;
 	int jump_timer;
+	int jumpspeed=20;
+	int G=9;
 
+	bool left = false;
+	bool flip = false;
+	bool godmode = false;
 	bool isinair = false;
+	bool isjumping = false;
+	bool isinliana = false;
 
 	bool dimensionnormal = true;
 	bool dimensionagua = false;

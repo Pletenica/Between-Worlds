@@ -30,7 +30,9 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("Scene01.tmx");
+	App->map->Load("SceneNormal.tmx");
+	App->map->Load("ScenePlant.tmx");
+	App->map->Load("SceneIce.tmx");
 	return true;
 }
 
@@ -88,6 +90,6 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
-
+	App->map->CleanUp();
 	return true;
 }

@@ -72,7 +72,7 @@ bool j1Player::Start()
 
 	//// Load All SOUNDS & COLLISIONS //// 
 	//walksound = App->audio->LoadChunk("Audio_FX/Punch.wav");
-	body = App->collision->AddCollider({ position.x,(position.y - 100),35,20 }, COLLIDER_PLAYER, this);
+	body = App->collision->AddCollider({ position.x,position.y,32,32 }, COLLIDER_PLAYER, this);
 
 	return true;
 }
@@ -92,26 +92,116 @@ bool j1Player::CleanUp() {
 
 bool j1Player::PreUpdate() {
 
+	//// INPUTS ////
+
 	if (!isinair) {
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-			position.y += 1;
-
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-			position.y -= 1;
+			isjumping = true;
 
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
 			position.x -= 1;
 			Current_Animation = walk;
+			left = true;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
 			position.x += 1;
 			Current_Animation = walk;
+			left = false;
 		}
 	}
 
 	if (isinair) {
-		Current_Animation = jump;
+		if (isinliana==false && dimensionagua == false) {
+			Current_Animation = jump;
+
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+				position.y -= 1;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+				position.x -= 1;
+				left = true;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+				position.x += 1;
+				left = false;
+			}
+		}
+		if (isinliana) {
+			Current_Animation = liana;
+			position.y--;
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+				position.y += 1;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+				position.y -= 1;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+				position.x -= 1;
+				left = true;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+				position.x += 1;
+				left = false;
+			}
+		}
+		if (dimensionagua == true) {
+			position.y--;
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+				position.y += 2;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+				position.x -= 1;
+				left = true;
+				Current_Animation = walk;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+				position.x += 1;
+				Current_Animation = walk;
+				left = false;
+			}
+		}
+	}
+
+	if (isjumping == true) {
+		G += G;
+		position.y += jumpspeed - G;
+	}
+
+	if (isjumping == false)  G = 9;
+
+	//// GOD MODE ////
+
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_REPEAT) {
+		if (godmode == true) godmode = false;	body = App->collision->AddCollider({ position.x,position.y,32,32 }, COLLIDER_PLAYER, this);
+		if (godmode == false) godmode = true;	body->to_delete = true;
+	}
+
+	if (godmode == true) {
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+			position.y += 1;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+			position.y -= 1;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+			position.x -= 1;
+			left = true;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+			position.x += 1;
+			left = false;
+		}
 	}
 
 	return true;
@@ -126,7 +216,9 @@ bool j1Player::Update()
 }
 
 bool j1Player::PostUpdate() {
+
 	App->render->Blit(current_graphics, position.x, position.y, &(Current_Animation.GetCurrentFrame()), 1.0f);
+	
 	return true;
 }
 
@@ -172,6 +264,15 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 		}
 		if (other->type != COLLIDER_SUELO) {
 			isinair = true;
+		}
+		if (other->type == COLLIDER_SUELO) {
+			isinair = false;
+		}
+		if (other->type == COLLIDER_LIANA) {
+			isinliana = true;
+		}
+		if (other->type != COLLIDER_LIANA) {
+			isinliana = false;
 		}
 	}
 }
