@@ -58,11 +58,11 @@ public:
 	j1Collision();
 	~j1Collision();
 
-	bool Start();
+	bool Start() { return true; };
 	bool Awake();
 	bool PreUpdate();
 	bool Update();
-	bool PostUpdate();
+	bool PostUpdate() { return true; };
 	bool CleanUp();
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
