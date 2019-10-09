@@ -33,7 +33,7 @@ public:
 	bool CleanUp();
 
 public:
-
+	Collider* suelo01;
 };
 
 #endif // __j1SCENE_H__

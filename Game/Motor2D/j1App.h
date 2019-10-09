@@ -16,7 +16,7 @@ class j1Map;
 class j1Collision;
 class j1Player;
 class j1Animation;
-
+class j1Objects;
 
 class j1App
 {
@@ -90,6 +90,7 @@ public:
 	j1Collision*		collision;
 	j1Player*			player;
 	j1Animation*		animation;
+	j1Objects*			objects;
 
 private:
 

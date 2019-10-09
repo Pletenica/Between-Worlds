@@ -46,7 +46,7 @@ void j1Map::Draw()
 				int x = j;
 				int y = i;
 				Translate_Coord(&x, &y);
-				App->render->Blit(data.tilesets.start->data->texture, x, y, &rect);
+				App->render->Blit(data.tilesets.start->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
 				//LOG("%u: %u, %u", n, x, y);
 			}
 		}

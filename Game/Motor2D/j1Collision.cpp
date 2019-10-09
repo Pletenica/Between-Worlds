@@ -157,6 +157,9 @@ void j1Collision::DebugDraw()
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
+		case COLLIDER_LIANA: // green
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
 		case COLLIDER_DEATH: // red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
@@ -244,6 +247,8 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 {
 	return !(r.x + r.w<rect.x || r.x>rect.x + rect.w || r.y + r.h<rect.y || r.y>rect.y + rect.h);
 }
+
+
 
 void Collider::SetPos(int x, int y) {
 	rect.x = x;

@@ -33,9 +33,12 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("SceneNormal.tmx");
-	App->map->Load("ScenePlant.tmx");
-	App->map->Load("SceneIce.tmx");
+	App->map->Load("Scene01.tmx");
+	//App->map->Load("ScenePlant.tmx");
+	//App->map->Load("SceneIce.tmx");
+
+	suelo01 = App->collision->AddCollider({ App->render->camera.x,App->render->camera.y+200,200,32 }, COLLIDER_SUELO, this);
+
 	return true;
 }
 
@@ -60,11 +63,13 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		App->render->camera.y -= 0.5;
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x -= 1;
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+		App->render->camera.x += 0.5;
+	}
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x += 1;
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+		App->render->camera.x -= 0.5;
+	}
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
@@ -82,11 +87,6 @@ bool j1Scene::Update(float dt)
 bool j1Scene::PostUpdate()
 {
 	bool ret = true;
-
-	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-		App->collision->DebugDraw();
-	}
-
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

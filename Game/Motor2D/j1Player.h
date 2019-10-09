@@ -110,6 +110,7 @@ public:
 	SDL_Rect rectplayer;
 	SDL_Rect rectoli;
 
+
 	iPoint position;
 	int mult;
 	state actual;
@@ -117,14 +118,15 @@ public:
 	inputout inputstateout[INPUTSOUTS];
 	Collider* body;
 	Collider* suelo01;
+	Collider* plantportal;
 	int jump_diferencey;
 	int jumpspeed=20;
 	float G=0.0002;
+	int limitator=0;
 
 	bool calculateheightjump = true;
 	bool jumpup = false;
-	bool left = false;
-	bool flip = false;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	bool godmode = false;
 	bool isinair = false;
 	bool isjumping = false;

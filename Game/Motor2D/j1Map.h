@@ -109,6 +109,7 @@ private:
 public:
 
 	MapData data;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
 private:
 
