@@ -117,11 +117,12 @@ public:
 	inputout inputstateout[INPUTSOUTS];
 	Collider* body;
 	Collider* suelo01;
-	int jump_timer;
+	int jump_diferencey;
 	int jumpspeed=20;
 	float G=0.0002;
 
-
+	bool calculateheightjump = true;
+	bool jumpup = false;
 	bool left = false;
 	bool flip = false;
 	bool godmode = false;

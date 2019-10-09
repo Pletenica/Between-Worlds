@@ -53,15 +53,12 @@ bool dimensionplanta = false;
 bool j1Player::Start()
 {
 	//// Load All CONDITIONS //// 
-
-
 	bool left = false;
 	bool right = true;
 	bool jump = false;
-	jump_timer = 0;
 	//flip = false;
 	position.x = 0;
-	position.y = 0;
+	position.y = 50;
 	Current_Animation =idle;
 
 	//// Load All Graphics //// 
@@ -70,12 +67,12 @@ bool j1Player::Start()
 	plant_graphics = App->tex->Load("textures/PlayerPlant.png");
 	ice_graphics = App->tex->Load("textures/PlayerSnow.png");
 	watter_graphics = App->tex->Load("textures/PlayerWatter.png");
-	current_graphics = fire_graphics;
+	current_graphics = plant_graphics;
 
 	//// Load All SOUNDS & COLLISIONS //// 
 	//walksound = App->audio->LoadChunk("Audio_FX/Punch.wav");
 	body = App->collision->AddCollider({ position.x+2,position.y,25,32 }, COLLIDER_PLAYER, this);
-	//suelo01 = App->collision->AddCollider({ position.x,120,32,32 }, COLLIDER_SUELO, this);
+	suelo01 = App->collision->AddCollider({ 0,200,200,32 }, COLLIDER_SUELO, this);
 	//liana01 = App->collision->AddCollider({ 0,0,10,10 }, COLLIDER_LIANA, this);
 	return true;
 }
@@ -93,9 +90,6 @@ bool j1Player::CleanUp() {
 	return true;
 }
 
-float maxvel = 0.0005;
-float player_aceleration = 0.000005;
-float instant_velocity_x = 0;
 
 bool j1Player::PreUpdate() {
 
@@ -108,25 +102,19 @@ bool j1Player::PreUpdate() {
 			isjumping = true;
 
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-
-			if (instant_velocity_x > player_aceleration) {
-				instant_velocity_x += player_aceleration;
-			}
-
-			position.x -= instant_velocity_x;
-
+			position.x -= 0.5;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			left = true;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-			position.x += 0.0002;
+			position.x += 0.5;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			left = false;
 		}
-
 	}
 
+	/*
 	if (isinair) {
 		if (isinliana==false && dimensionagua == false) {
 			Current_Animation.GetCurrentFrame() = jump.GetCurrentFrame();
@@ -191,24 +179,28 @@ bool j1Player::PreUpdate() {
 			}
 		}
 	}
+	*/
 
-	if (isjumping == true) {
-		G += G;
-		position.y += jumpspeed - G;
-	}
-
-	if (isinair == false)  G = 9;
-
-	//// GOD MODE ////
+		if (isinair == false)  G = 9;
 
 
+	//////// INPUT FAILS ////////
 	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)) {
 		Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 	}
 
 
+	//////// GOD MODE ////////
 
-	//App->collision->DebugDraw();
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+		if (body->to_delete != false) {
+			body = App->collision->AddCollider({ position.x + 2,position.y,25,32 }, COLLIDER_PLAYER, this);
+		}
+		else {
+			body->to_delete=true;
+		}
+	}
+
 	return true;
 }
 
