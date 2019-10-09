@@ -1,4 +1,3 @@
-
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Input.h"
@@ -71,12 +70,12 @@ bool j1Player::Start()
 	plant_graphics = App->tex->Load("textures/PlayerPlant.png");
 	ice_graphics = App->tex->Load("textures/PlayerSnow.png");
 	watter_graphics = App->tex->Load("textures/PlayerWatter.png");
-	current_graphics = plant_graphics;
+	current_graphics = fire_graphics;
 
 	//// Load All SOUNDS & COLLISIONS //// 
 	//walksound = App->audio->LoadChunk("Audio_FX/Punch.wav");
-	body = App->collision->AddCollider({ position.x,position.y,32,32 }, COLLIDER_PLAYER, this);
-	suelo01 = App->collision->AddCollider({ position.x,120,32,32 }, COLLIDER_SUELO, this);
+	body = App->collision->AddCollider({ position.x+2,position.y,25,32 }, COLLIDER_PLAYER, this);
+	//suelo01 = App->collision->AddCollider({ position.x,120,32,32 }, COLLIDER_SUELO, this);
 	//liana01 = App->collision->AddCollider({ 0,0,10,10 }, COLLIDER_LIANA, this);
 	return true;
 }
@@ -103,8 +102,6 @@ bool j1Player::PreUpdate() {
 	//// INPUTS ////
 
 	Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
-
-
 
 	if (!isinair && !isinliana) {
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -204,38 +201,14 @@ bool j1Player::PreUpdate() {
 
 	//// GOD MODE ////
 
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_REPEAT) {
-		if (godmode == true) godmode = false;	body = App->collision->AddCollider({ position.x,position.y,32,32 }, COLLIDER_PLAYER, this);
-		if (godmode == false) godmode = true;	body->to_delete = true;
-	}
-
-	if (godmode == true) {
-		isinair = false;
-		isinliana = false;
-		isjumping = false;
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
-			position.y -= 0.0002;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
-			position.y+=0.0002;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-			position.x -= 0.0002;
-			left = true;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-			position.x += 0.0002;
-			left = false;
-		}
-	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)) {
 		Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 	}
 
+
+
+	//App->collision->DebugDraw();
 	return true;
 }
 
@@ -250,7 +223,8 @@ bool j1Player::Update()
 bool j1Player::PostUpdate() {
 
 	App->render->Blit(current_graphics, position.x, position.y, &(Current_Animation.GetCurrentFrame()), 1.0f);
-	
+	App->render->DrawQuad(rectoli, 0, 0, 255);
+
 	return true;
 }
 

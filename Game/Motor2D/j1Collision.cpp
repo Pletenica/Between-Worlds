@@ -124,7 +124,7 @@ bool j1Collision::PreUpdate()
 	return true;
 }
 
-// Called before render is available
+
 bool j1Collision::Update()
 {
 	DebugDraw();
@@ -134,7 +134,7 @@ bool j1Collision::Update()
 void j1Collision::DebugDraw()
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false)
@@ -204,7 +204,6 @@ void j1Collision::DebugDraw()
 			break;
 		}
 	}
-
 }
 
 // Called before quitting

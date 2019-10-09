@@ -1,5 +1,5 @@
-#ifndef __ModuleCollision_H__
-#define __ModuleCollision_H__
+#ifndef __j1Collision_H__
+#define __j1Collision_H__
 
 #define MAX_COLLIDERS 50
 
@@ -62,7 +62,7 @@ public:
 	bool Awake();
 	bool PreUpdate();
 	bool Update();
-	bool PostUpdate() { return true; };
+	bool PostUpdate() { DebugDraw(); return true; };
 	bool CleanUp();
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);

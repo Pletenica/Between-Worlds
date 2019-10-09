@@ -6,12 +6,15 @@
 #include "j1Audio.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "j1Collision.h"
+#include "j1Player.h"
 #include "j1Map.h"
 #include "j1Scene.h"
 
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
+
 }
 
 // Destructor
@@ -79,6 +82,11 @@ bool j1Scene::Update(float dt)
 bool j1Scene::PostUpdate()
 {
 	bool ret = true;
+
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+		App->collision->DebugDraw();
+	}
+
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

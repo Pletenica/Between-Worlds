@@ -108,6 +108,7 @@ public:
 	Animation liana;
 	Animation dead;
 	SDL_Rect rectplayer;
+	SDL_Rect rectoli;
 
 	iPoint position;
 	int mult;

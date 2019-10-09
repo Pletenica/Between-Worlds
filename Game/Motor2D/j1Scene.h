@@ -32,7 +32,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-private:
+public:
+
 };
 
 #endif // __j1SCENE_H__
