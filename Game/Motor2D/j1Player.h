@@ -115,9 +115,11 @@ public:
 	inputin inputstate[60];
 	inputout inputstateout[INPUTSOUTS];
 	Collider* body;
+	Collider* suelo01;
 	int jump_timer;
 	int jumpspeed=20;
-	int G=9;
+	float G=0.0002;
+
 
 	bool left = false;
 	bool flip = false;
@@ -126,11 +128,6 @@ public:
 	bool isjumping = false;
 	bool isinliana = false;
 
-	bool dimensionnormal = true;
-	bool dimensionagua = false;
-	bool dimensionfuego = false;
-	bool dimensionhielo = false;
-	bool dimensionplanta = false;
 };
 
 #endif
