@@ -7,6 +7,7 @@
 #include "j1Player.h"
 #include "j1Scene.h"
 #include "j1Objects.h"
+#include "j1Map.h"
 #include "SDL/include/SDL_timer.h"
 
 
@@ -74,9 +75,7 @@ bool j1Player::Start()
 	//// Load All SOUNDS & COLLISIONS //// 
 	//walksound = App->audio->LoadChunk("Audio_FX/Punch.wav");
 	body = App->collision->AddCollider({ position.x+2,position.y,25,32 }, COLLIDER_PLAYER, this);
-	//suelo01 = App->collision->AddCollider({ 0,200,200,32 }, COLLIDER_SUELO, this);
-	//plantportal = App->collision->AddCollider({ 60,50,50,100 }, COLLIDER_PORTAL_PLANTA, this);
-	//liana01 = App->collision->AddCollider({ 0,0,10,10 }, COLLIDER_LIANA, this);
+	
 	return true;
 }
 
@@ -108,30 +107,19 @@ bool j1Player::PreUpdate() {
 			isjumping = true;
 
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-			if (limitator_normal == 0) {
-				if (stop == false) {
-					position.x -= 1;
-				}
-			}
-			left = true;
+			position.x -= 1;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_HORIZONTAL;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-			if (limitator_normal == 0) {
-				position.x += 1;
-			}
-			right = true;
+			position.x += 1;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_NONE;
 		}
 		
-		limitator_normal++;
-		if (limitator_normal == 5) {
-			limitator_normal = 0;
-		}
 	}
+
 
 
 	//////// INPUT FAILS ////////
@@ -141,30 +129,23 @@ bool j1Player::PreUpdate() {
 
 
 	//////// LIANA ////////
-	if (body->CheckCollision(App->objects->liana01->rect) == false && body->CheckCollision(App->objects->liana02->rect) == false) {
-		isinliana = false;
-	}
+
 
 	if (isinliana == true) {
 		isinair = false;
 		Current_Animation.GetCurrentFrame() = liana.GetCurrentFrame();
-		if (limitator_liana == 0) {
-			position.y++;
+		position.y++;
 
-			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-				position.x -= 1;
-				flip = SDL_FLIP_HORIZONTAL;
-			}
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+			position.x -= 1;
+			flip = SDL_FLIP_HORIZONTAL;
+		}
 
-			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-				position.x += 1;
-				flip = SDL_FLIP_NONE;
-			}
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+			position.x += 1;
+			flip = SDL_FLIP_NONE;
 		}
-		limitator_liana++;
-		if (limitator_liana == 15) {
-			limitator_liana = 0;
-		}
+		
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
 			position.y -= 20;
 		}
@@ -220,26 +201,17 @@ bool j1Player::PreUpdate() {
 	if (isinair) {
 		Current_Animation.GetCurrentFrame() = jump.GetCurrentFrame();
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-			if (limitator_air == 0) {
-				position.x -= 1;
-			}
+			position.x -= 1;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_HORIZONTAL;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-			if (limitator_air == 0) {
 				position.x += 1;
-			}
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_NONE;
 		}
-
-		limitator_air++;
-		if (limitator_air == 2) {
-			limitator_air = 0;
-			position.y++;
-		}
+		position.y += 8;
 	}
 
 
@@ -324,6 +296,8 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			dimensionplanta = true;
 			position.x += 100;
 			current_graphics = plant_graphics;
+			//App->map->CleanUp();
+			//App->map->Load("Scene02.tmx");
 		}
 		if (other->type == COLLIDER_SUELO) {
 			isinliana = false;

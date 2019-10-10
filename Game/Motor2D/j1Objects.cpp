@@ -66,9 +66,7 @@ bool j1Objects::Start()
 
 	//// Load All Graphics //// 
 	objects_graphics = App->tex->Load("textures/Objects.png");
-	plantportal = App->collision->AddCollider({ 70,130,50,64 }, COLLIDER_PORTAL_PLANTA, this);
-	liana01 = App->collision->AddCollider({ 100,0,50,64 }, COLLIDER_LIANA, this);
-	liana02 = App->collision->AddCollider({ 250,0,100,300 }, COLLIDER_LIANA, this);
+	plantportal = App->collision->AddCollider({ 70,200,50,64 }, COLLIDER_PORTAL_PLANTA, this);
 	return true;
 }
 

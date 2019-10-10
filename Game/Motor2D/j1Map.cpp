@@ -4,7 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
-//for homework
+#include "j1Collision.h"
 #include "j1Input.h"
 #include "j1Window.h"
 //
@@ -64,13 +64,22 @@ void j1Map::Draw()
 					int x = j;
 					int y = i;
 					Translate_Coord(&x, &y);
-					App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0, 0, 0,0,flip);
+					if (gid == 30 && collidersdone == false) {
+						App->collision->AddCollider({ x,y+12,32,32 }, COLLIDER_SUELO, this);
+					}
+					if (gid == 60 && collidersdone == false) {
+						App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
+					}
+					if (gid != 30 && gid != 60) {
+						App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+					}
 				}
+
 			}
 		}
 		coord_layer = coord_layer->next;
 	}
-
+	collidersdone = true;
 }
 
 
@@ -102,7 +111,6 @@ bool j1Map::CleanUp()
 	}
 	data.layers.clear();
 
-	// Clean up the pugui tree
 	map_file.reset();
 
 	return true;

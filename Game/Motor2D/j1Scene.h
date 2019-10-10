@@ -33,8 +33,8 @@ public:
 	bool CleanUp();
 
 public:
-	Collider* suelo01;
-	Collider*wall01;
+	Collider* movecamright;
+	Collider* movecamleft;
 };
 
 #endif // __j1SCENE_H__

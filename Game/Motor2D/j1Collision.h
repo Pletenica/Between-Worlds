@@ -1,7 +1,7 @@
 #ifndef __j1Collision_H__
 #define __j1Collision_H__
 
-#define MAX_COLLIDERS 50
+#define MAX_COLLIDERS 50000
 
 #include "j1Module.h"
 #include "SDL/include/SDL_rect.h"
@@ -29,6 +29,8 @@ enum COLLIDER_TYPE
 	COLLIDER_PORTAL_NORMAL4,
 	COLLIDER_PORTAL_CHANGESCENE1,
 	COLLIDER_PORTAL_CHANGESCENEFINAL,
+	COLLIDER_MOVECAM_RIGHT,
+	COLLIDER_MOVECAM_LEFT,
 	COLLIDER_MAX
 };
 

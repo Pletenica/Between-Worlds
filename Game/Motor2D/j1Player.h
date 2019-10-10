@@ -118,8 +118,7 @@ public:
 	inputin inputstate[60];
 	inputout inputstateout[INPUTSOUTS];
 	Collider* body;
-	Collider* suelo01;
-	Collider* plantportal;
+	Collider*movecamright;
 	int limitator_liana=0;
 	int limitator_normal = 0;
 	int limitator_watter = 0;

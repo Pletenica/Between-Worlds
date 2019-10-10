@@ -110,7 +110,7 @@ public:
 
 	MapData data;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
-
+	bool collidersdone=false;
 private:
 
 	pugi::xml_document	map_file;

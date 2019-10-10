@@ -34,11 +34,9 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load("Scene01.tmx");
-	//App->map->Load("ScenePlant.tmx");
-	//App->map->Load("SceneIce.tmx");
+	movecamright = App->collision->AddCollider({ 200,0,20,350 }, COLLIDER_MOVECAM_RIGHT, this);
+	movecamleft = App->collision->AddCollider({ 100,0,20,350 }, COLLIDER_MOVECAM_LEFT, this);
 
-	suelo01 = App->collision->AddCollider({ App->render->camera.x,App->render->camera.y+200,250,32 }, COLLIDER_SUELO, this);
-	wall01 = App->collision->AddCollider({ 200,150 ,30,100 }, COLLIDER_WALL_TO_IDLE, this);
 	return true;
 }
 
@@ -57,18 +55,20 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 0.5;
-
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 0.5;
-
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-		App->render->camera.x += 0.5;
+		if (App->player->body->CheckCollision(movecamleft->rect) == true) {
+			App->render->camera.x += 3;
+			movecamleft->rect.x -= 1;
+			movecamright->rect.x -= 1;
+		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-		App->render->camera.x -= 0.5;
+		if (App->player->body->CheckCollision(movecamright->rect) == true) {
+			App->render->camera.x -= 3;
+			movecamright->rect.x += 1;
+			movecamleft->rect.x += 1;
+		}
 	}
 
 	//App->render->Blit(img, 0, 0);
