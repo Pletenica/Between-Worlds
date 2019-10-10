@@ -24,7 +24,7 @@ j1Objects::j1Objects()
 	plant_portal.PushBack({ 50, 64, 50, 64 });
 	plant_portal.PushBack({ 100, 64, 50, 64 });
 	plant_portal.PushBack({ 50, 64, 50, 64 });
-	plant_portal.speed = 0.008f;
+	plant_portal.speed = 0.08f;
 
 	/////SNOW PORTAL ANIMATION//////
 	ice_portal.PushBack({ 0, 128, 50, 64 });
@@ -66,7 +66,7 @@ bool j1Objects::Start()
 
 	//// Load All Graphics //// 
 	objects_graphics = App->tex->Load("textures/Objects.png");
-	plantportal = App->collision->AddCollider({ 70,200,50,64 }, COLLIDER_PORTAL_PLANTA, this);
+	plantportal = App->collision->AddCollider({ 440,100,50,64 }, COLLIDER_PORTAL_PLANTA, this);
 	return true;
 }
 
@@ -93,7 +93,7 @@ bool j1Objects::Update()
 
 bool j1Objects::PostUpdate() {
 
-	App->render->Blit(objects_graphics, 70, 130, &(plant_portal.GetCurrentFrame()), 0.0f, 0, 0, 0, flip);
+	App->render->Blit(objects_graphics, 440, 100, &(plant_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 
 	return true;
 }

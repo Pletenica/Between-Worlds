@@ -107,7 +107,7 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 
 public:
-
+	bool inair;
 	MapData data;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	bool collidersdone=false;

@@ -35,6 +35,10 @@ public:
 public:
 	Collider* movecamright;
 	Collider* movecamleft;
+	Collider* camleftlim;
+	Collider* camrightlim;
+	Collider* cameralimit01;
+	Collider* cameralimit02;
 };
 
 #endif // __j1SCENE_H__

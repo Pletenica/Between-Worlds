@@ -36,6 +36,10 @@ bool j1Scene::Start()
 	App->map->Load("Scene01.tmx");
 	movecamright = App->collision->AddCollider({ 200,0,20,350 }, COLLIDER_MOVECAM_RIGHT, this);
 	movecamleft = App->collision->AddCollider({ 100,0,20,350 }, COLLIDER_MOVECAM_LEFT, this);
+	camleftlim = App->collision->AddCollider({ -20,0,20,350 }, COLLIDER_CAMERA_LLEFT, this);
+	camrightlim = App->collision->AddCollider({ 5280,0,20,350 }, COLLIDER_CAMERA_LRIGHT, this);
+	cameralimit01 = App->collision->AddCollider({ 0,0,20,350 }, COLLIDER_CAMERA, this);
+	cameralimit02 = App->collision->AddCollider({ 380,0,20,350 }, COLLIDER_CAMERA, this);
 
 	return true;
 }
@@ -57,17 +61,25 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
 		if (App->player->body->CheckCollision(movecamleft->rect) == true) {
-			App->render->camera.x += 3;
-			movecamleft->rect.x -= 1;
-			movecamright->rect.x -= 1;
+			if (App->scene->cameralimit01->CheckCollision(camleftlim->rect) == false) {
+				App->render->camera.x += App->player->speed_player*3;
+				movecamleft->rect.x -= App->player->speed_player;
+				movecamright->rect.x -= App->player->speed_player;
+				cameralimit01->rect.x -= App->player->speed_player;
+				cameralimit02->rect.x -= App->player->speed_player;
+			}
 		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
 		if (App->player->body->CheckCollision(movecamright->rect) == true) {
-			App->render->camera.x -= 3;
-			movecamright->rect.x += 1;
-			movecamleft->rect.x += 1;
+			if (App->scene->cameralimit02->CheckCollision(camrightlim->rect) == false) {
+				App->render->camera.x -= App->player->speed_player*3;
+				movecamright->rect.x += App->player->speed_player;
+				movecamleft->rect.x += App->player->speed_player;
+				cameralimit01->rect.x += App->player->speed_player;
+				cameralimit02->rect.x += App->player->speed_player;
+			}
 		}
 	}
 
@@ -101,3 +113,4 @@ bool j1Scene::CleanUp()
 	App->map->CleanUp();
 	return true;
 }
+

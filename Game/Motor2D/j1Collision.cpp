@@ -16,20 +16,16 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_LIMIT][COLLIDER_PLAYER] = true;
 
 	matrix[COLLIDER_SUELO][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_SUELO][COLLIDER_WALL_TO_IDLE] = false;
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_AGUA] = true;
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_FUEGO] = true;
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_PLANTA] = true;
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_HIELO] = true;
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_NORMAL1] = true;
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_NORMAL2] = true;
-	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_NORMAL3] = true;
-	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_NORMAL4] = true;
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_CHANGESCENE1] = true;
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_CHANGESCENEFINAL] = true;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_SUELO] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_WALL_TO_IDLE] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_LIMIT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
@@ -42,13 +38,10 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_PORTAL_HIELO] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PORTAL_NORMAL1] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PORTAL_NORMAL2] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_PORTAL_NORMAL3] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_PORTAL_NORMAL4] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PORTAL_CHANGESCENE1] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PORTAL_CHANGESCENEFINAL] = true;
 
 	matrix[COLLIDER_DEATH][COLLIDER_SUELO] = true;
-	matrix[COLLIDER_DEATH][COLLIDER_WALL_TO_IDLE] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_LIMIT] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
@@ -61,13 +54,10 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_DEATH][COLLIDER_PORTAL_HIELO] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_PORTAL_NORMAL1] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_PORTAL_NORMAL2] = true;
-	matrix[COLLIDER_DEATH][COLLIDER_PORTAL_NORMAL3] = true;
-	matrix[COLLIDER_DEATH][COLLIDER_PORTAL_NORMAL4] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_PORTAL_CHANGESCENE1] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_PORTAL_CHANGESCENEFINAL] = true;
 
 	matrix[COLLIDER_ACTION][COLLIDER_LIMIT] = true;
-	matrix[COLLIDER_ACTION][COLLIDER_WALL_TO_IDLE] = true;
 	matrix[COLLIDER_ACTION][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_ACTION][COLLIDER_DEATH] = true;
 	matrix[COLLIDER_ACTION][COLLIDER_ACTION] = false;
@@ -135,7 +125,7 @@ bool j1Collision::Update()
 void j1Collision::DebugDraw()
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false)
@@ -176,9 +166,6 @@ void j1Collision::DebugDraw()
 		case COLLIDER_SUELO: //yellow
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
-		case COLLIDER_WALL_TO_IDLE: // green
-			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
-			break;
 		case COLLIDER_PORTAL_AGUA: // blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
@@ -197,20 +184,20 @@ void j1Collision::DebugDraw()
 		case COLLIDER_PORTAL_NORMAL2: //blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
-		case COLLIDER_PORTAL_NORMAL3: //blue
-			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
-			break;
-		case COLLIDER_PORTAL_NORMAL4: //blue
-			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
-			break;
 		case COLLIDER_PORTAL_CHANGESCENE1: //magenta
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
 		case COLLIDER_PORTAL_CHANGESCENEFINAL: //magenta
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
-		case COLLIDER_CAMERA: //magenta
+		case COLLIDER_CAMERA_LLEFT: //magenta
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
+			break;
+		case COLLIDER_CAMERA_LRIGHT: //magenta
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
+			break;
+		case COLLIDER_CAMERA: //blue
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 		}
 	}

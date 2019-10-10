@@ -81,18 +81,6 @@ enum inputout {
 class j1Player : public j1Module
 {
 public:
-	j1Player();
-	~j1Player();
-
-	bool Start();
-	bool Awake();
-	bool PreUpdate();
-	bool Update();
-	bool PostUpdate();
-	bool CleanUp();
-	void OnCollision(Collider*, Collider*);
-
-public:
 	SDL_Texture* current_graphics = nullptr;
 	SDL_Texture* watter_graphics = nullptr;
 	SDL_Texture* fire_graphics = nullptr;
@@ -119,23 +107,39 @@ public:
 	inputout inputstateout[INPUTSOUTS];
 	Collider* body;
 	Collider*movecamright;
-	int limitator_liana=0;
-	int limitator_normal = 0;
-	int limitator_watter = 0;
-	int limitator_air = 0;
-	int max_jump = 0;
+	int G = 2;
+	int jump_vel = 17;
+	int G_max = 27;
+	int speed_player = 2;
+	int limit_liana = 0;
 
-	bool calculateheightjump = true;
-	bool jumpup = false;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	bool godmode = false;
 	bool isinair = true;
 	bool isjumping = false;
 	bool isinice = false;
-	bool stop = false;
-	bool left = false;
-	bool right = false;
+	bool stop_right = false;
+	bool stop_left = false;
+	//bool deadbool = false;
 	bool isinliana = false;
+	bool changeplantmap = false;
+	bool changeicemap = false;
+	bool changewattermap = false;
+	bool changenormalmap = false;
+	bool changefiremap = false;
+
+public:
+	j1Player();
+	~j1Player();
+
+
+	bool Start();
+	bool Awake();
+	bool PreUpdate();
+	bool Update();
+	bool PostUpdate();
+	bool CleanUp();
+	void OnCollision(Collider*, Collider*);
 
 };
 

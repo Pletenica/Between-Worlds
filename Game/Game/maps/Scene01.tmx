@@ -3311,7 +3311,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Collision" width="165" height="10" visible="0">
+ <layer name="Collision" width="165" height="10">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4804,30 +4804,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="30"/>
-   <tile gid="0"/>
+   <tile gid="90"/>
    <tile gid="30"/>
    <tile gid="30"/>
-   <tile gid="0"/>
-   <tile gid="30"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="30"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="0"/>
-   <tile gid="30"/>
-   <tile gid="30"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="30"/>
+   <tile gid="90"/>
    <tile gid="30"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4835,11 +4815,31 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="30"/>
+   <tile gid="90"/>
+   <tile gid="90"/>
    <tile gid="30"/>
    <tile gid="30"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="90"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="90"/>
+   <tile gid="90"/>
+   <tile gid="90"/>
+   <tile gid="90"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="90"/>
+   <tile gid="90"/>
+   <tile gid="90"/>
+   <tile gid="90"/>
+   <tile gid="90"/>
+   <tile gid="90"/>
+   <tile gid="90"/>
+   <tile gid="30"/>
+   <tile gid="30"/>
+   <tile gid="90"/>
+   <tile gid="90"/>
    <tile gid="30"/>
    <tile gid="30"/>
    <tile gid="60"/>

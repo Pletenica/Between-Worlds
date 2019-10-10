@@ -70,7 +70,10 @@ void j1Map::Draw()
 					if (gid == 60 && collidersdone == false) {
 						App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
 					}
-					if (gid != 30 && gid != 60) {
+					if (gid == 90 && collidersdone == false) {
+						App->collision->AddCollider({ x,y + 15,32,32 }, COLLIDER_DEATH, this);
+					}
+					if (gid != 30 && gid != 60 && gid !=90) {
 						App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
 					}
 				}
