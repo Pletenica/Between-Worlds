@@ -113,23 +113,29 @@ public:
 
 	iPoint position;
 	int mult;
+	int jump_max = 80;
 	state actual;
 	inputin inputstate[60];
 	inputout inputstateout[INPUTSOUTS];
 	Collider* body;
 	Collider* suelo01;
 	Collider* plantportal;
-	int jump_diferencey;
-	int jumpspeed=20;
-	float G=0.0002;
-	int limitator=0;
+	int limitator_liana=0;
+	int limitator_normal = 0;
+	int limitator_watter = 0;
+	int limitator_air = 0;
+	int max_jump = 0;
 
 	bool calculateheightjump = true;
 	bool jumpup = false;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	bool godmode = false;
-	bool isinair = false;
+	bool isinair = true;
 	bool isjumping = false;
+	bool isinice = false;
+	bool stop = false;
+	bool left = false;
+	bool right = false;
 	bool isinliana = false;
 
 };

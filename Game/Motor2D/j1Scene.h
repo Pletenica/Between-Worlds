@@ -34,6 +34,7 @@ public:
 
 public:
 	Collider* suelo01;
+	Collider*wall01;
 };
 
 #endif // __j1SCENE_H__

@@ -18,7 +18,8 @@ j1Player::j1Player()
 	idle.PushBack({ 0, 0, 32, 32 });
 	idle.PushBack({ 32, 0, 32, 32 });
 	idle.PushBack({ 64, 0, 32, 32 });
-	idle.speed = 0.005f;
+	idle.PushBack({ 32, 0, 32, 32 });
+	idle.speed = 0.07f;
 
 	/////JUMP ANIMATION//////
 	//jump.PushBack({ 0, 32, 32, 32 });
@@ -31,7 +32,7 @@ j1Player::j1Player()
 	walk.PushBack({ 32, 64, 32, 32 });
 	walk.PushBack({ 64, 64, 32, 32 });
 	walk.PushBack({ 96, 64, 32, 32 });
-	walk.speed = 0.01f;
+	walk.speed = 0.07f;
 
 	/////LIANA ANIMATION//////
 	liana.PushBack({ 0, 96, 32, 32 });
@@ -68,7 +69,7 @@ bool j1Player::Start()
 	plant_graphics = App->tex->Load("textures/PlayerPlant.png");
 	ice_graphics = App->tex->Load("textures/PlayerSnow.png");
 	watter_graphics = App->tex->Load("textures/PlayerWatter.png");
-	current_graphics = plant_graphics;
+	current_graphics = normal_graphics;
 
 	//// Load All SOUNDS & COLLISIONS //// 
 	//walksound = App->audio->LoadChunk("Audio_FX/Punch.wav");
@@ -94,125 +95,44 @@ bool j1Player::CleanUp() {
 
 
 bool j1Player::PreUpdate() {
-
-	//// INPUTS ////
-
+	
+	//isinair = true;
+	left = false;
+	right = false;
+	
 	Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 
-	if (!isinair && !isinliana) {
+	//// INPUTS ////
+	if (isinair ==false && !isinliana && !godmode) {
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 			isjumping = true;
 
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-			position.x -= 1;
+			if (limitator_normal == 0) {
+				if (stop == false) {
+					position.x -= 1;
+				}
+			}
+			left = true;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_HORIZONTAL;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-			position.x += 1;
-			//plantportal->rect.x -= 0.01;
+			if (limitator_normal == 0) {
+				position.x += 1;
+			}
+			right = true;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_NONE;
 		}
-	}
-
-	/*
-	if (isinair) {
-		if (isinliana==false && dimensionagua == false) {
-			Current_Animation.GetCurrentFrame() = jump.GetCurrentFrame();
-
-
-			G = G + 0.0007;
-
-
-			//position.y += velocity_y;
-
-			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
-				position.y += 10;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-				position.x -= 10;
-				left = true;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-				position.x += 1;
-				left = false;
-			}
-		}
-		if (isinliana) {
-			Current_Animation = liana;
-			//position.y--;
-			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
-				position.y += 1;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
-				position.y -= 1;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-				position.x -= 1;
-				left = true;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-				position.x += 1;
-				left = false;
-			}
-		}
-		if (dimensionagua == true) {
-			position.y--;
-			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
-				position.y += 2;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-				position.x -= 1;
-				left = true;
-				Current_Animation = walk;
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-				position.x += 1;
-				Current_Animation = walk;
-				left = false;
-			}
-		}
-	}
-	*/
-
-	//////// LIANA ////////
-	if (isinliana == true) {
-		isinair = false;
-		Current_Animation.GetCurrentFrame() = liana.GetCurrentFrame();
-		if (limitator == 0) {
-			position.y++;
-		}
-		limitator++;
-		if (limitator == 20) {
-			limitator = 0;
-		}
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
-			position.y -= 20;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-			position.x -= 1;
-			flip = SDL_FLIP_HORIZONTAL;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-			position.x += 1;
-			flip = SDL_FLIP_NONE;
+		
+		limitator_normal++;
+		if (limitator_normal == 5) {
+			limitator_normal = 0;
 		}
 	}
 
-	if (body->CheckCollision(App->objects->liana01->rect) == false && body->CheckCollision(App->objects->liana02->rect) == false) {
-		isinliana = false;
-	}
 
 	//////// INPUT FAILS ////////
 	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)) {
@@ -220,6 +140,35 @@ bool j1Player::PreUpdate() {
 	}
 
 
+	//////// LIANA ////////
+	if (body->CheckCollision(App->objects->liana01->rect) == false && body->CheckCollision(App->objects->liana02->rect) == false) {
+		isinliana = false;
+	}
+
+	if (isinliana == true) {
+		isinair = false;
+		Current_Animation.GetCurrentFrame() = liana.GetCurrentFrame();
+		if (limitator_liana == 0) {
+			position.y++;
+
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+				position.x -= 1;
+				flip = SDL_FLIP_HORIZONTAL;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+				position.x += 1;
+				flip = SDL_FLIP_NONE;
+			}
+		}
+		limitator_liana++;
+		if (limitator_liana == 15) {
+			limitator_liana = 0;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+			position.y -= 20;
+		}
+	}
 
 	//////// GOD MODE ////////
 
@@ -229,34 +178,73 @@ bool j1Player::PreUpdate() {
 			godmode = false;
 		}
 		else {
-			body->to_delete=true;
-			godmode == true;
+			body->to_delete = true;
+			isinair = false;
+			App->player->godmode = true;
+
 		}
 	}
-
 	if (godmode == true) {
-		//isinair = true;
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-			position.y -= 0.5;
+		isinair = false;
+		isjumping = false;
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+			position.y += 1;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			position.y += 0.5;
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+			position.y -= 1;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-			position.x -= 0.5;
+			position.x -= 1;
+			flip = SDL_FLIP_HORIZONTAL;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+			position.x += 1;
+			flip = SDL_FLIP_NONE;
+		}
+	}
+	
+
+
+	if (isjumping == true) {
+		if (position.y >= jump_max) {
+			position.y --;
+		}
+		else {
+			isjumping = false;
+		}
+	}
+
+	if (isinair) {
+		Current_Animation.GetCurrentFrame() = jump.GetCurrentFrame();
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+			if (limitator_air == 0) {
+				position.x -= 1;
+			}
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_HORIZONTAL;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-			position.x += 0.5;
+			if (limitator_air == 0) {
+				position.x += 1;
+			}
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_NONE;
 		}
+
+		limitator_air++;
+		if (limitator_air == 2) {
+			limitator_air = 0;
+			position.y++;
+		}
 	}
 
+
+
+	//////// CHANGE PLAYER COLLIDER IF FLIP ////////
 	if (flip == SDL_FLIP_HORIZONTAL) {
 		body->rect.x = App->player->position.x +5;
 		body->rect.y = position.y;
@@ -265,6 +253,8 @@ bool j1Player::PreUpdate() {
 		body->rect.x = App->player->position.x;
 		body->rect.y = position.y;
 	}
+
+	stop = false;
 	return true;
 }
 
@@ -335,8 +325,30 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			position.x += 100;
 			current_graphics = plant_graphics;
 		}
+		if (other->type == COLLIDER_SUELO) {
+			isinliana = false;
+			isinair = false;
+			isinice = false;
+		}
 		if (other->type == COLLIDER_LIANA) {
 			isinliana = true;
 		}
+		if (other->type == COLLIDER_SUELO && other->type==COLLIDER_LIANA) {
+			isinliana = false;
+			isinair = false;
+			isinice = false;
+		}
+		if (other->type == COLLIDER_WALL_TO_IDLE) {
+			stop = true;
+			if (left == true) {
+				position.x++;
+				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
+			}
+			if (right == true) {
+				position.x--;
+				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
+			}
+		}
+		
 	}
 }

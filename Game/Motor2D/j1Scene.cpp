@@ -37,8 +37,8 @@ bool j1Scene::Start()
 	//App->map->Load("ScenePlant.tmx");
 	//App->map->Load("SceneIce.tmx");
 
-	suelo01 = App->collision->AddCollider({ App->render->camera.x,App->render->camera.y+200,200,32 }, COLLIDER_SUELO, this);
-
+	suelo01 = App->collision->AddCollider({ App->render->camera.x,App->render->camera.y+200,250,32 }, COLLIDER_SUELO, this);
+	wall01 = App->collision->AddCollider({ 200,150 ,30,100 }, COLLIDER_WALL_TO_IDLE, this);
 	return true;
 }
 

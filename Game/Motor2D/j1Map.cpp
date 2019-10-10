@@ -35,31 +35,42 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
-	// TODO 5: Prepare the loop to iterate all the tiles in a layer
 	bool ret = false;
+	int number_of_layers = data.layers.count();
 	p2List_item<MapLayer*>* coord_layer = data.layers.start;
-	for (int i = 0; i < coord_layer->data->height && ret == false; i++) {
-		for (int j = 0; j < coord_layer->data->width && ret == false; j++) {
-			int n = coord_layer->data->Get(j, i);
-			if (coord_layer->data->gid[n] != 0) {//bool zero = true;
-				SDL_Rect rect = data.tilesets.start->data->GetRect(coord_layer->data->gid[n]);
-				int x = j;
-				int y = i;
-				Translate_Coord(&x, &y);
-				App->render->Blit(data.tilesets.start->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
-				//LOG("%u: %u, %u", n, x, y);
+	p2List_item<TileSet*>* coord_tileset = data.tilesets.start;
+
+	// TODO 5: Prepare the loop to iterate all the tiles in a layer
+
+	int colliderCounter = 0;
+	for (int layer_counter = 0; layer_counter < number_of_layers; layer_counter++) {
+
+		//for of every x in one layer
+		for (int i = 0; i < coord_layer->data->height; i++) {
+
+			//for of every y in one layer
+
+			for (int j = 0; j < coord_layer->data->width; j++) {
+				int n = coord_layer->data->Get(j, i);
+				int gid = coord_layer->data->gid[n];
+				if (gid != 0) {
+					while (ret == false) {
+						if (coord_tileset->next != NULL && coord_tileset->next->data->firstgid <= gid) coord_tileset = coord_tileset->next;
+						else if (coord_tileset->prev != NULL && coord_tileset->data->firstgid > gid)coord_tileset = coord_tileset->prev;
+						else ret = true;
+					}
+					ret = false;
+					SDL_Rect rect = coord_tileset->data->GetRect(coord_layer->data->gid[n]);
+					int x = j;
+					int y = i;
+					Translate_Coord(&x, &y);
+					App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0, 0, 0,0,flip);
+				}
 			}
 		}
+		coord_layer = coord_layer->next;
 	}
 
-	// TODO 9: Complete the draw function
-	//HOMEWORK: PRINT MOUSE
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	x /= coord_layer->data->width;
-	y /= coord_layer->data->height;
-	p2SString tit ("Mouse Position: x = %i, y = %i", x, y);
-	App->win->SetTitle(tit.GetString());
 }
 
 
@@ -197,6 +208,7 @@ bool j1Map::LoadMap()
 		LOG("Error parsing map xml file: Cannot find 'map' tag.");
 		ret = false;
 	}
+
 	else
 	{
 		data.width = map.attribute("width").as_int();
@@ -317,10 +329,13 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
 	bool ret = true;
-	layer->name = node.attribute("name").as_string();
+	layer->name = node.child("layer").attribute("name").as_string();
 	if (strcmp(layer->name.GetString(), "Name_Null") == 0) {
 		LOG("Error geting layer name");
 		return false;
+	}
+	else {
+		LOG("OK");
 	}
 	layer->width = node.attribute("width").as_uint();
 	if (layer->width == 0) {
