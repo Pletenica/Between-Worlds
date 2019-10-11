@@ -6,7 +6,6 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "j1Scene.h"
-#include "j1Objects.h"
 #include "j1Map.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -277,14 +276,14 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			changenormalmap = false;
 			changeicemap = false;
 			current_graphics = watter_graphics;
-			/*
+			
 			if (changewattermap == false) {
 				App->map->CleanUp();
-				App->map->Load("Scene02.tmx");
+				App->map->Load("lvl2scene04.tmx");
 				changewattermap = true;
 			}
-			*/
 		}
+
 		if (other->type == COLLIDER_PORTAL_FUEGO) {
 			dimensionnormal = false;
 			dimensionagua = false;
@@ -297,13 +296,12 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			changenormalmap = false;
 			changeicemap = false;
 			current_graphics = fire_graphics;
-			/*
+			
 			if (changefiremap == false) {
 				App->map->CleanUp();
-				App->map->Load("Scene02.tmx");
+				App->map->Load("lvl2scene04.tmx");
 				changefiremap = true;
 			}
-			*/
 		}
 		if (other->type == COLLIDER_PORTAL_HIELO) {
 			dimensionnormal = false;
@@ -316,13 +314,13 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			changenormalmap = false;
 			changefiremap = false;
 			current_graphics = ice_graphics;	
-			/*
+			
 			if (changeicemap == false) {
 				App->map->CleanUp();
-				App->map->Load("Scene02.tmx");
+				App->map->Load("lvl1scene02.tmx");
 				changeicemap = true;
 			}
-			*/
+			
 		}
 		if (other->type == COLLIDER_PORTAL_PLANTA) {
 			dimensionnormal = false;
@@ -335,13 +333,13 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			changenormalmap = false;
 			changefiremap = false;
 			current_graphics = plant_graphics;
-			/*
+			
 			if (changeplantmap == false) {
 				App->map->CleanUp();
-				App->map->Load("Scene02.tmx");
+				App->map->Load("lvl1scene02.tmx");
 				changeplantmap = true;
 			}
-			*/
+			
 		}
 		if (other->type == COLLIDER_PORTAL_NORMAL1) {
 			dimensionnormal = false;

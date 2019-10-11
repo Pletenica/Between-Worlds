@@ -13,6 +13,34 @@
 
 j1Scene::j1Scene() : j1Module()
 {
+	/////PLANT PORTAL ANIMATION//////
+	plant_portal.PushBack({ 0, 64, 50, 64 });
+	plant_portal.PushBack({ 50, 64, 50, 64 });
+	plant_portal.PushBack({ 100, 64, 50, 64 });
+	plant_portal.PushBack({ 50, 64, 50, 64 });
+	plant_portal.speed = 0.08f;
+
+	/////SNOW PORTAL ANIMATION//////
+	ice_portal.PushBack({ 0, 128, 50, 64 });
+	ice_portal.PushBack({ 50, 128, 50, 64 });
+	ice_portal.PushBack({ 100, 128, 50, 64 });
+	ice_portal.PushBack({ 50, 128, 50, 64 });
+	ice_portal.speed = 0.08f;
+
+	/////NORMAL PORTAL ANIMATION//////
+	normal_portal.PushBack({ 0, 256, 50, 64 });
+	normal_portal.PushBack({ 50, 256, 50, 64 });
+	normal_portal.PushBack({ 100, 256, 50, 64 });
+	normal_portal.PushBack({ 50, 256, 50, 64 });
+	normal_portal.speed = 0.08f;
+
+	/////FINAL PORTAL ANIMATION//////
+	final_portal.PushBack({ 0, 320, 50, 64 });
+	final_portal.PushBack({ 50, 320, 50, 64 });
+	final_portal.PushBack({ 100, 320, 50, 64 });
+	final_portal.PushBack({ 50, 320, 50, 64 });
+	final_portal.speed = 0.08f;
+
 	name.create("scene");
 
 }
@@ -37,9 +65,15 @@ bool j1Scene::Start()
 	movecamright = App->collision->AddCollider({ 200,0,20,350 }, COLLIDER_MOVECAM_RIGHT, this);
 	movecamleft = App->collision->AddCollider({ 100,0,20,350 }, COLLIDER_MOVECAM_LEFT, this);
 	camleftlim = App->collision->AddCollider({ -20,0,20,350 }, COLLIDER_CAMERA_LLEFT, this);
-	camrightlim = App->collision->AddCollider({ 5280,0,20,350 }, COLLIDER_CAMERA_LRIGHT, this);
+	camrightlim = App->collision->AddCollider({ 4064,0,20,350 }, COLLIDER_CAMERA_LRIGHT, this);
 	cameralimit01 = App->collision->AddCollider({ 0,0,20,350 }, COLLIDER_CAMERA, this);
 	cameralimit02 = App->collision->AddCollider({ 380,0,20,350 }, COLLIDER_CAMERA, this);
+	objects_graphics = App->tex->Load("textures/Objects.png");
+	plantportal = App->collision->AddCollider({ 440,100,50,64 }, COLLIDER_PORTAL_PLANTA, this);
+	normalportal01 = App->collision->AddCollider({ 1455,100,50,64 }, COLLIDER_PORTAL_NORMAL1, this);
+	iceportal = App->collision->AddCollider({ 1920,5,50,64 }, COLLIDER_PORTAL_HIELO, this);
+	iceportal = App->collision->AddCollider({ 3390,165,40,64 }, COLLIDER_PORTAL_NORMAL1, this);
+	finalportal = App->collision->AddCollider({ 4000,100,40,64 }, COLLIDER_PORTAL_CHANGESCENE1, this);
 
 	return true;
 }
@@ -99,6 +133,13 @@ bool j1Scene::Update(float dt)
 bool j1Scene::PostUpdate()
 {
 	bool ret = true;
+
+
+	App->render->Blit(objects_graphics, 440, 100, &(plant_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+	App->render->Blit(objects_graphics, 1455, 100, &(normal_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+	App->render->Blit(objects_graphics, 1920, 5, &(ice_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+	App->render->Blit(objects_graphics, 3380, 165, &(normal_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+	App->render->Blit(objects_graphics, 4010, 100, &(final_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
