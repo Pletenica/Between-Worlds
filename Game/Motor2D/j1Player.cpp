@@ -247,6 +247,7 @@ bool j1Player::PreUpdate() {
 		if (dead.finished == 1) {
 			position.x = App->scene->positionplayerinitx;
 			position.y = App->scene->positionplayerinity;
+			App->scene->cameraxinvert = 0;
 			App->render->camera.x = 0;
 			deadbool = false;
 			App->map->CleanUp();
@@ -442,20 +443,24 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			isinair = false;
 			isinice = false;
 			isjumping = false;
+			if (position.y >= other->rect.y) {
+				isinair = true;
+			}
+			if (position.y < other->rect.y - 20) {
+				position.y = other->rect.y - 32;
+			}
 
 			G = Ginit;
-			if (((other->rect.y < position.y + 20)&& position.x < other->rect.x) && (SDL_SCANCODE_RIGHT)) {
+			if (((other->rect.y == position.y)&& position.x < other->rect.x) && (SDL_SCANCODE_RIGHT)) {
 				stop_right = true;
 				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 			}
-			if (((other->rect.y < position.y + 20) && position.x > other->rect.x) && (SDL_SCANCODE_LEFT)) {
+			if (((other->rect.y == position.y) && position.x > other->rect.x) && (SDL_SCANCODE_LEFT)) {
 				stop_left = true;
 				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 			}
-			position.y = other->rect.y - 32;
-			if (position.y - 32 == other->rect.y && position.x < other->rect.x) {
-				isinair = true;
-			}
+
+
 		}
 		if (other->type == COLLIDER_LIANA) {
 			isinliana = true;
@@ -465,6 +470,10 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			isinair = false;
 			isjumping = false;
 			deadbool = true;
+			stop_right = true;
+			stop_left = true;
+			stop_jump = true;
+			position.y = other->rect.y - 10;
 		}
 		if (other->type == COLLIDER_CAMERA) {
 			stop_left = true;
