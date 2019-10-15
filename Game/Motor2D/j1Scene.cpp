@@ -85,11 +85,11 @@ bool j1Scene::Start()
 	cameralimit01 = App->collision->AddCollider({ 0,0,20,350 }, COLLIDER_CAMERA, this);
 	cameralimit02 = App->collision->AddCollider({ 380,0,20,350 }, COLLIDER_CAMERA, this);
 	objects_graphics = App->tex->Load("textures/Objects.png");
-	plantportal = App->collision->AddCollider({ plantportalx,plantportaly,50,64 }, COLLIDER_PORTAL_PLANTA, this);
-	normalportal01 = App->collision->AddCollider({ normal1portalx+7,normal1portaly,40,64 }, COLLIDER_PORTAL_NORMAL1, this);
-	iceportal = App->collision->AddCollider({ iceportalx,iceportaly,50,64 }, COLLIDER_PORTAL_HIELO, this);
-	normalportal02 = App->collision->AddCollider({ normal2portalx+10,normal2portaly,40,64 }, COLLIDER_PORTAL_NORMAL1, this);
-	finalportal = App->collision->AddCollider({ finalportalx+5,finalportaly,40,64 }, COLLIDER_PORTAL_CHANGESCENE1, this);
+	plantportal = App->collision->AddCollider({ plantportalx+30,plantportaly,20,64 }, COLLIDER_PORTAL_PLANTA, this);
+	normalportal01 = App->collision->AddCollider({ normal1portalx+30,normal1portaly,20,64 }, COLLIDER_PORTAL_NORMAL1, this);
+	iceportal = App->collision->AddCollider({ iceportalx+30,iceportaly,20,64 }, COLLIDER_PORTAL_HIELO, this);
+	normalportal02 = App->collision->AddCollider({ normal2portalx+30,normal2portaly,20,64 }, COLLIDER_PORTAL_NORMAL1, this);
+	finalportal = App->collision->AddCollider({ finalportalx+30,finalportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENE1, this);
 
 	return true;
 }

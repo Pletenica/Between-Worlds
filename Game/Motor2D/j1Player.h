@@ -107,10 +107,12 @@ public:
 	inputout inputstateout[INPUTSOUTS];
 	Collider* body;
 	Collider*movecamright;
-	int G = 2;
+	int Ginit = 2;
+	int G = Ginit;
 	int jump_vel = 17;
-	int G_max = 27;
+	int G_max = 25;
 	int speed_player = 2;
+	int speed_player_jump = 2;
 	int limit_liana = 0;
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
@@ -120,6 +122,7 @@ public:
 	bool isinice = false;
 	bool stop_right = false;
 	bool stop_left = false;
+	bool stop_jump = false;
 	//bool deadbool = false;
 	bool isinliana = false;
 	bool changeplantmap = false;

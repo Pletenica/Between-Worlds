@@ -9,11 +9,8 @@
 #include "j1Map.h"
 #include "SDL/include/SDL_timer.h"
 
-
-
 j1Player::j1Player()
 {
-
 	/////IDLE ANIMATION//////
 	idle.PushBack({ 0, 0, 32, 32 });
 	idle.PushBack({ 32, 0, 32, 32 });
@@ -49,8 +46,6 @@ j1Player::j1Player()
 	dead.PushBack({ 96, 0, 32, 32 });
 	dead.PushBack({ 96, 0, 32, 32 });
 	dead.speed = 0.1f;
-
-
 }
 
 j1Player::~j1Player()
@@ -104,10 +99,17 @@ bool j1Player::CleanUp() {
 
 
 bool j1Player::PreUpdate() {
-	
-	//isinair = true;
-	
 	Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
+
+	//////// FLIP ////////
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+		flip = SDL_FLIP_HORIZONTAL;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+		flip = SDL_FLIP_NONE;
+	}
+
 
 	//////// GOD MODE ////////
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
@@ -145,66 +147,32 @@ bool j1Player::PreUpdate() {
 	}
 
 
-	//// INPUTS ////
+	//////// INPUTS WHEN TOUCHES GROUND ////////
 	if (isinair ==false && !isinliana && !godmode) {
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT && !stop_jump)
 			isjumping = true;
 
 		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)&&!stop_left) {
 			position.x -= speed_player;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
-			flip = SDL_FLIP_HORIZONTAL;
 		}
 
 		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)&&!stop_right) {
 			position.x += speed_player;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
-			flip = SDL_FLIP_NONE;
 		}
-		
 	}
-
-
-	//////// AIR ////////
-	if (isinair==true && isinliana==false) {
-		isjumping = false;
-		Current_Animation.GetCurrentFrame() = jump.GetCurrentFrame();
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-			position.x -= speed_player;
-			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
-			flip = SDL_FLIP_HORIZONTAL;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-			position.x += speed_player;
-			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
-			flip = SDL_FLIP_NONE;
-		}
-		if (G < G_max) {
-			G++;
-		}
-		position.y += G;
-	}
-
-	if (isjumping == true) {
-		isinair = false;
-		if (G < G_max) {
-			G++;
-		}
-		position.y += G - jump_vel;
-	}
-
 
 	//////// LIANA ////////
-	
 	if (isinliana == true) {
 		isinair = false;
+		isjumping = false;
 		Current_Animation.GetCurrentFrame() = liana.GetCurrentFrame();
 		if (limit_liana == 0) {
 			position.y++;
 		}
 		limit_liana++;
-		if (limit_liana == 5) {
+		if (limit_liana == 3) {
 			limit_liana = 0;
 		}
 
@@ -217,10 +185,51 @@ bool j1Player::PreUpdate() {
 			position.x += speed_player;
 			flip = SDL_FLIP_NONE;
 		}
-		
+
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
-			position.y -= 50;
+			position.y -= 10;
 		}
+	}
+
+
+	//////// JUMPING ////////
+	if (isjumping == true) {
+		Current_Animation.GetCurrentFrame() = jump.GetCurrentFrame();
+		isinair = false;
+		if (G < G_max) {
+			G++;
+		}
+		position.y += G - jump_vel;
+
+		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && !stop_left) {
+			position.x -= speed_player_jump;
+		}
+
+		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) && !stop_right) {
+			position.x += speed_player_jump;
+		}
+	}
+
+
+	//////// AIR ////////
+	if (isinair==true && isinliana==false) {
+		isjumping = false;
+		Current_Animation.GetCurrentFrame() = jump.GetCurrentFrame();
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !stop_left) {
+			position.x -= speed_player;
+			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
+			flip = SDL_FLIP_HORIZONTAL;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && !stop_right) {
+			position.x += speed_player;
+			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
+			flip = SDL_FLIP_NONE;
+		}
+		if (G < G_max) {
+			G++;
+		}
+		position.y += G;
 	}
 
 
@@ -239,12 +248,6 @@ bool j1Player::PreUpdate() {
 		body->rect.x = App->player->position.x +5;
 		body->rect.y = position.y;
 	}
-
-	stop_right = false;
-	stop_left = false;
-	//isinair = true;
-	//deadbool = false;
-
 	return true;
 }
 
@@ -256,7 +259,11 @@ bool j1Player::Update()
 }
 
 bool j1Player::PostUpdate() {
-	
+	isinair = true;
+	isinliana = false;
+	stop_right = false;
+	stop_left = false;
+	stop_jump = false;
 	App->render->Blit(current_graphics, position.x, position.y, &(Current_Animation.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 	
 	return true;
@@ -282,6 +289,10 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				App->map->Load("lvl2scene04.tmx");
 				changewattermap = true;
 			}
+			if (position.x > other->rect.x - 32) {
+				stop_left = true;
+				stop_jump = true;
+			}
 		}
 
 		if (other->type == COLLIDER_PORTAL_FUEGO) {
@@ -302,6 +313,10 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				App->map->Load("lvl2scene04.tmx");
 				changefiremap = true;
 			}
+			if (position.x > other->rect.x - 32) {
+				stop_left = true;
+				stop_jump = true;
+			}
 		}
 		if (other->type == COLLIDER_PORTAL_HIELO) {
 			dimensionnormal = false;
@@ -320,7 +335,10 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				App->map->Load("lvl1scene02.tmx");
 				changeicemap = true;
 			}
-			
+			if (position.x > other->rect.x - 32) {
+				stop_left = true;
+				stop_jump = true;
+			}
 		}
 		if (other->type == COLLIDER_PORTAL_PLANTA) {
 			dimensionnormal = false;
@@ -339,7 +357,10 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				App->map->Load("lvl1scene02.tmx");
 				changeplantmap = true;
 			}
-			
+			if (position.x > other->rect.x-32) {
+				stop_left = true;
+				stop_jump = true;
+			}
 		}
 		if (other->type == COLLIDER_PORTAL_NORMAL1) {
 			dimensionnormal = false;
@@ -351,11 +372,15 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			changewattermap = false;
 			changeplantmap = false;
 			changefiremap = false;
-			current_graphics = plant_graphics;
+			current_graphics = normal_graphics;
 			if (changenormalmap == false) {
 				App->map->CleanUp();
 				App->map->Load("Scene01.tmx");
 				changenormalmap = true;
+			}
+			if (position.x > other->rect.x - 32) {
+				stop_left = true;
+				stop_jump = true;
 			}
 		}
 		if (other->type == COLLIDER_PORTAL_NORMAL2) {
@@ -368,11 +393,15 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			changewattermap = false;
 			changeplantmap = false;
 			changefiremap = false;
-			current_graphics = plant_graphics;
+			current_graphics = normal_graphics;
 			if (changenormalmap == false) {
 				App->map->CleanUp();
 				App->map->Load("Scene02.tmx");
 				changenormalmap = true;
+			}
+			if (position.x > other->rect.x - 32) {
+				stop_left = true;
+				stop_jump = true;
 			}
 		}
 
@@ -385,12 +414,12 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			isinair = false;
 			isinice = false;
 			isjumping = false;
-			G = 2;
-			if ((other->rect.y - position.y < 20)&& position.x < other->rect.x) {
+			G = Ginit;
+			if ((other->rect.y < position.y + 20)&& position.x < other->rect.x) {
 				stop_right = true;
 				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 			}
-			if ((other->rect.y - position.y < 20) && position.x > other->rect.x) {
+			if ((other->rect.y < position.y + 20) && position.x > other->rect.x) {
 				stop_left = true;
 				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 			}
@@ -403,5 +432,6 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			isinair = false;
 			//deadbool = true;
 		}
+
 	}
 }
