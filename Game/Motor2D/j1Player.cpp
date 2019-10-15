@@ -61,12 +61,6 @@ bool dimensionplanta = false;
 bool j1Player::Start()
 {
 	//// Load All CONDITIONS //// 
-	bool left = false;
-	bool right = true;
-	bool jump = false;
-	//flip = false;
-	position.x = 20;
-	position.y = 226;
 	Current_Animation =idle;
 
 	//// Load All Graphics //// 
@@ -99,7 +93,10 @@ bool j1Player::CleanUp() {
 
 
 bool j1Player::PreUpdate() {
-	Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
+	if (deadbool == false && isinair == false && isjumping == false) {
+		Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
+	}
+
 
 	//////// FLIP ////////
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
@@ -239,6 +236,22 @@ bool j1Player::PreUpdate() {
 	}
 
 
+
+	//////// DEATH ////////
+	if (deadbool == true) {
+		Current_Animation.GetCurrentFrame() = dead.GetCurrentFrame();
+		stop_left = true;
+		stop_jump = true;
+		stop_right = true;
+
+		if (dead.finished == 1) {
+			position.x = App->scene->positionplayerinitx;
+			position.y = App->scene->positionplayerinity;
+			deadbool = false;
+		}
+	}
+
+
 	//////// CHANGE PLAYER COLLIDER IF FLIP ////////
 	if (flip == SDL_FLIP_HORIZONTAL) {
 		body->rect.x = App->player->position.x +7;
@@ -294,7 +307,6 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				stop_jump = true;
 			}
 		}
-
 		if (other->type == COLLIDER_PORTAL_FUEGO) {
 			dimensionnormal = false;
 			dimensionagua = false;
@@ -430,7 +442,7 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 		}
 		if (other->type == COLLIDER_DEATH) {
 			isinair = false;
-			//deadbool = true;
+			deadbool = true;
 		}
 
 	}

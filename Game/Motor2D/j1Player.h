@@ -123,7 +123,7 @@ public:
 	bool stop_right = false;
 	bool stop_left = false;
 	bool stop_jump = false;
-	//bool deadbool = false;
+	bool deadbool = false;
 	bool isinliana = false;
 	bool changeplantmap = false;
 	bool changeicemap = false;

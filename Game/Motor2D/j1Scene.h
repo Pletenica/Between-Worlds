@@ -66,6 +66,8 @@ public:
 	int finalportaly;
 	int camlimitleft;
 	int camlimitright;
+	int positionplayerinitx;
+	int positionplayerinity;
 };
 
 #endif // __j1SCENE_H__

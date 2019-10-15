@@ -7,6 +7,7 @@
 #include "j1Collision.h"
 #include "j1Input.h"
 #include "j1Window.h"
+#include "j1Player.h"
 //
 #include <math.h>
 
@@ -53,31 +54,32 @@ void j1Map::Draw()
 			for (int j = 0; j < coord_layer->data->width; j++) {
 				int n = coord_layer->data->Get(j, i);
 				int gid = coord_layer->data->gid[n];
-				if (gid != 0) {
-					while (ret == false) {
-						if (coord_tileset->next != NULL && coord_tileset->next->data->firstgid <= gid) coord_tileset = coord_tileset->next;
-						else if (coord_tileset->prev != NULL && coord_tileset->data->firstgid > gid)coord_tileset = coord_tileset->prev;
-						else ret = true;
+				//if (j * 32  < App->player->position.x + 300) {
+					if (gid != 0) {
+						while (ret == false) {
+							if (coord_tileset->next != NULL && coord_tileset->next->data->firstgid <= gid) coord_tileset = coord_tileset->next;
+							else if (coord_tileset->prev != NULL && coord_tileset->data->firstgid > gid)coord_tileset = coord_tileset->prev;
+							else ret = true;
+						}
+						ret = false;
+						SDL_Rect rect = coord_tileset->data->GetRect(coord_layer->data->gid[n]);
+						int x = j;
+						int y = i;
+						Translate_Coord(&x, &y);
+						if (gid == 30 && collidersdone == false) {
+							App->collision->AddCollider({ x,y + 12,32,32 }, COLLIDER_SUELO, this);
+						}
+						if (gid == 78 && collidersdone == false) {
+							App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
+						}
+						if (gid == 126 && collidersdone == false) {
+							App->collision->AddCollider({ x,y + 15,32,32 }, COLLIDER_DEATH, this);
+						}
+						if (gid != 30 && gid != 78 && gid != 126) {
+							App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+						}
 					}
-					ret = false;
-					SDL_Rect rect = coord_tileset->data->GetRect(coord_layer->data->gid[n]);
-					int x = j;
-					int y = i;
-					Translate_Coord(&x, &y);
-					if (gid == 30 && collidersdone == false) {
-						App->collision->AddCollider({ x,y+12,32,32 }, COLLIDER_SUELO, this);
-					}
-					if (gid == 78 && collidersdone == false) {
-						App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
-					}
-					if (gid == 126 && collidersdone == false) {
-						App->collision->AddCollider({ x,y + 15,32,32 }, COLLIDER_DEATH, this);
-					}
-					if (gid != 30 && gid != 78 && gid != 126) {
-						App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
-					}
-				}
-
+				//}
 			}
 		}
 		coord_layer = coord_layer->next;

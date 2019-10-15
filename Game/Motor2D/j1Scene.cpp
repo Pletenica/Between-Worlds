@@ -67,7 +67,10 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	normal2portaly = config.child("normalportal2").attribute("y").as_int();
 	camlimitleft = config.child("camlimits").attribute("left").as_int();
 	camlimitright = config.child("camlimits").attribute("right").as_int();
-
+	positionplayerinitx = config.child("positionplayerinit").attribute("x").as_int();
+	positionplayerinity = config.child("positionplayerinit").attribute("y").as_int();
+	App->player->position.x = positionplayerinitx;
+	App->player->position.y = positionplayerinity;
 
 	return ret;
 }
