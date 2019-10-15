@@ -271,6 +271,8 @@ bool j1Player::PreUpdate() {
 		body->rect.x = App->player->position.x +5;
 		body->rect.y = position.y;
 	}
+
+
 	return true;
 }
 
@@ -278,15 +280,23 @@ bool j1Player::PreUpdate() {
 // Update: draw background
 bool j1Player::Update()
 {
+
 	return true;
 }
 
 bool j1Player::PostUpdate() {
+
 	isinair = true;
 	isinliana = false;
 	stop_right = false;
 	stop_left = false;
 	stop_jump = false;
+	if (body->CheckCollision(App->scene->cameralimit01->rect) == true) {
+		stop_left = true;
+	}
+	if (body->CheckCollision(App->scene->cameralimit02->rect) == true) {
+		stop_right = true;
+	}
 	App->render->Blit(current_graphics, position.x, position.y, &(Current_Animation.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 	
 	return true;
@@ -432,6 +442,7 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			isinair = false;
 			isinice = false;
 			isjumping = false;
+
 			G = Ginit;
 			if (((other->rect.y < position.y + 20)&& position.x < other->rect.x) && (SDL_SCANCODE_RIGHT)) {
 				stop_right = true;
@@ -442,6 +453,9 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 			}
 			position.y = other->rect.y - 32;
+			if (position.y - 32 == other->rect.y && position.x < other->rect.x) {
+				isinair = true;
+			}
 		}
 		if (other->type == COLLIDER_LIANA) {
 			isinliana = true;
@@ -452,6 +466,8 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			isjumping = false;
 			deadbool = true;
 		}
-
+		if (other->type == COLLIDER_CAMERA) {
+			stop_left = true;
+		}
 	}
 }

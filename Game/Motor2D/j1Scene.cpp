@@ -83,8 +83,8 @@ bool j1Scene::Start()
 	objects_graphics = App->tex->Load("textures/Objects.png");
 
 	///// CAMERA COLLISIONS /////
-	cameralimit01 = App->collision->AddCollider({ App->render->camera.x,0,20,350 }, COLLIDER_CAMERA, this);
-	cameralimit02 = App->collision->AddCollider({ App->render->camera.x +380,0,20,350 }, COLLIDER_CAMERA, this);
+	cameralimit01 = App->collision->AddCollider({ 0,0,20,350 }, COLLIDER_CAMERA, this);
+	cameralimit02 = App->collision->AddCollider({ 380,0,20,350 }, COLLIDER_CAMERA, this);
 	camleftlim = App->collision->AddCollider({ camlimitleft,0,20,350 }, COLLIDER_CAMERA_LLEFT, this);
 	camrightlim = App->collision->AddCollider({ camlimitright,0,20,350 }, COLLIDER_CAMERA_LRIGHT, this);
 
@@ -107,14 +107,7 @@ bool j1Scene::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame();
 
-	if (App->player->position.x > App->render->camera.x + 200) {
-	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)&& (App->player->stop_right == false)) {
 
-			App->render->camera.x -= App->player->speed_player * 3;
-			cameralimit01->rect.x += App->player->speed_player;
-			cameralimit02->rect.x += App->player->speed_player;
-		}
-	}
 
 	return true;
 }
@@ -122,8 +115,16 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	App->map->Draw();
 
+	App->map->Draw();
+	if (App->player->position.x > cameraxinvert + 200) {
+		if (((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) && (App->player->stop_right == false)) && (cameralimit02->CheckCollision(camrightlim->rect) == false)) {
+			cameraxinvert += App->player->speed_player;
+			App->render->camera.x -= App->player->speed_player * App->win->GetScale();
+			cameralimit01->rect.x += App->player->speed_player;
+			cameralimit02->rect.x += App->player->speed_player;
+		}
+	}
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,

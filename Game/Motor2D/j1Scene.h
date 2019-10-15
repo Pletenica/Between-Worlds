@@ -54,6 +54,7 @@ public:
 	Animation plant_portal;
 	Animation ice_portal;
 	Animation normal_portal;
+	int cameraxinvert = 0;
 
 	int iceportalx;
 	int iceportaly;
