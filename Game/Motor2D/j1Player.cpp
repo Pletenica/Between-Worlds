@@ -247,7 +247,17 @@ bool j1Player::PreUpdate() {
 		if (dead.finished == 1) {
 			position.x = App->scene->positionplayerinitx;
 			position.y = App->scene->positionplayerinity;
+			App->render->camera.x = 0;
 			deadbool = false;
+			App->map->CleanUp();
+			App->map->Load("Scene01.tmx");
+			current_graphics = normal_graphics;
+			changeicemap = false;
+			changewattermap = false;
+			changeplantmap = false;
+			changefiremap = false;
+			App->scene->cameralimit01->rect.x = App->render->camera.x;
+			App->scene->cameralimit02->rect.x = App->render->camera.x +380;
 		}
 	}
 
@@ -417,24 +427,21 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			}
 		}
 
-		else {
-			isinair = true;
-			isinliana = false;
-		}
 		if (other->type == COLLIDER_SUELO) {
 			isinliana = false;
 			isinair = false;
 			isinice = false;
 			isjumping = false;
 			G = Ginit;
-			if ((other->rect.y < position.y + 20)&& position.x < other->rect.x) {
+			if (((other->rect.y < position.y + 20)&& position.x < other->rect.x) && (SDL_SCANCODE_RIGHT)) {
 				stop_right = true;
 				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 			}
-			if ((other->rect.y < position.y + 20) && position.x > other->rect.x) {
+			if (((other->rect.y < position.y + 20) && position.x > other->rect.x) && (SDL_SCANCODE_LEFT)) {
 				stop_left = true;
 				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 			}
+			position.y = other->rect.y - 32;
 		}
 		if (other->type == COLLIDER_LIANA) {
 			isinliana = true;
@@ -442,6 +449,7 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 		}
 		if (other->type == COLLIDER_DEATH) {
 			isinair = false;
+			isjumping = false;
 			deadbool = true;
 		}
 

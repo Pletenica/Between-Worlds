@@ -45,16 +45,11 @@ void j1Map::Draw()
 
 	int colliderCounter = 0;
 	for (int layer_counter = 0; layer_counter < number_of_layers; layer_counter++) {
-
-		//for of every x in one layer
 		for (int i = 0; i < coord_layer->data->height; i++) {
-
-			//for of every y in one layer
-
 			for (int j = 0; j < coord_layer->data->width; j++) {
 				int n = coord_layer->data->Get(j, i);
 				int gid = coord_layer->data->gid[n];
-				//if (j * 32  < App->player->position.x + 300) {
+				//if ((j * 32  < App->player->position.x + 350) && (j*32 > App->player->position.x - 250)) {
 					if (gid != 0) {
 						while (ret == false) {
 							if (coord_tileset->next != NULL && coord_tileset->next->data->firstgid <= gid) coord_tileset = coord_tileset->next;
@@ -84,6 +79,7 @@ void j1Map::Draw()
 		}
 		coord_layer = coord_layer->next;
 	}
+
 	collidersdone = true;
 }
 

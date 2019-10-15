@@ -35,6 +35,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+
 public:
 	SDL_Texture* objects_graphics = nullptr;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
