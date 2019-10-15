@@ -26,4 +26,13 @@
     <folder>maps/</folder>
   </map>
 
+  <scene>
+    <plantportal x="440" y="100"/>
+    <iceportal x="1920" y="5"/>
+    <normalportal1 x="1455" y="100"/>
+    <normalportal2 x="3380" y="165"/>
+    <finalportal x="4000" y="100"/>
+    <camlimits left="-20" right="4064"/>
+  </scene>
+
 </config>

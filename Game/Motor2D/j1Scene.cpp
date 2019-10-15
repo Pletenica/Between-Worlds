@@ -50,30 +50,46 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
 
+	plantportalx = config.child("plantportal").attribute("x").as_int();
+	plantportaly = config.child("plantportal").attribute("y").as_int();
+	iceportalx = config.child("iceportal").attribute("x").as_int();
+	iceportaly = config.child("iceportal").attribute("y").as_int();
+	finalportalx = config.child("finalportal").attribute("x").as_int();
+	finalportaly = config.child("finalportal").attribute("y").as_int();
+	normal1portalx = config.child("normalportal1").attribute("x").as_int();
+	normal1portaly = config.child("normalportal1").attribute("y").as_int();
+	normal2portalx = config.child("normalportal2").attribute("x").as_int();
+	normal2portaly = config.child("normalportal2").attribute("y").as_int();
+	camlimitleft = config.child("camlimits").attribute("left").as_int();
+	camlimitright = config.child("camlimits").attribute("right").as_int();
+
+
 	return ret;
 }
+
 
 // Called before the first frame
 bool j1Scene::Start()
 {
+
 	App->map->Load("Scene01.tmx");
 	movecamright = App->collision->AddCollider({ 200,0,20,350 }, COLLIDER_MOVECAM_RIGHT, this);
 	movecamleft = App->collision->AddCollider({ 100,0,20,350 }, COLLIDER_MOVECAM_LEFT, this);
-	camleftlim = App->collision->AddCollider({ -20,0,20,350 }, COLLIDER_CAMERA_LLEFT, this);
-	camrightlim = App->collision->AddCollider({ 4064,0,20,350 }, COLLIDER_CAMERA_LRIGHT, this);
+	camleftlim = App->collision->AddCollider({ camlimitleft,0,20,350 }, COLLIDER_CAMERA_LLEFT, this);
+	camrightlim = App->collision->AddCollider({ camlimitright,0,20,350 }, COLLIDER_CAMERA_LRIGHT, this);
 	cameralimit01 = App->collision->AddCollider({ 0,0,20,350 }, COLLIDER_CAMERA, this);
 	cameralimit02 = App->collision->AddCollider({ 380,0,20,350 }, COLLIDER_CAMERA, this);
 	objects_graphics = App->tex->Load("textures/Objects.png");
-	plantportal = App->collision->AddCollider({ 440,100,50,64 }, COLLIDER_PORTAL_PLANTA, this);
-	normalportal01 = App->collision->AddCollider({ 1455,100,50,64 }, COLLIDER_PORTAL_NORMAL1, this);
-	iceportal = App->collision->AddCollider({ 1920,5,50,64 }, COLLIDER_PORTAL_HIELO, this);
-	iceportal = App->collision->AddCollider({ 3390,165,40,64 }, COLLIDER_PORTAL_NORMAL1, this);
-	finalportal = App->collision->AddCollider({ 4000,100,40,64 }, COLLIDER_PORTAL_CHANGESCENE1, this);
+	plantportal = App->collision->AddCollider({ plantportalx,plantportaly,50,64 }, COLLIDER_PORTAL_PLANTA, this);
+	normalportal01 = App->collision->AddCollider({ normal1portalx+7,normal1portaly,40,64 }, COLLIDER_PORTAL_NORMAL1, this);
+	iceportal = App->collision->AddCollider({ iceportalx,iceportaly,50,64 }, COLLIDER_PORTAL_HIELO, this);
+	normalportal02 = App->collision->AddCollider({ normal2portalx+10,normal2portaly,40,64 }, COLLIDER_PORTAL_NORMAL1, this);
+	finalportal = App->collision->AddCollider({ finalportalx+5,finalportaly,40,64 }, COLLIDER_PORTAL_CHANGESCENE1, this);
 
 	return true;
 }
@@ -135,11 +151,11 @@ bool j1Scene::PostUpdate()
 	bool ret = true;
 
 
-	App->render->Blit(objects_graphics, 440, 100, &(plant_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
-	App->render->Blit(objects_graphics, 1455, 100, &(normal_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
-	App->render->Blit(objects_graphics, 1920, 5, &(ice_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
-	App->render->Blit(objects_graphics, 3380, 165, &(normal_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
-	App->render->Blit(objects_graphics, 4010, 100, &(final_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+	App->render->Blit(objects_graphics, plantportalx, plantportaly, &(plant_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+	App->render->Blit(objects_graphics, normal1portalx, normal1portaly, &(normal_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+	App->render->Blit(objects_graphics, iceportalx, iceportaly, &(ice_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+	App->render->Blit(objects_graphics, normal2portalx, normal2portaly, &(normal_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+	App->render->Blit(objects_graphics, finalportalx, finalportaly, &(final_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

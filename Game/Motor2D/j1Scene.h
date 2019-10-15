@@ -16,7 +16,9 @@ public:
 	virtual ~j1Scene();
 
 	// Called before render is available
-	bool Awake();
+	bool Awake(pugi::xml_node& config);
+
+	bool GetConfigVariables(pugi::xml_node&);
 
 	// Called before the first frame
 	bool Start();
@@ -51,6 +53,19 @@ public:
 	Animation plant_portal;
 	Animation ice_portal;
 	Animation normal_portal;
+
+	int iceportalx;
+	int iceportaly;
+	int plantportalx;
+	int plantportaly;
+	int normal1portalx;
+	int normal1portaly;
+	int normal2portalx;
+	int normal2portaly;
+	int finalportalx;
+	int finalportaly;
+	int camlimitleft;
+	int camlimitright;
 };
 
 #endif // __j1SCENE_H__
