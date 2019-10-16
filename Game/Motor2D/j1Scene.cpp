@@ -120,13 +120,13 @@ bool j1Scene::Update(float dt)
 	if (App->player->position.x > cameraxinvert + 200) {
 		if ((((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) && (App->player->stop_right == false)) && (cameralimit02->CheckCollision(camrightlim->rect) == false))|| (App->player->ice_right == true)) {
 			if (App->player->ice_right == true) {
-				if ((App->player->right == true) && (App->player->limit_ice == 0)) {
+				if ((App->player->right == false)) {
 					cameraxinvert += App->player->speed_player_ice;
 					App->render->camera.x -= App->player->speed_player_ice* App->win->GetScale();
 					cameralimit01->rect.x += App->player->speed_player_ice;
 					cameralimit02->rect.x += App->player->speed_player_ice;
 				}
-				else if (App->player->right == false) {
+				else if (App->player->right == true) {
 					cameraxinvert += App->player->speed_player_ice + App->player->speed_player;
 					App->render->camera.x -= (App->player->speed_player_ice + App->player->speed_player) * App->win->GetScale();
 					cameralimit01->rect.x += App->player->speed_player_ice + App->player->speed_player;

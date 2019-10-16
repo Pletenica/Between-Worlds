@@ -94,18 +94,6 @@ void j1Map::Draw()
 						if (gid == gidcollgroundwall && collidersdone == false) { //W NORMAL
 							App->collision->AddCollider({ x,y + 12,32,200 }, COLLIDER_SUELO, this);
 						}
-						if (gid == gidcollgroundiceone && collidersdone == false) { //1 HIELO
-							App->collision->AddCollider({ x,y + 12,32,20 }, COLLIDER_SUELO, this);
-						}
-						if (gid == gidcollgroundicetwo && collidersdone == false) { //2 HIELO
-							App->collision->AddCollider({ x,y + 12,32,52 }, COLLIDER_SUELO, this);
-						}
-						if (gid == gidcollgroundicethree && collidersdone == false) { //3 HIELO
-							App->collision->AddCollider({ x,y + 12,32,84 }, COLLIDER_SUELO, this);
-						}
-						if (gid == gidcollgroundicewall && collidersdone == false) { //W HIELO
-							App->collision->AddCollider({ x,y + 12,32,200 }, COLLIDER_SUELO, this);
-						}
 						if (gid == gidcollliana && collidersdone == false) { //W HIELO
 							App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
 						}

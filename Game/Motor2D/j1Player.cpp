@@ -163,7 +163,7 @@ bool j1Player::PreUpdate() {
 				ice_left = true;
 				ice_right = false;
 			}
-			right = true;
+			left = true;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 		}
 
@@ -173,7 +173,7 @@ bool j1Player::PreUpdate() {
 				ice_right = true;
 				ice_left = false;
 			}
-			left = true;
+			right = true;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 		}
 	}
