@@ -112,10 +112,16 @@ public:
 	int jump_vel = 17;
 	int G_max = 25;
 	int speed_player = 2;
+	int speed_player_ice = 1;
 	int speed_player_jump = 2;
 	int limit_liana = 0;
+	int limit_ice = 0;
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	bool right = false;
+	bool left = false;
+	bool ice_right = false;
+	bool ice_left = false;
 	bool godmode = false;
 	bool isinair = true;
 	bool isjumping = false;

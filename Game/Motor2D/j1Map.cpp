@@ -11,6 +11,17 @@
 //
 #include <math.h>
 
+int gidcollgroundone;
+int gidcollgroundtwo;
+int gidcollgroundthree;
+int gidcollgroundwall;
+int gidcollgroundiceone;
+int gidcollgroundicetwo;
+int gidcollgroundicethree;
+int gidcollgroundicewall;
+int gidcolldeath;
+int gidcollliana;
+
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
@@ -27,6 +38,16 @@ bool j1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
+	gidcollgroundone = config.child("colliderground").attribute("one").as_int();
+	gidcollgroundtwo = config.child("colliderground").attribute("two").as_int();
+	gidcollgroundthree = config.child("colliderground").attribute("three").as_int();
+	gidcollgroundwall = config.child("colliderground").attribute("wall").as_int();
+	gidcollgroundiceone = config.child("collidergroundice").attribute("one").as_int();
+	gidcollgroundicetwo = config.child("collidergroundice").attribute("two").as_int();
+	gidcollgroundicethree = config.child("collidergroundice").attribute("three").as_int();
+	gidcollgroundicewall = config.child("collidergroundice").attribute("wall").as_int();
+	gidcollliana = config.child("othercolliders").attribute("liana").as_int();
+	gidcolldeath = config.child("othercolliders").attribute("death").as_int();
 
 	return ret;
 }
@@ -61,16 +82,37 @@ void j1Map::Draw()
 						int x = j;
 						int y = i;
 						Translate_Coord(&x, &y);
-						if (gid == 30 && collidersdone == false) {
+						if (gid == gidcollgroundone && collidersdone == false) {//1 NORMAL
+							App->collision->AddCollider({ x,y + 12,32,20 }, COLLIDER_SUELO, this);
+						}
+						if (gid == gidcollgroundtwo && collidersdone == false) {//2 NORMAL
+							App->collision->AddCollider({ x,y + 12,32,52 }, COLLIDER_SUELO, this);
+						}
+						if (gid == gidcollgroundthree && collidersdone == false) {//3 NORMAL
+							App->collision->AddCollider({ x,y + 12,32,84 }, COLLIDER_SUELO, this);
+						}
+						if (gid == gidcollgroundwall && collidersdone == false) { //W NORMAL
 							App->collision->AddCollider({ x,y + 12,32,200 }, COLLIDER_SUELO, this);
 						}
-						if (gid == 78 && collidersdone == false) {
+						if (gid == gidcollgroundiceone && collidersdone == false) { //1 HIELO
+							App->collision->AddCollider({ x,y + 12,32,20 }, COLLIDER_SUELO, this);
+						}
+						if (gid == gidcollgroundicetwo && collidersdone == false) { //2 HIELO
+							App->collision->AddCollider({ x,y + 12,32,52 }, COLLIDER_SUELO, this);
+						}
+						if (gid == gidcollgroundicethree && collidersdone == false) { //3 HIELO
+							App->collision->AddCollider({ x,y + 12,32,84 }, COLLIDER_SUELO, this);
+						}
+						if (gid == gidcollgroundicewall && collidersdone == false) { //W HIELO
+							App->collision->AddCollider({ x,y + 12,32,200 }, COLLIDER_SUELO, this);
+						}
+						if (gid == gidcollliana && collidersdone == false) { //W HIELO
 							App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
 						}
-						if (gid == 126 && collidersdone == false) {
-							App->collision->AddCollider({ x,y + 15,32,32 }, COLLIDER_DEATH, this);
+						if (gid == gidcolldeath && collidersdone == false) {
+							App->collision->AddCollider({ x,y+10,32,32 }, COLLIDER_DEATH, this);
 						}
-						if (gid != 30 && gid != 78 && gid != 126) {
+						if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
 							App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
 						}
 					}
