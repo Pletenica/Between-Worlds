@@ -39,4 +39,17 @@
     <positionplayerinit x="20" y="226"/>
   </scene>
 
+  <scene2>
+    <fireportal x="440" y="100"/>
+    <watterportal x="1920" y="5"/>
+    <normalportal1 x="1455" y="100"/>
+    <normalportal2 x="3380" y="165"/>
+    <finalportal x="4000" y="100"/>
+    <firering1 x="0" y="0"/>
+    <firering2 x="55" y="0"/>
+    <firering3 x="110" y="0"/>
+    <camlimits left="-20" right="4064"/>
+    <positionplayerinit x="20" y="226"/>
+  </scene2>
+
 </config>
