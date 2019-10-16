@@ -1,7 +1,7 @@
 # Plataform_Game
-#Between Worlds
+##Between Worlds
 
-This project was started as an assigment for the Development of Videogames subject at CITM, UPC terrassa. Created by two students at Videogames Design and Development, year two of the career. 
+This project was started as an assigment for the Development of Videogames, subject at CITM, UPC Terrassa. Created by two students in the second year of the Videogames Design and Development career. 
 The idea was to create this mini game where yo must adapt in diferents dimensions to surpass diferents obstacles that you will find in your way home. 
 This two levels are a small example of four differents dimensions where each of them has diferents mechanics. 
 

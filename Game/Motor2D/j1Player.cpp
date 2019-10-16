@@ -6,6 +6,7 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "j1Scene.h"
+#include "j1Scene2.h"
 #include "j1Map.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -297,6 +298,12 @@ bool j1Player::PreUpdate() {
 		body->rect.y = position.y;
 	}
 
+	if (position.x >= 200) {
+		if (changelevel == false) {
+			App->AddModule(App->scene2);
+			changelevel = true;
+		}
+	}
 
 	return true;
 }
@@ -305,6 +312,8 @@ bool j1Player::PreUpdate() {
 // Update: draw background
 bool j1Player::Update()
 {
+
+
 
 	return true;
 }
@@ -531,6 +540,9 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 		}
 		if (other->type == COLLIDER_CAMERA) {
 			stop_left = true;
+		}
+		if (other->type == COLLIDER_PORTAL_CHANGESCENE1) {
+
 		}
 	}
 }

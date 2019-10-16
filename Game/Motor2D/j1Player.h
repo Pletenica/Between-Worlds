@@ -131,6 +131,7 @@ public:
 	bool stop_jump = false;
 	bool deadbool = false;
 	bool isinliana = false;
+	bool changelevel = false;
 	bool changeplantmap = false;
 	bool changeicemap = false;
 	bool changewattermap = false;

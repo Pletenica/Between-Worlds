@@ -22,10 +22,10 @@ j1Scene2::j1Scene2() : j1Module()
 	fire_portal.speed = 0.08f;
 
 	/////WATTER PORTAL ANIMATION//////
-	watter_portal.PushBack({ 0, 96, 50, 64 });
-	watter_portal.PushBack({ 50, 96, 50, 64 });
-	watter_portal.PushBack({ 100, 96, 50, 64 });
-	watter_portal.PushBack({ 50, 96, 50, 64 });
+	watter_portal.PushBack({ 0, 192, 50, 64 });
+	watter_portal.PushBack({ 50, 192, 50, 64 });
+	watter_portal.PushBack({ 100, 192, 50, 64 });
+	watter_portal.PushBack({ 50, 192, 50, 64 });
 	watter_portal.speed = 0.08f;
 
 	/////NORMAL PORTAL ANIMATION//////
@@ -171,6 +171,6 @@ bool j1Scene2::PostUpdate()
 bool j1Scene2::CleanUp()
 {
 	LOG("Freeing scene");
-	App->map->CleanUp();
+	//App->map->CleanUp();
 	return true;
 }
