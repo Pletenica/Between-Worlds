@@ -111,6 +111,13 @@ void j1Map::Draw()
 							if ((App->player->dimensionplanta == true) || (App->player->dimensionhielo == true)) {
 								if (layer_counter >= 6) {
 									if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
+										if ((layer_counter == 6) || (layer_counter == 8) || (layer_counter == 9)) {
+											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.7F, 0, 0, 0, flip);
+										}
+										else {
+											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+										}
+										
 										App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
 									}
 								}
@@ -119,7 +126,12 @@ void j1Map::Draw()
 							if ((App->player->dimensionfuego == true) || (App->player->dimensionagua == true)) {
 								if (layer_counter >= 5) {
 									if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
-										App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+										if (layer_counter == 5) {
+											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.7F, 0, 0, 0, flip);
+										}
+										else {
+											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+										}
 									}
 								}
 							}
@@ -127,14 +139,24 @@ void j1Map::Draw()
 								if (App->scene->changelevel == false) {
 									if (layer_counter < 6) {
 										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
-											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+											if ((layer_counter == 0) || (layer_counter == 1)) {
+											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.7F, 0, 0, 0, flip);
+											}
+											else {
+												App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+											}
 										}
 									}
 								}
 								else {
 									if (layer_counter < 5) {
 										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
-											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+											if (layer_counter == 0) {
+												App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.7F, 0, 0, 0, flip);
+											}
+											else {
+												App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+											}
 										}
 									}
 								}
