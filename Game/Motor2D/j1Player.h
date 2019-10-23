@@ -118,6 +118,11 @@ public:
 	int limit_ice = 0;
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	bool dimensionnormal = true;
+	bool dimensionagua = false;
+	bool dimensionfuego = false;
+	bool dimensionhielo = false;
+	bool dimensionplanta = false;
 	bool right = false;
 	bool left = false;
 	bool ice_right = false;

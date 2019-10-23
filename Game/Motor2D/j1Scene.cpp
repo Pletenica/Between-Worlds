@@ -95,6 +95,8 @@ bool j1Scene::Start()
 	normalportal02 = App->collision->AddCollider({ normal2portalx+30,normal2portaly,20,64 }, COLLIDER_PORTAL_NORMAL1, this);
 	finalportal = App->collision->AddCollider({ finalportalx+30,finalportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENE1, this);
 
+	App->player->dimensionhielo = false;
+
 	return true;
 }
 

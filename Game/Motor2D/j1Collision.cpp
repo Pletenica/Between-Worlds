@@ -230,6 +230,9 @@ Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* 
 			ret = colliders[i] = new Collider(rect, type, callback);
 			break;
 		}
+		else {
+
+		}
 	}
 
 	return ret;

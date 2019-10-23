@@ -8,6 +8,7 @@
 #include "j1Input.h"
 #include "j1Window.h"
 #include "j1Player.h"
+#include "j1Scene.h"
 //
 #include <math.h>
 
@@ -82,31 +83,38 @@ void j1Map::Draw()
 						int x = j;
 						int y = i;
 						Translate_Coord(&x, &y);
-						if (gid == gidcollgroundone && collidersdone == false) {//1 NORMAL
-							App->collision->AddCollider({ x,y + 12,32,20 }, COLLIDER_SUELO, this);
-						}
-						if (gid == gidcollgroundtwo && collidersdone == false) {//2 NORMAL
-							App->collision->AddCollider({ x,y + 12,32,52 }, COLLIDER_SUELO, this);
-						}
-						if (gid == gidcollgroundthree && collidersdone == false) {//3 NORMAL
-							App->collision->AddCollider({ x,y + 12,32,84 }, COLLIDER_SUELO, this);
-						}
-						if (gid == gidcollgroundwall && collidersdone == false) { //W NORMAL
-							App->collision->AddCollider({ x,y + 12,32,200 }, COLLIDER_SUELO, this);
-						}
-						if (gid == gidcollliana && collidersdone == false) { //W HIELO
-							App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
-						}
-						if (gid == gidcolldeath && collidersdone == false) {
-							App->collision->AddCollider({ x,y+10,32,32 }, COLLIDER_DEATH, this);
-						}
+						
+							if (gid == gidcollgroundone && collidersdone == false) {//1 NORMAL
+								App->collision->AddCollider({ x,y + 12,32,20 }, COLLIDER_SUELO, this);
+							}
+							if (gid == gidcollgroundtwo && collidersdone == false) {//2 NORMAL
+								App->collision->AddCollider({ x,y + 12,32,52 }, COLLIDER_SUELO, this);
+							}
+							if (gid == gidcollgroundthree && collidersdone == false) {//3 NORMAL
+								App->collision->AddCollider({ x,y + 12,32,84 }, COLLIDER_SUELO, this);
+							}
+							if (gid == gidcollgroundwall && collidersdone == false) { //W NORMAL
+								App->collision->AddCollider({ x,y + 12,32,200 }, COLLIDER_SUELO, this);
+							}
+							if (gid == gidcollliana && collidersdone == false) { //W HIELO
+								App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
+							}
+							if (gid == gidcolldeath && collidersdone == false) {
+								App->collision->AddCollider({ x,y + 10,32,32 }, COLLIDER_DEATH, this);
+							}
+
 						if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
 							App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
 						}
+				
+						
 					}
 				//}
 			}
 		}
+
+		
+		
 		coord_layer = coord_layer->next;
 	}
 

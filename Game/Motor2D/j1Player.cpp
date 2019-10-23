@@ -52,11 +52,7 @@ j1Player::j1Player()
 j1Player::~j1Player()
 {}
 
-bool dimensionnormal = true;
-bool dimensionagua = false;
-bool dimensionfuego = false;
-bool dimensionhielo = false;
-bool dimensionplanta = false;
+
 
 // Load assets
 bool j1Player::Start()
@@ -160,7 +156,7 @@ bool j1Player::PreUpdate() {
 
 		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)&&!stop_left) {
 			position.x -= speed_player;
-			if (dimensionhielo = true) {
+			if (dimensionhielo == true) {
 				ice_left = true;
 				ice_right = false;
 			}
@@ -298,12 +294,7 @@ bool j1Player::PreUpdate() {
 		body->rect.y = position.y;
 	}
 
-	if (position.x >= 200) {
-		if (changelevel == false) {
-			App->AddModule(App->scene2);
-			changelevel = true;
-		}
-	}
+
 
 	return true;
 }
@@ -325,6 +316,7 @@ bool j1Player::PostUpdate() {
 	stop_right = false;
 	stop_left = false;
 	stop_jump = false;
+
 	if (body->CheckCollision(App->scene->cameralimit01->rect) == true) {
 		stop_left = true;
 	}
