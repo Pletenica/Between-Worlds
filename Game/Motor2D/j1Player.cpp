@@ -272,10 +272,6 @@ bool j1Player::PreUpdate() {
 			App->map->CleanUp();
 			App->map->Load("Scene01.tmx");
 			current_graphics = normal_graphics;
-			changeicemap = false;
-			changewattermap = false;
-			changeplantmap = false;
-			changefiremap = false;
 			App->scene->cameralimit01->rect.x = App->render->camera.x;
 			App->scene->cameralimit02->rect.x = App->render->camera.x +380;
 			ice_right = false;
@@ -339,17 +335,9 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			dimensionfuego = false;
 			dimensionhielo = false;
 			dimensionplanta = false;
-			changeplantmap = false;
-			changefiremap = false;
-			changenormalmap = false;
-			changeicemap = false;
+
 			current_graphics = watter_graphics;
 			
-			if (changewattermap == false) {
-				App->map->CleanUp();
-				App->map->Load("lvl2scene04.tmx");
-				changewattermap = true;
-			}
 			if (position.x > other->rect.x - 32) {
 				stop_left = true;
 				stop_jump = true;
@@ -364,17 +352,9 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			dimensionhielo = false;
 			dimensionplanta = false;
 			dimensionplanta = false;
-			changeplantmap = false;
-			changewattermap = false;
-			changenormalmap = false;
-			changeicemap = false;
+
 			current_graphics = fire_graphics;
 			
-			if (changefiremap == false) {
-				App->map->CleanUp();
-				App->map->Load("lvl2scene04.tmx");
-				changefiremap = true;
-			}
 			if (position.x > other->rect.x - 32) {
 				stop_left = true;
 				stop_jump = true;
@@ -388,17 +368,8 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			dimensionfuego = false;
 			dimensionhielo = true;
 			dimensionplanta = false;
-			changeplantmap = false;
-			changewattermap = false;
-			changenormalmap = false;
-			changefiremap = false;
 			current_graphics = ice_graphics;	
 			
-			if (changeicemap == false) {
-				App->map->CleanUp();
-				App->map->Load("lvl1scene02.tmx");
-				changeicemap = true;
-			}
 			if (position.x > other->rect.x - 32) {
 				stop_left = true;
 				stop_jump = true;
@@ -412,17 +383,8 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			dimensionfuego = false;
 			dimensionhielo = false;
 			dimensionplanta = true;
-			changeicemap = false;
-			changewattermap = false;
-			changenormalmap = false;
-			changefiremap = false;
 			current_graphics = plant_graphics;
 			
-			if (changeplantmap == false) {
-				App->map->CleanUp();
-				App->map->Load("lvl1scene02.tmx");
-				changeplantmap = true;
-			}
 			if (position.x > other->rect.x-32) {
 				stop_left = true;
 				stop_jump = true;
@@ -436,16 +398,9 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			dimensionfuego = false;
 			dimensionhielo = false;
 			dimensionplanta = false;
-			changeicemap = false;
-			changewattermap = false;
-			changeplantmap = false;
-			changefiremap = false;
+
 			current_graphics = normal_graphics;
-			if (changenormalmap == false) {
-				App->map->CleanUp();
-				App->map->Load("Scene01.tmx");
-				changenormalmap = true;
-			}
+
 			if (position.x > other->rect.x - 32) {
 				stop_left = true;
 				stop_jump = true;
@@ -459,16 +414,9 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			dimensionfuego = false;
 			dimensionhielo = false;
 			dimensionplanta = false;
-			changeicemap = false;
-			changewattermap = false;
-			changeplantmap = false;
-			changefiremap = false;
+
 			current_graphics = normal_graphics;
-			if (changenormalmap == false) {
-				App->map->CleanUp();
-				App->map->Load("Scene02.tmx");
-				changenormalmap = true;
-			}
+
 			if (position.x > other->rect.x - 32) {
 				stop_left = true;
 				stop_jump = true;

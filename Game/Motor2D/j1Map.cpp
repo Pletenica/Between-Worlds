@@ -103,11 +103,20 @@ void j1Map::Draw()
 								App->collision->AddCollider({ x,y + 10,32,32 }, COLLIDER_DEATH, this);
 							}
 
-						if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
-							App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
-						}
-				
-						
+							if ((App->player->dimensionplanta == true) || (App->player->dimensionhielo == true)) {
+								if (layer_counter == 6) {
+									if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
+										App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+									}
+								}
+							}
+							if ((App->player->dimensionplanta == false) && (App->player->dimensionhielo == false)) {
+								if (layer_counter != 6) {
+									if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
+										App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+									}
+								}
+							}
 					}
 				//}
 			}

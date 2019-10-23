@@ -137,11 +137,7 @@ public:
 	bool deadbool = false;
 	bool isinliana = false;
 	bool changelevel = false;
-	bool changeplantmap = false;
-	bool changeicemap = false;
-	bool changewattermap = false;
-	bool changenormalmap = false;
-	bool changefiremap = false;
+
 
 public:
 	j1Player();
