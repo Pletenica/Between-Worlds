@@ -45,14 +45,24 @@ public:
 	Collider* cameralimit02;
 	Collider* plantportal;
 	Collider* iceportal;
+	Collider* fireportal;
+	Collider* watterportal;
 	Collider* normalportal01;
 	Collider* normalportal02;
+	Collider* normalportal03;
+	Collider* normalportal04;
 	Collider* finalportal;
+	Collider* endportal;
 	Animation final_portal;
 	Animation plant_portal;
 	Animation ice_portal;
+	Animation fire_portal;
+	Animation watter_portal;
+	Animation fire_ring_anim;
 	Animation normal_portal;
 	int cameraxinvert = 0;
+	bool donecollidersscene2 = false;
+	bool changelevel = false;
 
 	int iceportalx;
 	int iceportaly;
@@ -64,6 +74,23 @@ public:
 	int normal2portaly;
 	int finalportalx;
 	int finalportaly;
+	int fireportalx;
+	int fireportaly;
+	int watterportalx;
+	int watterportaly;
+	int normal3portalx;
+	int normal3portaly;
+	int normal4portalx;
+	int normal4portaly;
+	int endportalx;
+	int endportaly;
+	int firering1x;
+	int firering1y;
+	int firering2x;
+	int firering2y;
+	int firering3x;
+	int firering3y;
+
 	int camlimitleft;
 	int camlimitright;
 	int positionplayerinitx;

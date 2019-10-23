@@ -136,7 +136,7 @@ public:
 	bool stop_jump = false;
 	bool deadbool = false;
 	bool isinliana = false;
-	bool changelevel = false;
+	//bool changelevel = false;
 
 public:
 	j1Player();
@@ -145,13 +145,14 @@ public:
 
 	bool Start();
 	bool Awake();
+	void ChangeToLevel1();
+	void ChangeToLevel2();
 	bool PreUpdate();
 	bool Update();
 	bool PostUpdate();
 	bool CleanUp();
 	void OnCollision(Collider*, Collider*);
-	void ChangeToLevel1();
-	void ChangeToLevel2();
+
 };
 
 #endif

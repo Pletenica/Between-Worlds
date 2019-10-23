@@ -263,33 +263,11 @@ bool j1Player::PreUpdate() {
 		stop_right = true;
 
 		if (dead.finished == 1) {
-			if (changelevel == false) {
-				position.x = App->scene->positionplayerinitx;
-				position.y = App->scene->positionplayerinity;
-				App->scene->cameraxinvert = 0;
-				App->render->camera.x = 0;
-				deadbool = false;
-				App->map->CleanUp();
-				App->map->Load("Scene01.tmx");
-				current_graphics = normal_graphics;
-				App->scene->cameralimit01->rect.x = App->render->camera.x;
-				App->scene->cameralimit02->rect.x = App->render->camera.x + 380;
-				ice_right = false;
-				ice_left = false;
+			if (App->scene->changelevel == false) {
+				ChangeToLevel1();
 			}
 			else {
-				position.x = App->scene->positionplayerinitx;
-				position.y = App->scene->positionplayerinity;
-				App->scene->cameraxinvert = 0;
-				App->render->camera.x = 0;
-				deadbool = false;
-				App->map->CleanUp();
-				App->map->Load("Scene02.tmx");
-				current_graphics = normal_graphics;
-				App->scene->cameralimit01->rect.x = App->render->camera.x;
-				App->scene->cameralimit02->rect.x = App->render->camera.x + 380;
-				ice_right = false;
-				ice_left = false;
+				ChangeToLevel2();
 			}
 		}
 	}
@@ -436,7 +414,7 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			}
 		}
 		if (other->type == COLLIDER_PORTAL_CHANGESCENE1) {
-			changelevel = true;
+			App->player->ChangeToLevel2();
 		}
 
 		if (other->type == COLLIDER_SUELO) {
@@ -520,7 +498,8 @@ void j1Player::ChangeToLevel1() {
 	App->scene->cameralimit02->rect.x = App->render->camera.x + 380;
 	position.x = App->scene->positionplayerinitx;
 	position.y = App->scene->positionplayerinity;
-	changelevel = false;
+	App->scene->donecollidersscene2 = true;
+	App->scene->changelevel = false;
 }
 
 void j1Player::ChangeToLevel2() {
@@ -535,12 +514,16 @@ void j1Player::ChangeToLevel2() {
 	deadbool = false;
 	App->scene->cameraxinvert = 0;
 	App->render->camera.x = 0;
+	App->scene->changelevel = true;
 	App->map->CleanUp();
 	App->map->collidersdone = false;
 	App->map->Load("Scene02.tmx");
+	//App->tex->UnLoad(App->scene->objects_graphics);
+	//App->scene->objects_graphics = App->tex->Load("textures/Objects.png");
 	App->scene->cameralimit01->rect.x = App->render->camera.x;
 	App->scene->cameralimit02->rect.x = App->render->camera.x + 380;
 	position.x = App->scene->positionplayerinitx;
 	position.y = App->scene->positionplayerinity;
-	changelevel = true;
+	App->scene->donecollidersscene2 = false;
+	App->scene->changelevel = true;
 }
