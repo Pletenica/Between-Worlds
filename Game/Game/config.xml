@@ -18,6 +18,11 @@
     <fullscreen_window value="false"/>
   </window>
 
+  <player>
+    <gravity Ginit="2" JumpVel="17" Gmax="25"/>
+    <speed movement="2" iceinercy="1" movementinair="2"/>
+  </player>
+
   <file_system>
     <path>data.zip</path>
   </file_system>

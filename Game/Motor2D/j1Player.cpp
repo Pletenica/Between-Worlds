@@ -51,7 +51,19 @@ j1Player::j1Player()
 j1Player::~j1Player()
 {}
 
+bool j1Player::Awake(pugi::xml_node& config)
+{
+	/////// SCENE 1 PORTALS ///////
+	Ginit = config.child("gravity").attribute("Ginit").as_int(2);
+	jump_vel = config.child("gravity").attribute("JumpVel").as_int(17);
+	G_max = config.child("gravity").attribute("Gmax").as_int(25);
+	speed_player = config.child("speed").attribute("movement").as_int(2);
+	speed_player_ice = config.child("speed").attribute("iceinercy").as_int(1);
+	speed_player_jump = config.child("speed").attribute("movementinair").as_int(2);
 
+
+	return true;
+}
 
 // Load assets
 bool j1Player::Start()
@@ -68,7 +80,10 @@ bool j1Player::Start()
 	current_graphics = normal_graphics;
 
 	//// Load All SOUNDS & COLLISIONS //// 
-	//walksound = App->audio->LoadChunk("Audio_FX/Punch.wav");
+	//jumpingsound = App->audio->LoadChunk("audio/fx/jump.wav");
+	//deathsound = App->audio->LoadChunk("audio/fx/hello_man.wav");
+	//walkingsound = App->audio->LoadChunk("audio/fx/walk.wav");
+	//portalsound = App->audio->LoadChunk("audio/fx/portal.wav");
 	body = App->collision->AddCollider({ position.x,position.y,20,32 }, COLLIDER_PLAYER, this);
 	
 	return true;
@@ -76,14 +91,18 @@ bool j1Player::Start()
 
 //Clean Up
 bool j1Player::CleanUp() {
+	//App->audio->StopChunk();
+	//App->audio->UnLoadChunk(jumpingsound);
+	//App->audio->UnLoadChunk(deathsound);
+	//App->audio->UnLoadChunk(walkingsound);
+	//App->audio->UnLoadChunk(portalsound);
 	App->tex->UnLoad(current_graphics);
 	App->tex->UnLoad(fire_graphics);
 	App->tex->UnLoad(plant_graphics);
 	App->tex->UnLoad(ice_graphics);
 	App->tex->UnLoad(watter_graphics);
 	App->tex->UnLoad(normal_graphics);
-	//App->audio->StopChunk();
-	//App->audio->UnLoadChunk(punchsound);
+
 	return true;
 }
 
@@ -151,10 +170,11 @@ bool j1Player::PreUpdate() {
 	//////// INPUTS WHEN TOUCHES GROUND ////////
 	if (isinair ==false && !isinliana && !godmode && !dimensionagua) {
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && !stop_jump)
-			isjumping = true;
+			isjumping = true; //App->audio->PlayChunk(jumpingsound);
 
 		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)&&!stop_left) {
 			position.x -= speed_player;
+			//App->audio->PlayChunk(walkingsound);
 			if (dimensionhielo == true) {
 				ice_left = true;
 				ice_right = false;
@@ -165,6 +185,7 @@ bool j1Player::PreUpdate() {
 
 		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)&&!stop_right) {
 			position.x += speed_player;
+			//App->audio->PlayChunk(walkingsound);
 			if (dimensionhielo == true) {
 				ice_right = true;
 				ice_left = false;
@@ -292,6 +313,7 @@ bool j1Player::PreUpdate() {
 
 	//////// DEATH ////////
 	if (deadbool == true) {
+		//App->audio->PlayChunk(deathsound);
 		Current_Animation.GetCurrentFrame() = dead.GetCurrentFrame();
 		stop_left = true;
 		stop_jump = true;
@@ -521,7 +543,7 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 		}
 
 		if (other->type == COLLIDER_PORTAL_CHANGESCENEFINAL) {
-			exitgame == false;
+			exitgame = false;
 		}
 	}
 }

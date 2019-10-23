@@ -87,8 +87,6 @@ public:
 	SDL_Texture* plant_graphics = nullptr;
 	SDL_Texture* ice_graphics = nullptr;
 	SDL_Texture* normal_graphics = nullptr;
-	Mix_Chunk *walksound;
-	Mix_Chunk *jumpsound;
 	Animation Current_Animation;
 	Animation idle;
 	Animation walk;
@@ -107,19 +105,22 @@ public:
 	inputout inputstateout[INPUTSOUTS];
 	Collider* body;
 	Collider*movecamright;
-	int Ginit = 2;
+	int Ginit;
 	int G = Ginit;
-	int jump_vel = 17;
-	int G_max = 25;
-	int speed_player = 2;
-	int speed_player_ice = 1;
-	int speed_player_jump = 2;
+	int jump_vel;
+	int G_max;
+	int speed_player;
+	int speed_player_ice;
+	int speed_player_jump;
 	int limit_liana = 0;
 	int limit_watter = 0;
 	int limit_wave_watter = 0;
 	int limit_ice = 0;
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	bool insidedeath = false;
+	bool insideportal = false;
+	bool insidewalk = false;
 	bool dimensionnormal = true;
 	bool dimensionagua = false;
 	bool dimensionfuego = false;
@@ -140,13 +141,17 @@ public:
 	bool isinliana = false;
 	bool exitgame = true;
 
+	Mix_Chunk *walkingsound;
+	Mix_Chunk *portalsound;
+	Mix_Chunk *jumpingsound;
+	Mix_Chunk *deathsound;
+
 public:
 	j1Player();
 	~j1Player();
 
-
+	bool Awake(pugi::xml_node&config);
 	bool Start();
-	bool Awake();
 	void ChangeToLevel1();
 	void ChangeToLevel2();
 	bool PreUpdate();
@@ -154,7 +159,6 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 	void OnCollision(Collider*, Collider*);
-
 };
 
 #endif
