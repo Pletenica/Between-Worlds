@@ -160,7 +160,7 @@ bool j1Map::CleanUp()
 	data.layers.clear();
 
 	map_file.reset();
-
+	App->collision->CleanUp();
 	return true;
 }
 

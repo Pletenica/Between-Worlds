@@ -138,7 +138,6 @@ public:
 	bool isinliana = false;
 	bool changelevel = false;
 
-
 public:
 	j1Player();
 	~j1Player();
@@ -151,7 +150,8 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 	void OnCollision(Collider*, Collider*);
-
+	void ChangeToLevel1();
+	void ChangeToLevel2();
 };
 
 #endif

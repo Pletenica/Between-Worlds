@@ -6,7 +6,6 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "j1Scene.h"
-#include "j1Scene2.h"
 #include "j1Map.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -264,18 +263,34 @@ bool j1Player::PreUpdate() {
 		stop_right = true;
 
 		if (dead.finished == 1) {
-			position.x = App->scene->positionplayerinitx;
-			position.y = App->scene->positionplayerinity;
-			App->scene->cameraxinvert = 0;
-			App->render->camera.x = 0;
-			deadbool = false;
-			App->map->CleanUp();
-			App->map->Load("Scene01.tmx");
-			current_graphics = normal_graphics;
-			App->scene->cameralimit01->rect.x = App->render->camera.x;
-			App->scene->cameralimit02->rect.x = App->render->camera.x +380;
-			ice_right = false;
-			ice_left = false;
+			if (changelevel == false) {
+				position.x = App->scene->positionplayerinitx;
+				position.y = App->scene->positionplayerinity;
+				App->scene->cameraxinvert = 0;
+				App->render->camera.x = 0;
+				deadbool = false;
+				App->map->CleanUp();
+				App->map->Load("Scene01.tmx");
+				current_graphics = normal_graphics;
+				App->scene->cameralimit01->rect.x = App->render->camera.x;
+				App->scene->cameralimit02->rect.x = App->render->camera.x + 380;
+				ice_right = false;
+				ice_left = false;
+			}
+			else {
+				position.x = App->scene->positionplayerinitx;
+				position.y = App->scene->positionplayerinity;
+				App->scene->cameraxinvert = 0;
+				App->render->camera.x = 0;
+				deadbool = false;
+				App->map->CleanUp();
+				App->map->Load("Scene02.tmx");
+				current_graphics = normal_graphics;
+				App->scene->cameralimit01->rect.x = App->render->camera.x;
+				App->scene->cameralimit02->rect.x = App->render->camera.x + 380;
+				ice_right = false;
+				ice_left = false;
+			}
 		}
 	}
 
@@ -289,8 +304,6 @@ bool j1Player::PreUpdate() {
 		body->rect.x = App->player->position.x +5;
 		body->rect.y = position.y;
 	}
-
-
 
 	return true;
 }
@@ -422,6 +435,9 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				stop_jump = true;
 			}
 		}
+		if (other->type == COLLIDER_PORTAL_CHANGESCENE1) {
+			changelevel = true;
+		}
 
 		if (other->type == COLLIDER_SUELO) {
 			isinliana = false;
@@ -481,8 +497,50 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 		if (other->type == COLLIDER_CAMERA) {
 			stop_left = true;
 		}
-		if (other->type == COLLIDER_PORTAL_CHANGESCENE1) {
 
-		}
 	}
+}
+
+void j1Player::ChangeToLevel1() {
+	ice_right = false;
+	ice_left = false;
+	dimensionnormal = true;
+	dimensionagua = false;
+	dimensionfuego = false;
+	dimensionhielo = false;
+	dimensionplanta = false;
+	current_graphics = normal_graphics;
+	deadbool = false;
+	App->scene->cameraxinvert = 0;
+	App->render->camera.x = 0;
+	App->map->CleanUp();
+	App->map->collidersdone = false;
+	App->map->Load("Scene01.tmx");
+	App->scene->cameralimit01->rect.x = App->render->camera.x;
+	App->scene->cameralimit02->rect.x = App->render->camera.x + 380;
+	position.x = App->scene->positionplayerinitx;
+	position.y = App->scene->positionplayerinity;
+	changelevel = false;
+}
+
+void j1Player::ChangeToLevel2() {
+	ice_right = false;
+	ice_left = false;
+	dimensionnormal = true;
+	dimensionagua = false;
+	dimensionfuego = false;
+	dimensionhielo = false;
+	dimensionplanta = false;
+	current_graphics = normal_graphics;
+	deadbool = false;
+	App->scene->cameraxinvert = 0;
+	App->render->camera.x = 0;
+	App->map->CleanUp();
+	App->map->collidersdone = false;
+	App->map->Load("Scene02.tmx");
+	App->scene->cameralimit01->rect.x = App->render->camera.x;
+	App->scene->cameralimit02->rect.x = App->render->camera.x + 380;
+	position.x = App->scene->positionplayerinitx;
+	position.y = App->scene->positionplayerinity;
+	changelevel = true;
 }

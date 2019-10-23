@@ -209,7 +209,7 @@ bool j1Collision::CleanUp()
 	
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if (colliders[i] != nullptr)
+		if ((colliders[i] != nullptr) && (colliders[i]->type != COLLIDER_PLAYER) && (colliders[i]->type != COLLIDER_CAMERA) && (colliders[i]->type != COLLIDER_CAMERA_LLEFT) && (colliders[i]->type != COLLIDER_CAMERA_LRIGHT))
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
