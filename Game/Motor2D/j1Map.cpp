@@ -22,6 +22,7 @@ int gidcollgroundicethree;
 int gidcollgroundicewall;
 int gidcolldeath;
 int gidcollliana;
+int gidcorrienteagua;
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -49,6 +50,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	gidcollgroundicewall = config.child("collidergroundice").attribute("wall").as_int();
 	gidcollliana = config.child("othercolliders").attribute("liana").as_int();
 	gidcolldeath = config.child("othercolliders").attribute("death").as_int();
+	gidcorrienteagua = config.child("othercolliders").attribute("corriente").as_int();
 
 	return ret;
 }
@@ -99,6 +101,9 @@ void j1Map::Draw()
 							if (gid == gidcollliana && collidersdone == false) { //W HIELO
 								App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
 							}
+							if (gid == gidcorrienteagua && collidersdone == false) { //CORRIENTE AGUA
+								App->collision->AddCollider({ x,y,32,32 }, COLLIDER_CORRIENTE_AGUA, this);
+							}
 							if (gid == gidcolldeath && collidersdone == false) {
 								App->collision->AddCollider({ x,y + 10,32,32 }, COLLIDER_DEATH, this);
 							}
@@ -113,7 +118,7 @@ void j1Map::Draw()
 
 							if ((App->player->dimensionfuego == true) || (App->player->dimensionagua == true)) {
 								if (layer_counter >= 5) {
-									if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
+									if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
 										App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
 									}
 								}
@@ -121,14 +126,14 @@ void j1Map::Draw()
 							if ((App->player->dimensionplanta == false) && (App->player->dimensionhielo == false) && (App->player->dimensionfuego == false) && (App->player->dimensionagua == false)) {
 								if (App->scene->changelevel == false) {
 									if (layer_counter < 6) {
-										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
+										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
 											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
 										}
 									}
 								}
 								else {
 									if (layer_counter < 5) {
-										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
+										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
 											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
 										}
 									}

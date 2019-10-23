@@ -26,7 +26,7 @@
     <folder>maps/</folder>
     <colliderground one="30" two="31" three="95" wall="159"/>
     <collidergroundice one="175" two="223" three="271" wall="319"/>
-    <othercolliders death="158" liana="94"/>
+    <othercolliders death="158" liana="94" corriente="479"/>
   </map>
 
   <scene>

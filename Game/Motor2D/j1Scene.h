@@ -71,6 +71,7 @@ public:
 	Animation fire_portal;
 	Animation watter_portal;
 	Animation fire_ring_anim;
+	Animation watter_wave_anim;
 	Animation normal_portal;
 	int cameraxinvert = 0;
 	bool donecollidersscene1 = false;

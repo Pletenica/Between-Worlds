@@ -116,6 +116,7 @@ public:
 	int speed_player_jump = 2;
 	int limit_liana = 0;
 	int limit_watter = 0;
+	int limit_wave_watter = 0;
 	int limit_ice = 0;
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;

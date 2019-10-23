@@ -103,11 +103,11 @@ bool j1Player::PreUpdate() {
 	}
 
 	//////// FLIP ////////
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		flip = SDL_FLIP_HORIZONTAL;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		flip = SDL_FLIP_NONE;
 	}
 
@@ -128,20 +128,20 @@ bool j1Player::PreUpdate() {
 	if (godmode == true) {
 		isinair = false;
 		isjumping = false;
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 			position.y += speed_player;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 			position.y -= speed_player;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 			position.x -= speed_player;
 			flip = SDL_FLIP_HORIZONTAL;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			position.x += speed_player;
 			flip = SDL_FLIP_NONE;
 		}
@@ -150,10 +150,10 @@ bool j1Player::PreUpdate() {
 
 	//////// INPUTS WHEN TOUCHES GROUND ////////
 	if (isinair ==false && !isinliana && !godmode && !dimensionagua) {
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT && !stop_jump)
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && !stop_jump)
 			isjumping = true;
 
-		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)&&!stop_left) {
+		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)&&!stop_left) {
 			position.x -= speed_player;
 			if (dimensionhielo == true) {
 				ice_left = true;
@@ -163,7 +163,7 @@ bool j1Player::PreUpdate() {
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 		}
 
-		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)&&!stop_right) {
+		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)&&!stop_right) {
 			position.x += speed_player;
 			if (dimensionhielo == true) {
 				ice_right = true;
@@ -176,32 +176,37 @@ bool j1Player::PreUpdate() {
 
 	//////// WATTER ////////
 	if (dimensionagua == true) {
-		isinair = false;
 		isjumping = false;
 		Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
-		if (limit_watter == 0) {
-			position.y++;
+		if (isinair) {
+			if (limit_watter == 0) {
+				position.y++;
+			}
+			limit_watter++;
+			if (limit_watter == 3) {
+				limit_watter = 0;
+			}
 		}
-		limit_watter++;
-		if (limit_watter == 3) {
-			limit_watter = 0;
-		}
-
-		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && !stop_left) {
+		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !stop_left) {
 			position.x -= speed_player;
 			left = true;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 		}
 
-		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) && !stop_right) {
+		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !stop_right) {
 			position.x += speed_player;
 			right = true;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 		}
 
-		if ((App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)&& (position.y > 20)) {
+		if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)&& (position.y > 20)) {
 			position.y -= speed_player * 15;
 		}
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+			position.y += speed_player * 15;
+		}
+
+		isinair = false;
 	}
 
 	//////// LIANA ////////
@@ -217,17 +222,17 @@ bool j1Player::PreUpdate() {
 			limit_liana = 0;
 		}
 
-		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && (stop_left == false)) {
+		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (stop_left == false)) {
 			position.x -= speed_player;
 			flip = SDL_FLIP_HORIZONTAL;
 		}
 
-		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) && (stop_right == false)) {
+		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && (stop_right == false)) {
 			position.x += speed_player;
 			flip = SDL_FLIP_NONE;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 			position.y -= 10;
 		}
 	}
@@ -244,11 +249,11 @@ bool j1Player::PreUpdate() {
 		}
 		position.y += G - jump_vel;
 
-		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && !stop_left) {
+		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !stop_left) {
 			position.x -= speed_player_jump;
 		}
 
-		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) && !stop_right) {
+		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && !stop_right) {
 			position.x += speed_player_jump;
 		}
 	}
@@ -260,13 +265,13 @@ bool j1Player::PreUpdate() {
 		ice_left = false;
 		ice_right = false;
 		Current_Animation.GetCurrentFrame() = jump.GetCurrentFrame();
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !stop_left) {
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !stop_left) {
 			position.x -= speed_player;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_HORIZONTAL;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && !stop_right) {
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !stop_right) {
 			position.x += speed_player;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_NONE;
@@ -279,7 +284,7 @@ bool j1Player::PreUpdate() {
 
 
 	//////// INPUT FAILS ////////
-	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)) {
+	if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) {
 		Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 	}
 
@@ -348,6 +353,15 @@ bool j1Player::PostUpdate() {
 
 void j1Player::OnCollision(Collider* player, Collider* other) {
 	if (player->type == COLLIDER_PLAYER) {
+		if (other->type == COLLIDER_CORRIENTE_AGUA) {
+			if (limit_wave_watter == 0) {
+				position.x--;
+			}
+			limit_wave_watter++;
+			if (limit_wave_watter == 3) {
+				limit_wave_watter = 0;
+			}
+		}
 		if (other->type == COLLIDER_PORTAL_AGUA) {
 			ice_right = false;
 			ice_left = false;
@@ -465,11 +479,11 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				position.y = other->rect.y - 32;
 			}
 			G = Ginit;
-			if (((other->rect.y <= position.y)&& position.x < other->rect.x) && (SDL_SCANCODE_RIGHT)) {
+			if (((other->rect.y <= position.y)&& position.x < other->rect.x) && (SDL_SCANCODE_D)) {
 				stop_right = true;
 				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 			}
-			if (((other->rect.y <= position.y) && position.x > other->rect.x) && (SDL_SCANCODE_LEFT)) {
+			if (((other->rect.y <= position.y) && position.x > other->rect.x) && (SDL_SCANCODE_A)) {
 				stop_left = true;
 				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 			}
@@ -505,6 +519,7 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 		if (other->type == COLLIDER_CAMERA) {
 			stop_left = true;
 		}
+
 		if (other->type == COLLIDER_PORTAL_CHANGESCENEFINAL) {
 			exitgame == false;
 		}

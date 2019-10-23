@@ -60,6 +60,11 @@ j1Scene::j1Scene() : j1Module()
 	fire_ring_anim.PushBack({ 150, 80, 55, 80 });
 	fire_ring_anim.speed = 0.08f;
 
+	/////WATTER WAVE ANIMATION//////
+	watter_wave_anim.PushBack({ 150, 160, 96, 64 });
+	watter_wave_anim.PushBack({ 150, 224, 96, 64 });
+	watter_wave_anim.PushBack({ 150, 288, 96, 64 });
+	watter_wave_anim.speed = 0.08f;
 
 	name.create("scene");
 
@@ -198,7 +203,7 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 	if (App->player->position.x > cameraxinvert + 200) {
-		if ((((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) && (App->player->stop_right == false)) && (cameralimit02->CheckCollision(camrightlim->rect) == false))|| (App->player->ice_right == true)) {
+		if ((((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && (App->player->stop_right == false)) && (cameralimit02->CheckCollision(camrightlim->rect) == false))|| (App->player->ice_right == true)) {
 			if (App->player->ice_right == true) {
 				if ((App->player->right == false)) {
 					cameraxinvert += App->player->speed_player_ice;
@@ -251,6 +256,13 @@ bool j1Scene::PostUpdate()
 			App->render->Blit(objects_graphics, firering4x, firering4y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 			App->render->Blit(objects_graphics, firering5x, firering5y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 90, 0, 0, flip);
 			App->render->Blit(objects_graphics, firering6x, firering6y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+		}
+		if (App->player->dimensionagua) {
+			App->render->Blit(objects_graphics, 2464, 192, &(watter_wave_anim.GetCurrentFrame()), 1.0f, 180, 0, 0, flip);
+			App->render->Blit(objects_graphics, 2816, 256, &(watter_wave_anim.GetCurrentFrame()), 1.0f, 180, 0, 0, flip);
+			App->render->Blit(objects_graphics, 2816, 128, &(watter_wave_anim.GetCurrentFrame()), 1.0f, 180, 0, 0, flip);
+			App->render->Blit(objects_graphics, 3168, 256, &(watter_wave_anim.GetCurrentFrame()), 1.0f, 180, 0, 0, flip);
+			App->render->Blit(objects_graphics, 3168, 128, &(watter_wave_anim.GetCurrentFrame()), 1.0f, 180, 0, 0, flip);
 		}
 		App->render->Blit(objects_graphics, fireportalx, fireportaly, &(fire_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 		App->render->Blit(objects_graphics, normal3portalx, normal3portaly, &(normal_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
