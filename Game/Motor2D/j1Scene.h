@@ -53,6 +53,18 @@ public:
 	Collider* normalportal04;
 	Collider* finalportal;
 	Collider* endportal;
+	Collider* firering11;
+	Collider* firering12;
+	Collider* firering21;
+	Collider* firering22;
+	Collider* firering31;
+	Collider* firering32;
+	Collider* firering41;
+	Collider* firering42;
+	Collider* firering51;
+	Collider* firering52;
+	Collider* firering61;
+	Collider* firering62;
 	Animation final_portal;
 	Animation plant_portal;
 	Animation ice_portal;
@@ -61,6 +73,7 @@ public:
 	Animation fire_ring_anim;
 	Animation normal_portal;
 	int cameraxinvert = 0;
+	bool donecollidersscene1 = false;
 	bool donecollidersscene2 = false;
 	bool changelevel = false;
 
@@ -90,6 +103,12 @@ public:
 	int firering2y;
 	int firering3x;
 	int firering3y;
+	int firering4x;
+	int firering4y;
+	int firering5x;
+	int firering5y;
+	int firering6x;
+	int firering6y;
 
 	int camlimitleft;
 	int camlimitright;

@@ -94,7 +94,7 @@ void j1Map::Draw()
 								App->collision->AddCollider({ x,y + 12,32,84 }, COLLIDER_SUELO, this);
 							}
 							if (gid == gidcollgroundwall && collidersdone == false) { //W NORMAL
-								App->collision->AddCollider({ x,y + 12,32,200 }, COLLIDER_SUELO, this);
+								App->collision->AddCollider({ x,y + 12,32,188 }, COLLIDER_SUELO, this);
 							}
 							if (gid == gidcollliana && collidersdone == false) { //W HIELO
 								App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
@@ -120,14 +120,14 @@ void j1Map::Draw()
 							}
 							if ((App->player->dimensionplanta == false) && (App->player->dimensionhielo == false) && (App->player->dimensionfuego == false) && (App->player->dimensionagua == false)) {
 								if (App->scene->changelevel == false) {
-									if (layer_counter != 6) {
+									if (layer_counter < 6) {
 										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
 											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
 										}
 									}
 								}
 								else {
-									if (layer_counter != 5) {
+									if (layer_counter < 5) {
 										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
 											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
 										}

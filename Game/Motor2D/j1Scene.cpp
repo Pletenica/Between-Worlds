@@ -104,6 +104,12 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	firering2y = config.child("firering2").attribute("y").as_int();
 	firering3x = config.child("firering3").attribute("x").as_int();
 	firering3y = config.child("firering3").attribute("y").as_int();
+	firering4x = config.child("firering4").attribute("x").as_int();
+	firering4y = config.child("firering4").attribute("y").as_int();
+	firering5x = config.child("firering5").attribute("x").as_int();
+	firering5y = config.child("firering5").attribute("y").as_int();
+	firering6x = config.child("firering6").attribute("x").as_int();
+	firering6y = config.child("firering6").attribute("y").as_int();
 
 
 	/////// PLAYER AND CAMERA VARIABLES ///////
@@ -130,12 +136,7 @@ bool j1Scene::Start()
 	camleftlim = App->collision->AddCollider({ camlimitleft,0,20,350 }, COLLIDER_CAMERA_LLEFT, this);
 	camrightlim = App->collision->AddCollider({ camlimitright,0,20,350 }, COLLIDER_CAMERA_LRIGHT, this);
 
-	///// PORTAL COLLLIDERS SCENE 1/////
-	plantportal = App->collision->AddCollider({ plantportalx+30,plantportaly,20,64 }, COLLIDER_PORTAL_PLANTA, this);
-	normalportal01 = App->collision->AddCollider({ normal1portalx+30,normal1portaly,20,64 }, COLLIDER_PORTAL_NORMAL1, this);
-	iceportal = App->collision->AddCollider({ iceportalx+30,iceportaly,20,64 }, COLLIDER_PORTAL_HIELO, this);
-	normalportal02 = App->collision->AddCollider({ normal2portalx+30,normal2portaly,20,64 }, COLLIDER_PORTAL_NORMAL1, this);
-	finalportal = App->collision->AddCollider({ finalportalx+30,finalportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENE1, this);
+
 
 	App->player->dimensionhielo = false;
 
@@ -145,19 +146,37 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	if (changelevel == false && donecollidersscene1 == false) {
+		///// PORTAL COLLLIDERS SCENE 1/////
+		plantportal = App->collision->AddCollider({ plantportalx + 30,plantportaly,20,64 }, COLLIDER_PORTAL_PLANTA, this);
+		normalportal01 = App->collision->AddCollider({ normal1portalx + 30,normal1portaly,20,64 }, COLLIDER_PORTAL_NORMAL1, this);
+		iceportal = App->collision->AddCollider({ iceportalx + 30,iceportaly,20,64 }, COLLIDER_PORTAL_HIELO, this);
+		normalportal02 = App->collision->AddCollider({ normal2portalx + 30,normal2portaly,20,64 }, COLLIDER_PORTAL_NORMAL1, this);
+		finalportal = App->collision->AddCollider({ finalportalx + 30,finalportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENE1, this);
+		donecollidersscene1 = true;
+	}
+
 	if (changelevel == true && donecollidersscene2 == false) {
 		///// PORTAL COLLLIDERS SCENE 2/////
+		firering11 = App->collision->AddCollider({ firering1x -17,firering1y+23,15,10 }, COLLIDER_DEATH, this);
+		firering11 = App->collision->AddCollider({ firering1x -80,firering1y + 23,10,10 }, COLLIDER_DEATH, this);
+		firering21 = App->collision->AddCollider({ firering2x + 23,firering2y,3,10 }, COLLIDER_DEATH, this);
+		firering21 = App->collision->AddCollider({ firering2x + 23,firering2y +70,3,10 }, COLLIDER_DEATH, this);
+		firering31 = App->collision->AddCollider({ firering3x + 23,firering3y,3,10 }, COLLIDER_DEATH, this);
+		firering31 = App->collision->AddCollider({ firering3x + 23,firering3y + 70,3,10 }, COLLIDER_DEATH, this);
+		firering41 = App->collision->AddCollider({ firering4x + 23,firering4y,3,10 }, COLLIDER_DEATH, this);
+		firering41 = App->collision->AddCollider({ firering4x + 23,firering4y + 70,3,10 }, COLLIDER_DEATH, this);
+		firering51 = App->collision->AddCollider({ firering5x - 17,firering5y + 23,10,10 }, COLLIDER_DEATH, this);
+		firering51 = App->collision->AddCollider({ firering5x - 80,firering5y + 23,10,10 }, COLLIDER_DEATH, this);
+		firering61 = App->collision->AddCollider({ firering6x + 23,firering6y,3,8 }, COLLIDER_DEATH, this);
+		firering61 = App->collision->AddCollider({ firering6x + 23,firering6y + 70,3,8 }, COLLIDER_DEATH, this);
 		fireportal = App->collision->AddCollider({ fireportalx + 30,fireportaly,20,64 }, COLLIDER_PORTAL_FUEGO, this);
 		normalportal03 = App->collision->AddCollider({ normal3portalx + 30,normal3portaly,20,64 }, COLLIDER_PORTAL_NORMAL2, this);
 		watterportal = App->collision->AddCollider({ watterportalx + 30,watterportaly,20,64 }, COLLIDER_PORTAL_AGUA, this);
 		normalportal04 = App->collision->AddCollider({ normal4portalx + 30,normal4portaly,20,64 }, COLLIDER_PORTAL_NORMAL2, this);
-		endportal = App->collision->AddCollider({ finalportalx + 30,finalportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENEFINAL, this);
+		endportal = App->collision->AddCollider({ endportalx + 30,endportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENEFINAL, this);
 		donecollidersscene2 = true;
 	}
-
-
-
-
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame();
 
@@ -229,6 +248,9 @@ bool j1Scene::PostUpdate()
 			App->render->Blit(objects_graphics, firering1x, firering1y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 90, 0, 0, flip);
 			App->render->Blit(objects_graphics, firering2x, firering2y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 			App->render->Blit(objects_graphics, firering3x, firering3y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+			App->render->Blit(objects_graphics, firering4x, firering4y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+			App->render->Blit(objects_graphics, firering5x, firering5y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 90, 0, 0, flip);
+			App->render->Blit(objects_graphics, firering6x, firering6y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 		}
 		App->render->Blit(objects_graphics, fireportalx, fireportaly, &(fire_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 		App->render->Blit(objects_graphics, normal3portalx, normal3portaly, &(normal_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
@@ -238,7 +260,7 @@ bool j1Scene::PostUpdate()
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+		ret = App->player->exitgame = false;
 
 	return ret;
 }

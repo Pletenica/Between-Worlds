@@ -149,7 +149,7 @@ bool j1Player::PreUpdate() {
 
 
 	//////// INPUTS WHEN TOUCHES GROUND ////////
-	if (isinair ==false && !isinliana && !godmode) {
+	if (isinair ==false && !isinliana && !godmode && !dimensionagua) {
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT && !stop_jump)
 			isjumping = true;
 
@@ -171,6 +171,36 @@ bool j1Player::PreUpdate() {
 			}
 			right = true;
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
+		}
+	}
+
+	//////// WATTER ////////
+	if (dimensionagua == true) {
+		isinair = false;
+		isjumping = false;
+		Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
+		if (limit_watter == 0) {
+			position.y++;
+		}
+		limit_watter++;
+		if (limit_watter == 3) {
+			limit_watter = 0;
+		}
+
+		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && !stop_left) {
+			position.x -= speed_player;
+			left = true;
+			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
+		}
+
+		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) && !stop_right) {
+			position.x += speed_player;
+			right = true;
+			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
+		}
+
+		if ((App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)&& (position.y > 20)) {
+			position.y -= speed_player * 15;
 		}
 	}
 
@@ -312,7 +342,7 @@ bool j1Player::PostUpdate() {
 	}
 	App->render->Blit(current_graphics, position.x, position.y, &(Current_Animation.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 	
-	return true;
+	return exitgame;
 }
 
 
@@ -475,7 +505,9 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 		if (other->type == COLLIDER_CAMERA) {
 			stop_left = true;
 		}
-
+		if (other->type == COLLIDER_PORTAL_CHANGESCENEFINAL) {
+			exitgame == false;
+		}
 	}
 }
 
@@ -499,6 +531,7 @@ void j1Player::ChangeToLevel1() {
 	position.x = App->scene->positionplayerinitx;
 	position.y = App->scene->positionplayerinity;
 	App->scene->donecollidersscene2 = true;
+	App->scene->donecollidersscene1 = false;
 	App->scene->changelevel = false;
 }
 
@@ -525,5 +558,6 @@ void j1Player::ChangeToLevel2() {
 	position.x = App->scene->positionplayerinitx;
 	position.y = App->scene->positionplayerinity;
 	App->scene->donecollidersscene2 = false;
+	App->scene->donecollidersscene1 = true;
 	App->scene->changelevel = true;
 }
