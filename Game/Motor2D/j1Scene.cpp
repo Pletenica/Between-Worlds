@@ -182,10 +182,10 @@ bool j1Scene::PreUpdate()
 		endportal = App->collision->AddCollider({ endportalx + 30,endportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENEFINAL, this);
 		donecollidersscene2 = true;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->LoadGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->SaveGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
@@ -287,3 +287,16 @@ bool j1Scene::CleanUp()
 }
 
 
+bool j1Scene::Save(pugi::xml_node& data) const
+{
+	data.append_child("scene");
+	data.child("scene").append_attribute("camx") = cameraxinvert;
+	return true;
+}
+
+bool j1Scene::Load(pugi::xml_node& data)
+{
+	cameraxinvert = data.child("scene").attribute("camx").as_int();
+
+	return true;
+}

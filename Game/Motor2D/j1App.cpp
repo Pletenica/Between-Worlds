@@ -307,7 +307,7 @@ bool j1App::LoadGameNow()
 
 	pugi::xml_document data;
 	pugi::xml_node root;
-
+	load_game = "save_game.xml";
 	pugi::xml_parse_result result = data.load_file(load_game.GetString());
 
 	if(result != NULL)
@@ -341,6 +341,7 @@ bool j1App::LoadGameNow()
 bool j1App::SavegameNow() const
 {
 	bool ret = true;
+	save_game = "save_game.xml";
 
 	LOG("Saving Game State to %s...", save_game.GetString());
 
