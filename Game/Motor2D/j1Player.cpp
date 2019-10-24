@@ -82,7 +82,7 @@ bool j1Player::Start()
 	//// Load All SOUNDS & COLLISIONS //// 
 	jumpingsound = App->audio->LoadFx("audio/fx/jump.wav");
 	deathsound = App->audio->LoadFx("audio/fx/death.wav");
-	walkingsound = App->audio->LoadFx("audio/fx/walk2.wav");
+	walkingsound = App->audio->LoadFx("audio/fx/walk.wav");
 	portalsound = App->audio->LoadFx("audio/fx/portal.wav");
 	body = App->collision->AddCollider({ position.x,position.y,20,32 }, COLLIDER_PLAYER, this);
 	
