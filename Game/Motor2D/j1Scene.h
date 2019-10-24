@@ -35,6 +35,7 @@ public:
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
+	void ResetCurrentLevel(bool);
 
 public:
 	SDL_Texture* objects_graphics = nullptr;

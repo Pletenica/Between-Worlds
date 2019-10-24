@@ -133,12 +133,11 @@ bool j1Player::PreUpdate() {
 
 	//////// GOD MODE ////////
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
-		if (body->to_delete != false) {
-			body = App->collision->AddCollider({ position.x,position.y,20,32 }, COLLIDER_PLAYER, this);
+		if (App->player->godmode == true) {
+			//body = App->collision->AddCollider({ position.x,position.y,20,32 }, COLLIDER_PLAYER, this);
 			godmode = false;
 		}
 		else {
-			body->to_delete = true;
 			isinair = false;
 			App->player->godmode = true;
 
@@ -148,19 +147,23 @@ bool j1Player::PreUpdate() {
 		isinair = false;
 		isjumping = false;
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			position.y += speed_player;
+			if (position.y < 288) {
+				position.y += speed_player;
+			}
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-			position.y -= speed_player;
+			if (position.y > 0) {
+				position.y -= speed_player;
+			}
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !stop_left) {
 			position.x -= speed_player;
 			flip = SDL_FLIP_HORIZONTAL;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !stop_right) {
 			position.x += speed_player;
 			flip = SDL_FLIP_NONE;
 		}
@@ -506,55 +509,61 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 			isinair = false;
 			isinice = false;
 			isjumping = false;
-			if (position.y >= other->rect.y) {
-				isinair = true;
-				if (position.x < other->rect.x) {
+			if (godmode == false) {
+				if (position.y >= other->rect.y) {
+					isinair = true;
+					if (position.x < other->rect.x) {
+						stop_right = true;
+					}
+					if (position.x > other->rect.x) {
+						stop_left = true;
+					}
+				}
+				if (position.y < other->rect.y) {
+					position.y = other->rect.y - 32;
+				}
+				G = Ginit;
+				if (((other->rect.y <= position.y) && position.x < other->rect.x) && (SDL_SCANCODE_D)) {
 					stop_right = true;
+					Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 				}
-				if (position.x > other->rect.x) {
+				if (((other->rect.y <= position.y) && position.x > other->rect.x) && (SDL_SCANCODE_A)) {
 					stop_left = true;
+					Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 				}
-			}
-			if (position.y < other->rect.y) {
-				position.y = other->rect.y - 32;
-			}
-			G = Ginit;
-			if (((other->rect.y <= position.y)&& position.x < other->rect.x) && (SDL_SCANCODE_D)) {
-				stop_right = true;
-				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
-			}
-			if (((other->rect.y <= position.y) && position.x > other->rect.x) && (SDL_SCANCODE_A)) {
-				stop_left = true;
-				Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
-			}
-			if (dimensionhielo == true) {
-				if (limit_ice == 0) {
-					if (ice_left == true) {
-						position.x -= speed_player_ice;
+				if (dimensionhielo == true) {
+					if (limit_ice == 0) {
+						if (ice_left == true) {
+							position.x -= speed_player_ice;
+						}
+						if (ice_right == true) {
+							position.x += speed_player_ice;
+						}
 					}
-					if (ice_right == true) {
-						position.x += speed_player_ice;
+					limit_ice++;
+					if (limit_ice >= 2) {
+						limit_ice = 0;
 					}
-				}
-				limit_ice++;
-				if (limit_ice >= 2) {
-					limit_ice = 0;
 				}
 			}
 		}
 
 		if (other->type == COLLIDER_LIANA) {
-			isinliana = true;
-			isinair = false;
+			if (godmode == false) {
+				isinliana = true;
+				isinair = false;
+			}
 		}
 		if (other->type == COLLIDER_DEATH) {
-			isinair = false;
-			isjumping = false;
-			deadbool = true;
-			stop_right = true;
-			stop_left = true;
-			stop_jump = true;
-			position.y = other->rect.y - 10;
+			if (godmode == false) {
+				isinair = false;
+				isjumping = false;
+				deadbool = true;
+				stop_right = true;
+				stop_left = true;
+				stop_jump = true;
+				position.y = other->rect.y - 10;
+			}
 		}
 		if (other->type == COLLIDER_CAMERA) {
 			stop_left = true;

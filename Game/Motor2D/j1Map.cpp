@@ -73,7 +73,7 @@ void j1Map::Draw()
 			for (int j = 0; j < coord_layer->data->width; j++) {
 				int n = coord_layer->data->Get(j, i);
 				int gid = coord_layer->data->gid[n];
-				if ((j * 32  < App->player->position.x + 400) && (j*32 > App->player->position.x - 450)) {
+				if ((j * 32  < App->player->position.x + 400) && (j*32 > App->player->position.x - 550)) {
 					if (gid != 0) {
 						while (ret == false) {
 							if (coord_tileset->next != NULL && coord_tileset->next->data->firstgid <= gid) coord_tileset = coord_tileset->next;

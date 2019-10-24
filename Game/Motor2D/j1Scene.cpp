@@ -128,7 +128,6 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-
 // Called before the first frame
 bool j1Scene::Start()
 {
@@ -141,6 +140,7 @@ bool j1Scene::Start()
 	camleftlim = App->collision->AddCollider({ camlimitleft,0,20,350 }, COLLIDER_CAMERA_LLEFT, this);
 	camrightlim = App->collision->AddCollider({ camlimitright,0,20,350 }, COLLIDER_CAMERA_LRIGHT, this);
 
+	App->SaveGame();
 	App->player->dimensionhielo = false;
 
 	return true;
@@ -180,10 +180,13 @@ bool j1Scene::PreUpdate()
 		endportal = App->collision->AddCollider({ endportalx + 30,endportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENEFINAL, this);
 		donecollidersscene2 = true;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		ResetCurrentLevel(changelevel);
+
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
@@ -285,7 +288,6 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
-
 bool j1Scene::Save(pugi::xml_node& data) const
 {
 	data.append_child("scene");
@@ -300,6 +302,8 @@ bool j1Scene::Save(pugi::xml_node& data) const
 	data.child("playerworld").append_attribute("plant") = App->player->dimensionplanta;
 	data.child("playerworld").append_attribute("ice") = App->player->dimensionhielo;
 	data.child("playerworld").append_attribute("normal") = App->player->dimensionnormal;
+	data.append_child("playerattribute");
+	data.child("playerattribute").append_attribute("godmode") = App->player->godmode;
 	return true;
 }
 
@@ -324,9 +328,19 @@ bool j1Scene::Load(pugi::xml_node& data)
 	App->player->dimensionfuego = data.child("playerworld").attribute("fire").as_bool();
 	App->player->dimensionplanta = data.child("playerworld").attribute("plant").as_bool();
 	App->player->dimensionhielo = data.child("playerworld").attribute("ice").as_bool();
-
+	App->player->godmode = data.child("playerattribute").attribute("godmode").as_bool();
 
 	cameralimit01->rect.x = cameraxinvert;
 	cameralimit02->rect.x = cameraxinvert + 380;
 	return true;
+}
+
+void j1Scene::ResetCurrentLevel(bool current_level)
+{
+	if (current_level == true) {
+		App->player->ChangeToLevel2();
+	}
+	else if (current_level == false) {
+		App->player->ChangeToLevel1();
+	}
 }
