@@ -225,21 +225,45 @@ bool j1Collision::CleanUp()
 Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
 {
 	Collider* ret = nullptr;
+	bool candocal = true;
 
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint j = 1; j < MAX_COLLIDERS; ++j)
 	{
-		if (colliders[i] == nullptr)
-		{
-			ret = colliders[i] = new Collider(rect, type, callback);
-			break;
-		}
-		else {
-
+		if (colliders[j] != nullptr) {
+			if ((colliders[j]->rect.x == rect.x) && (colliders[j]->rect.y == rect.y) && (colliders[j]->rect.w == rect.w) && (colliders[j]->rect.h == rect.h)) {
+				candocal = false;
+			}
 		}
 	}
 
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+			
+		if (colliders[i] == nullptr)
+		{
+			if (candocal == true) {
+				ret = colliders[i] = new Collider(rect, type, callback);
+				break;
+			}
+		}
+	}
 	return ret;
 }
+
+bool j1Collision::CleanBackMapPlayer(int x)
+{
+	for (int k = 0; k < MAX_COLLIDERS; ++k)
+	{
+		if (colliders[k] != nullptr) {
+			if (colliders[k]->rect.x <= x) {
+				delete colliders[k];
+				colliders[k] = nullptr;
+			}
+		}
+	}
+	return true;
+}
+
 
 // -----------------------------------------------------
 

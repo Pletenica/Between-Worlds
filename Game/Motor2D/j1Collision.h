@@ -1,7 +1,7 @@
 #ifndef __j1Collision_H__
 #define __j1Collision_H__
 
-#define MAX_COLLIDERS 50000
+#define MAX_COLLIDERS 500
 
 #include "j1Module.h"
 #include "SDL/include/SDL_rect.h"
@@ -64,7 +64,7 @@ public:
 	bool Update();
 	bool PostUpdate() { DebugDraw(); return true; };
 	bool CleanUp();
-
+	bool CleanBackMapPlayer(int x);
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	void DebugDraw();
 

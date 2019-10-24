@@ -141,8 +141,6 @@ bool j1Scene::Start()
 	camleftlim = App->collision->AddCollider({ camlimitleft,0,20,350 }, COLLIDER_CAMERA_LLEFT, this);
 	camrightlim = App->collision->AddCollider({ camlimitright,0,20,350 }, COLLIDER_CAMERA_LRIGHT, this);
 
-
-
 	App->player->dimensionhielo = false;
 
 	return true;
@@ -271,6 +269,7 @@ bool j1Scene::PostUpdate()
 		App->render->Blit(objects_graphics, endportalx, endportaly, &(final_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 	}
 
+
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = App->player->exitgame = false;
 
@@ -291,12 +290,43 @@ bool j1Scene::Save(pugi::xml_node& data) const
 {
 	data.append_child("scene");
 	data.child("scene").append_attribute("camx") = cameraxinvert;
+	data.child("scene").append_attribute("actualscene") = changelevel;
+	data.append_child("playerposition");
+	data.child("playerposition").append_attribute("x") = App->player->position.x;
+	data.child("playerposition").append_attribute("y") = App->player->position.y;
+	data.append_child("playerworld");
+	data.child("playerworld").append_attribute("watter") = App->player->dimensionagua;
+	data.child("playerworld").append_attribute("fire") = App->player->dimensionfuego;
+	data.child("playerworld").append_attribute("plant") = App->player->dimensionplanta;
+	data.child("playerworld").append_attribute("ice") = App->player->dimensionhielo;
+	data.child("playerworld").append_attribute("normal") = App->player->dimensionnormal;
 	return true;
 }
 
 bool j1Scene::Load(pugi::xml_node& data)
 {
-	cameraxinvert = data.child("scene").attribute("camx").as_int();
 
+	if (changelevel != data.child("scene").attribute("actualscene").as_bool()) {
+		if (changelevel == false) {
+			App->player->ChangeToLevel2();
+			changelevel = data.child("scene").attribute("actualscene").as_bool();
+		}
+		if (changelevel == true) {
+			App->player->ChangeToLevel1();
+			changelevel = data.child("scene").attribute("actualscene").as_bool();
+		}
+	}
+	cameraxinvert = data.child("scene").attribute("camx").as_int();
+	App->player->position.x = data.child("playerposition").attribute("x").as_int();
+	App->player->position.y = data.child("playerposition").attribute("y").as_int();
+	App->player->dimensionnormal = data.child("playerworld").attribute("normal").as_bool();
+	App->player->dimensionagua = data.child("playerworld").attribute("watter").as_bool();
+	App->player->dimensionfuego = data.child("playerworld").attribute("fire").as_bool();
+	App->player->dimensionplanta = data.child("playerworld").attribute("plant").as_bool();
+	App->player->dimensionhielo = data.child("playerworld").attribute("ice").as_bool();
+
+
+	cameralimit01->rect.x = cameraxinvert;
+	cameralimit02->rect.x = cameraxinvert + 380;
 	return true;
 }

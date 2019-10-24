@@ -6,11 +6,13 @@
 	<audio />
 	<map />
 	<scene>
-		<scene camx="162" />
+		<scene camx="544" actualscene="false" />
+		<playerposition x="752" y="172" />
+		<playerworld watter="false" fire="false" plant="true" ice="false" normal="false" />
 	</scene>
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="-486" y="0" />
+		<camera x="-1632" y="0" />
 	</renderer>
 </game_state>

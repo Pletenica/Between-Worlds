@@ -1,5 +1,5 @@
-#ifndef __ModulePlayer_H__
-#define __ModulePlayer_H__
+#ifndef __j1PLAYER_H__
+#define __j1PLAYER_H__
 
 #include "j1Module.h"
 #include "j1Animation.h"
@@ -81,6 +81,22 @@ enum inputout {
 class j1Player : public j1Module
 {
 public:
+	j1Player();
+	virtual ~j1Player();
+
+	bool Awake(pugi::xml_node&config);
+	bool Start();
+	bool PreUpdate();
+	bool Update(float dt);
+	bool PostUpdate();
+	bool CleanUp();
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+	void OnCollision(Collider*, Collider*);
+	void ChangeToLevel1();
+	void ChangeToLevel2();
+
+public:
 	SDL_Texture* current_graphics = nullptr;
 	SDL_Texture* watter_graphics = nullptr;
 	SDL_Texture* fire_graphics = nullptr;
@@ -140,25 +156,14 @@ public:
 	bool deadbool = false;
 	bool isinliana = false;
 	bool exitgame = true;
+	bool deadsounddone = true;
 
-	Mix_Chunk *walkingsound;
-	Mix_Chunk *portalsound;
-	Mix_Chunk *jumpingsound;
-	Mix_Chunk *deathsound;
+	unsigned int walkingsound;
+	unsigned int portalsound;
+	unsigned int jumpingsound;
+	unsigned int deathsound;
 
-public:
-	j1Player();
-	~j1Player();
 
-	bool Awake(pugi::xml_node&config);
-	bool Start();
-	void ChangeToLevel1();
-	void ChangeToLevel2();
-	bool PreUpdate();
-	bool Update();
-	bool PostUpdate();
-	bool CleanUp();
-	void OnCollision(Collider*, Collider*);
 };
 
 #endif

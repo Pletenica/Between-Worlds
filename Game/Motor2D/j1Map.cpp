@@ -73,7 +73,7 @@ void j1Map::Draw()
 			for (int j = 0; j < coord_layer->data->width; j++) {
 				int n = coord_layer->data->Get(j, i);
 				int gid = coord_layer->data->gid[n];
-				//if ((j * 32  < App->player->position.x + 350) && (j*32 > App->player->position.x - 250)) {
+				if ((j * 32  < App->player->position.x + 400) && (j*32 > App->player->position.x - 450)) {
 					if (gid != 0) {
 						while (ret == false) {
 							if (coord_tileset->next != NULL && coord_tileset->next->data->firstgid <= gid) coord_tileset = coord_tileset->next;
@@ -86,33 +86,33 @@ void j1Map::Draw()
 						int y = i;
 						Translate_Coord(&x, &y);
 						
-							if (gid == gidcollgroundone && collidersdone == false) {//1 NORMAL
+							if (gid == gidcollgroundone) {//1 NORMAL
 								App->collision->AddCollider({ x,y + 12,32,20 }, COLLIDER_SUELO, this);
 							}
-							if (gid == gidcollgroundtwo && collidersdone == false) {//2 NORMAL
+							if (gid == gidcollgroundtwo) {//2 NORMAL
 								App->collision->AddCollider({ x,y + 12,32,52 }, COLLIDER_SUELO, this);
 							}
-							if (gid == gidcollgroundthree && collidersdone == false) {//3 NORMAL
+							if (gid == gidcollgroundthree) {//3 NORMAL
 								App->collision->AddCollider({ x,y + 12,32,84 }, COLLIDER_SUELO, this);
 							}
-							if (gid == gidcollgroundwall && collidersdone == false) { //W NORMAL
+							if (gid == gidcollgroundwall) { //W NORMAL
 								App->collision->AddCollider({ x,y + 12,32,188 }, COLLIDER_SUELO, this);
 							}
-							if (gid == gidcollliana && collidersdone == false) { //W HIELO
+							if (gid == gidcollliana) { //W HIELO
 								App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
 							}
-							if (gid == gidcorrienteagua && collidersdone == false) { //CORRIENTE AGUA
+							if (gid == gidcorrienteagua) { //CORRIENTE AGUA
 								App->collision->AddCollider({ x,y,32,32 }, COLLIDER_CORRIENTE_AGUA, this);
 							}
-							if (gid == gidcolldeath && collidersdone == false) {
+							if (gid == gidcolldeath) {
 								App->collision->AddCollider({ x,y + 10,32,32 }, COLLIDER_DEATH, this);
 							}
 
-							if ((App->player->dimensionplanta == true) || (App->player->dimensionhielo == true)) {
+							if (((App->player->dimensionplanta == true) || (App->player->dimensionhielo == true)) && ((App->player->dimensionfuego == false) && (App->player->dimensionagua == false))) {
 								if (layer_counter >= 6) {
 									if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall) {
 										if ((layer_counter == 6) || (layer_counter == 8) || (layer_counter == 9)) {
-											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.7F, 0, 0, 0, flip);
+											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.96F, 0, 0, 0, flip);
 										}
 										else {
 											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
@@ -123,11 +123,11 @@ void j1Map::Draw()
 								}
 							}
 
-							if ((App->player->dimensionfuego == true) || (App->player->dimensionagua == true)) {
+							if (((App->player->dimensionfuego == true) || (App->player->dimensionagua == true)) && ((App->player->dimensionhielo == false) && (App->player->dimensionplanta == false))) {
 								if (layer_counter >= 5) {
 									if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
 										if (layer_counter == 5) {
-											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.7F, 0, 0, 0, flip);
+											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.96F, 0, 0, 0, flip);
 										}
 										else {
 											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
@@ -140,7 +140,7 @@ void j1Map::Draw()
 									if (layer_counter < 6) {
 										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
 											if ((layer_counter == 0) || (layer_counter == 1)) {
-											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.7F, 0, 0, 0, flip);
+											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.96F, 0, 0, 0, flip);
 											}
 											else {
 												App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
@@ -152,7 +152,7 @@ void j1Map::Draw()
 									if (layer_counter < 5) {
 										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundicewall && gid != gidcollgroundicethree && gid != gidcollgroundicetwo && gid != gidcollgroundiceone && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
 											if (layer_counter == 0) {
-												App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.7F, 0, 0, 0, flip);
+												App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.96F, 0, 0, 0, flip);
 											}
 											else {
 												App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
@@ -162,11 +162,16 @@ void j1Map::Draw()
 								}
 							}
 					}
-				//}
+				}
+
+				if (j*32 < App->player->position.x - 400) {
+					App->collision->CleanBackMapPlayer(j*32);
+				}
+
 			}
 		}
 
-		
+
 		
 		coord_layer = coord_layer->next;
 	}

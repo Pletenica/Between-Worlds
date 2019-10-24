@@ -87,8 +87,8 @@ public:
 	j1Scene*			scene;
 	j1Map*				map;
 	j1Collision*		collision;
-	j1Player*			player;
 	j1Animation*		animation;
+	j1Player*			player;
 
 private:
 

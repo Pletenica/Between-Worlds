@@ -163,11 +163,16 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 	if(!active)
 		return false;
-
+	
 	if(id > 0 && id <= fx.count())
 	{
 		Mix_PlayChannel(-1, fx[id - 1], repeat);
 	}
 
 	return ret;
+}
+
+void j1Audio::StopFx()
+{
+	Mix_HaltChannel(-1);
 }

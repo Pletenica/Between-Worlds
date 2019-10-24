@@ -80,8 +80,8 @@ bool j1Player::Start()
 	current_graphics = normal_graphics;
 
 	//// Load All SOUNDS & COLLISIONS //// 
-	//jumpingsound = App->audio->LoadChunk("audio/fx/jump.wav");
-	//deathsound = App->audio->LoadChunk("audio/fx/hello_man.wav");
+	jumpingsound = App->audio->LoadFx("audio/fx/jump.wav");
+	deathsound = App->audio->LoadFx("audio/fx/hello_man.wav");
 	//walkingsound = App->audio->LoadChunk("audio/fx/walk.wav");
 	//portalsound = App->audio->LoadChunk("audio/fx/portal.wav");
 	body = App->collision->AddCollider({ position.x,position.y,20,32 }, COLLIDER_PLAYER, this);
@@ -91,7 +91,7 @@ bool j1Player::Start()
 
 //Clean Up
 bool j1Player::CleanUp() {
-	//App->audio->StopChunk();
+	App->audio->StopFx();
 	//App->audio->UnLoadChunk(jumpingsound);
 	//App->audio->UnLoadChunk(deathsound);
 	//App->audio->UnLoadChunk(walkingsound);
@@ -169,12 +169,15 @@ bool j1Player::PreUpdate() {
 
 	//////// INPUTS WHEN TOUCHES GROUND ////////
 	if (isinair ==false && !isinliana && !godmode && !dimensionagua) {
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && !stop_jump)
-			isjumping = true; //App->audio->PlayChunk(jumpingsound);
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && !stop_jump) {
+			isjumping = true; 
+			App->audio->PlayFx(jumpingsound, 0);
+		}
+
 
 		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)&&!stop_left) {
 			position.x -= speed_player;
-			//App->audio->PlayChunk(walkingsound);
+			
 			if (dimensionhielo == true) {
 				ice_left = true;
 				ice_right = false;
@@ -232,17 +235,18 @@ bool j1Player::PreUpdate() {
 
 	//////// LIANA ////////
 	if (isinliana == true) {
-		isinair = false;
 		isjumping = false;
 		Current_Animation.GetCurrentFrame() = liana.GetCurrentFrame();
-		if (limit_liana == 0) {
-			position.y++;
+		if (isinair == false) {
+			if (limit_liana == 0) {
+				position.y++;
+			}
+			limit_liana++;
+			if (limit_liana == 3) {
+				limit_liana = 0;
+			}
 		}
-		limit_liana++;
-		if (limit_liana == 3) {
-			limit_liana = 0;
-		}
-
+		
 		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (stop_left == false)) {
 			position.x -= speed_player;
 			flip = SDL_FLIP_HORIZONTAL;
@@ -256,6 +260,7 @@ bool j1Player::PreUpdate() {
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 			position.y -= 10;
 		}
+		isinair = false;
 	}
 
 
@@ -313,7 +318,7 @@ bool j1Player::PreUpdate() {
 
 	//////// DEATH ////////
 	if (deadbool == true) {
-		//App->audio->PlayChunk(deathsound);
+		//App->audio->PlayFx(deathsound, 0);
 		Current_Animation.GetCurrentFrame() = dead.GetCurrentFrame();
 		stop_left = true;
 		stop_jump = true;
@@ -345,11 +350,24 @@ bool j1Player::PreUpdate() {
 
 
 // Update: draw background
-bool j1Player::Update()
+bool j1Player::Update(float dt)
 {
 
-
-
+	if (dimensionfuego == true) {
+		current_graphics = fire_graphics;
+	}
+	if (dimensionplanta == true) {
+		current_graphics = plant_graphics;
+	}
+	if (dimensionagua == true) {
+		current_graphics = watter_graphics;
+	}
+	if (dimensionhielo == true) {
+		current_graphics = ice_graphics;
+	}
+	if (dimensionnormal == true) {
+		current_graphics = normal_graphics;
+	}
 	return true;
 }
 
@@ -597,4 +615,21 @@ void j1Player::ChangeToLevel2() {
 	App->scene->donecollidersscene2 = false;
 	App->scene->donecollidersscene1 = true;
 	App->scene->changelevel = true;
+}
+
+
+bool j1Player::Save(pugi::xml_node& data) const
+{
+	//data.append_child("player");
+	//data.child("player").append_attribute("x") = position.x;
+	//data.child("player").append_attribute("y") = position.y;
+	return true;
+}
+
+bool j1Player::Load(pugi::xml_node& data)
+{
+	//position.x = data.child("player").attribute("x").as_int();
+	//position.y = data.child("player").attribute("y").as_int();
+
+	return true;
 }
