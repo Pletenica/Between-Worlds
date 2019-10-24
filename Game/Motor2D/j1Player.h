@@ -149,10 +149,12 @@ public:
 	bool godmode = false;
 	bool isinair = true;
 	bool isjumping = false;
+	bool isdoublejumping = false;
 	bool isinice = false;
 	bool stop_right = false;
 	bool stop_left = false;
 	bool stop_jump = false;
+	bool stop_up = false;
 	bool deadbool = false;
 	bool isinliana = false;
 	bool exitgame = true;

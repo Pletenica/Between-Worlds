@@ -142,7 +142,7 @@ bool j1Scene::Start()
 
 	App->SaveGame();
 	App->player->dimensionhielo = false;
-
+	App->audio->PlayMusic("audio/music/back.ogg");
 	return true;
 }
 
@@ -304,20 +304,25 @@ bool j1Scene::Save(pugi::xml_node& data) const
 	data.child("playerworld").append_attribute("normal") = App->player->dimensionnormal;
 	data.append_child("playerattribute");
 	data.child("playerattribute").append_attribute("godmode") = App->player->godmode;
+	data.child("playerattribute").append_attribute("ice_right") = App->player->ice_right;
+	data.child("playerattribute").append_attribute("ice_left") = App->player->ice_left;
 	return true;
 }
 
 bool j1Scene::Load(pugi::xml_node& data)
 {
-
+	bool changeyet = false;
 	if (changelevel != data.child("scene").attribute("actualscene").as_bool()) {
 		if (changelevel == false) {
 			App->player->ChangeToLevel2();
 			changelevel = data.child("scene").attribute("actualscene").as_bool();
+			changeyet = true;
 		}
 		if (changelevel == true) {
-			App->player->ChangeToLevel1();
-			changelevel = data.child("scene").attribute("actualscene").as_bool();
+			if (changeyet == false) {
+				App->player->ChangeToLevel1();
+				changelevel = data.child("scene").attribute("actualscene").as_bool();
+			}
 		}
 	}
 	cameraxinvert = data.child("scene").attribute("camx").as_int();
@@ -329,6 +334,8 @@ bool j1Scene::Load(pugi::xml_node& data)
 	App->player->dimensionplanta = data.child("playerworld").attribute("plant").as_bool();
 	App->player->dimensionhielo = data.child("playerworld").attribute("ice").as_bool();
 	App->player->godmode = data.child("playerattribute").attribute("godmode").as_bool();
+	App->player->ice_right = data.child("playerattribute").attribute("ice_right").as_bool();
+	App->player->ice_left = data.child("playerattribute").attribute("ice_left").as_bool();
 
 	cameralimit01->rect.x = cameraxinvert;
 	cameralimit02->rect.x = cameraxinvert + 380;
