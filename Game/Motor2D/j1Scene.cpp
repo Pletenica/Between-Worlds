@@ -163,16 +163,16 @@ bool j1Scene::PreUpdate()
 		///// PORTAL COLLLIDERS SCENE 2/////
 		firering11 = App->collision->AddCollider({ firering1x -17,firering1y+23,15,10 }, COLLIDER_DEATH, this);
 		firering11 = App->collision->AddCollider({ firering1x -80,firering1y + 23,10,10 }, COLLIDER_DEATH, this);
-		firering21 = App->collision->AddCollider({ firering2x + 23,firering2y,3,10 }, COLLIDER_DEATH, this);
-		firering21 = App->collision->AddCollider({ firering2x + 23,firering2y +70,3,10 }, COLLIDER_DEATH, this);
-		firering31 = App->collision->AddCollider({ firering3x + 23,firering3y,3,10 }, COLLIDER_DEATH, this);
-		firering31 = App->collision->AddCollider({ firering3x + 23,firering3y + 70,3,10 }, COLLIDER_DEATH, this);
-		firering41 = App->collision->AddCollider({ firering4x + 23,firering4y,3,10 }, COLLIDER_DEATH, this);
-		firering41 = App->collision->AddCollider({ firering4x + 23,firering4y + 70,3,10 }, COLLIDER_DEATH, this);
+		firering21 = App->collision->AddCollider({ firering2x + 23,firering2y,3,5 }, COLLIDER_DEATH, this);
+		firering21 = App->collision->AddCollider({ firering2x + 23,firering2y +75,3,5 }, COLLIDER_DEATH, this);
+		firering31 = App->collision->AddCollider({ firering3x + 23,firering3y,3,5 }, COLLIDER_DEATH, this);
+		firering31 = App->collision->AddCollider({ firering3x + 23,firering3y + 75,3,5 }, COLLIDER_DEATH, this);
+		firering41 = App->collision->AddCollider({ firering4x + 23,firering4y,3,5 }, COLLIDER_DEATH, this);
+		firering41 = App->collision->AddCollider({ firering4x + 23,firering4y + 75,3,5 }, COLLIDER_DEATH, this);
 		firering51 = App->collision->AddCollider({ firering5x - 17,firering5y + 23,10,10 }, COLLIDER_DEATH, this);
 		firering51 = App->collision->AddCollider({ firering5x - 80,firering5y + 23,10,10 }, COLLIDER_DEATH, this);
-		firering61 = App->collision->AddCollider({ firering6x + 23,firering6y,3,8 }, COLLIDER_DEATH, this);
-		firering61 = App->collision->AddCollider({ firering6x + 23,firering6y + 70,3,8 }, COLLIDER_DEATH, this);
+		firering61 = App->collision->AddCollider({ firering6x + 23,firering6y,3,5 }, COLLIDER_DEATH, this);
+		firering61 = App->collision->AddCollider({ firering6x + 23,firering6y + 75,3,5 }, COLLIDER_DEATH, this);
 		fireportal = App->collision->AddCollider({ fireportalx + 30,fireportaly,20,64 }, COLLIDER_PORTAL_FUEGO, this);
 		normalportal03 = App->collision->AddCollider({ normal3portalx + 30,normal3portaly,20,64 }, COLLIDER_PORTAL_NORMAL2, this);
 		watterportal = App->collision->AddCollider({ watterportalx + 30,watterportaly,20,64 }, COLLIDER_PORTAL_AGUA, this);
