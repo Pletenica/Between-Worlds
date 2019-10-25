@@ -54,9 +54,9 @@ j1Player::~j1Player()
 bool j1Player::Awake(pugi::xml_node& config)
 {
 	/////// SCENE 1 PORTALS ///////
-	Ginit = config.child("gravity").attribute("Ginit").as_int(2);
-	jump_vel = config.child("gravity").attribute("JumpVel").as_int(13);
-	G_max = config.child("gravity").attribute("Gmax").as_int(20);
+	Ginit = config.child("gravity").attribute("Ginit").as_int(1);
+	jump_vel = config.child("gravity").attribute("JumpVel").as_int(12);
+	G_max = config.child("gravity").attribute("Gmax").as_int(17);
 	speed_player = config.child("speed").attribute("movement").as_int(2);
 	speed_player_ice = config.child("speed").attribute("iceinercy").as_int(1);
 	speed_player_jump = config.child("speed").attribute("movementinair").as_int(2);

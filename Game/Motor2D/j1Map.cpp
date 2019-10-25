@@ -191,6 +191,8 @@ bool j1Map::CleanUp()
 
 	while(item != NULL)
 	{
+		App->tex->UnLoad(item->data->texture);
+		//App->tex->UnLoad(App->scene->objects_graphics);
 		RELEASE(item->data);
 		item = item->next;
 	}
@@ -210,6 +212,7 @@ bool j1Map::CleanUp()
 
 	map_file.reset();
 	App->collision->CleanUp();
+
 	return true;
 }
 

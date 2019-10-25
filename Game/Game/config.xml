@@ -19,7 +19,7 @@
   </window>
 
   <player>
-    <gravity Ginit="2" JumpVel="13" Gmax="20"/>
+    <gravity Ginit="1" JumpVel="12" Gmax="17"/>
     <speed movement="2" iceinercy="1" movementinair="2"/>
   </player>
 
