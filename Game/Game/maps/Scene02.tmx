@@ -5919,7 +5919,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Collision" width="165" height="10">
+ <layer name="Collision" width="165" height="10" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -7573,7 +7573,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="BackgroundChangeWorld" width="130" height="10" visible="0">
+ <layer name="BackgroundChangeWorld" width="130" height="10">
   <data>
    <tile gid="34"/>
    <tile gid="35"/>
@@ -8877,7 +8877,7 @@
    <tile gid="521"/>
   </data>
  </layer>
- <layer name="EdificisChangeWorld" width="130" height="10" visible="0">
+ <layer name="EdificisChangeWorld" width="130" height="10">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
