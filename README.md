@@ -38,16 +38,31 @@ Special debug keys:
 
 ### Disclosure
 
-We do not own all of the sprites, tilesets, music or sfx presented in this game. Authors credited below
-
--Sprites: 
+We do not own all of the tilesets, music or sfx presented in this game. Authors credited below
 
 -Tilesets: 
+	Lpc Modified by SuperMata from OpenGameArt.org - https://opengameart.org/content/lpc-modified-art
+	Ice Golem RPG by Redshrike from OpenGameArt.org - https://opengameart.org/content/ice-golem-rpg-enemy-sprite
+	Owlish media pixels tiles by Owlish Media from OpenGameArt.org - https://opengameart.org/content/just-some-32x32-tiles
+	Sticker fire pixel art by Ranço from Pics Art - https://picsart.com/i/sticker-fire-pixelart-293738152043211?hl=en
+	Fire animation 4 by nunknown from pixelartmaker.com - http://pixelartmaker.com/art/818f82911eb32f0
+	Modern Platform Tiles by Kuaga from gamedevmarket.net - https://www.gamedevmarket.net/asset/modern-platform-tiles-5823/
+	Jungle trees clip art by unknown from clipart-library.com - http://clipart-library.com/clip-art/316-3163806_jungle-trees-clip-art.htm
+(All of them have been modified to create our own art for the game or to adapt the art in the game)
 
--Music: OpenGameArt.org
+-Music: -All the following from OpenGameArt.org-
+	Winter Feeling by Tom Peter - https://opengameart.org/content/winter-feeling
+	Radakan by Janne Hanhisuanto - https://opengameart.org/content/radakan-del-erad
+	Temple of the maker by Technophobic Android - https://opengameart.org/content/temple-of-the-maker
+(Some of these will be added in-game in the following releases)
 	
 
--SFX: OpenGameArt.org
+-SFX: -All the following from OpenGameArt.org-
+	Fire Whip by Blender Foundation - https://opengameart.org/content/fire-whip-hit-yo-frankie
+	Collision Nutfall by Blender Foundation - https://opengameart.org/content/collision-nutfall-yo-frankie
+	
+(Some of these will be added in-game in the following releases)
+
 
 ### License
 
