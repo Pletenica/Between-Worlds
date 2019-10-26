@@ -6,7 +6,7 @@ The idea was to create this mini game where yo must adapt in diferents dimension
 This two levels are a small example of four differents dimensions where each of them has diferents mechanics. 
 
 ### Controls
--W for jump, climb and swim downwards.
+-W for jump, double jump, climb and swim downwards.
 
 -A for left direction(backward).
 
@@ -14,10 +14,24 @@ This two levels are a small example of four differents dimensions where each of 
 
 -S for swim deeper and climb downwards.
 
-### Autors
--Josep Sànchez Arbona
+Special debug keys:
 
--Roger Pérez Romera
+-F1/F2 Start from the first/second level
+
+-F3 Start from the beginning of the current level
+
+-F5 Save the current state 
+
+-F6 Load the previous state (even across levels)
+
+-F9 To view colliders / logic 
+
+-F10 God Mode (fly around, cannot be killed)
+
+### Autors
+-Josep Sànchez Arbona: code and art.
+
+-Roger Pérez Romera: code and art.
 
 ### Github
 -https://github.com/Pletenica/Plataform_Game
@@ -30,16 +44,18 @@ We do not own all of the sprites, tilesets, music or sfx presented in this game.
 
 -Tilesets: 
 
--Music: 
+-Music: OpenGameArt.org
 	
 
--SFX: 
+-SFX: OpenGameArt.org
 
 ### License
 
 //MIT License
 
-Copyright (c) [2017] [Jaume Surís Valhondo, Lorién Portella López]
+
+
+Copyright (c) [2019] [JOSEP SÀNCHEZ ARBONA and ROGER PÉREZ ROMERA]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
