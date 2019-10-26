@@ -1325,33 +1325,33 @@
    <tile gid="1310"/>
    <tile gid="1309"/>
    <tile gid="1310"/>
-   <tile gid="1859"/>
-   <tile gid="1860"/>
-   <tile gid="1861"/>
-   <tile gid="1862"/>
-   <tile gid="1863"/>
-   <tile gid="1864"/>
-   <tile gid="0"/>
-   <tile gid="1866"/>
-   <tile gid="1867"/>
-   <tile gid="0"/>
-   <tile gid="1869"/>
-   <tile gid="1870"/>
-   <tile gid="1871"/>
-   <tile gid="1872"/>
    <tile gid="1873"/>
-   <tile gid="1874"/>
-   <tile gid="1875"/>
-   <tile gid="1876"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="1879"/>
-   <tile gid="1880"/>
-   <tile gid="1881"/>
-   <tile gid="1857"/>
-   <tile gid="1858"/>
-   <tile gid="1859"/>
-   <tile gid="1860"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
    <tile gid="715"/>
    <tile gid="715"/>
    <tile gid="1863"/>
@@ -1490,33 +1490,33 @@
    <tile gid="1308"/>
    <tile gid="1309"/>
    <tile gid="1310"/>
-   <tile gid="1879"/>
-   <tile gid="1879"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="1091"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
+   <tile gid="1873"/>
    <tile gid="715"/>
    <tile gid="715"/>
    <tile gid="715"/>
@@ -2931,7 +2931,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Suelo" width="165" height="10">
+ <layer name="Suelo" width="165" height="10" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4585,7 +4585,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Edificis" width="127" height="10">
+ <layer name="Edificis" width="127" height="10" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -5859,7 +5859,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Lianas i pinxos" width="127" height="10">
+ <layer name="Lianas i pinxos" width="127" height="10" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -7133,7 +7133,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Collision" width="127" height="10">
+ <layer name="Collision" width="127" height="10" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -8407,7 +8407,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="BackgroundLevel1Changed" width="127" height="10">
+ <layer name="BackgroundLevel1Changed" width="127" height="10" visible="0">
   <data>
    <tile gid="1347"/>
    <tile gid="1348"/>
@@ -9681,7 +9681,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="GoliatLevel1Changed" width="127" height="10">
+ <layer name="GoliatLevel1Changed" width="127" height="10" visible="0">
   <data>
    <tile gid="2098"/>
    <tile gid="2099"/>
@@ -10955,7 +10955,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="ArbolesLevel1Changed" width="127" height="10">
+ <layer name="ArbolesLevel1Changed" width="127" height="10" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -12229,7 +12229,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="ArbustosLevel1Changed" width="127" height="10">
+ <layer name="ArbustosLevel1Changed" width="127" height="10" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -13503,7 +13503,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="HieloLevel1Changed" width="127" height="10">
+ <layer name="HieloLevel1Changed" width="127" height="10" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -14777,7 +14777,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="ArbolesYAssetsLevel1Changed" width="127" height="10">
+ <layer name="ArbolesYAssetsLevel1Changed" width="127" height="10" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -17325,7 +17325,7 @@
    <tile gid="911"/>
   </data>
  </layer>
- <layer name="LianasIPinchosLevel1Changed" width="127" height="10">
+ <layer name="LianasIPinchosLevel1Changed" width="127" height="10" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
