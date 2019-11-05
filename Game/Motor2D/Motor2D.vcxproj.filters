@@ -43,6 +43,9 @@
     <ClCompile Include="j1Animation.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1Enemies.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -103,6 +106,9 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="MemoryLeaks.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Enemies.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>

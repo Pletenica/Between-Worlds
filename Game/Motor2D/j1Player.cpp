@@ -637,6 +637,18 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				position.y = other->rect.y - 10;
 			}
 		}
+		if (other->type == COLLIDER_DEATH_ENEMY) {
+			if (godmode == false) {
+				isinair = false;
+				isjumping = false;
+				isdoublejumping = false;
+				deadbool = true;
+				stop_right = true;
+				stop_left = true;
+				stop_jump = true;
+				position.y = other->rect.y - 10;
+			}
+		}
 		if (other->type == COLLIDER_CAMERA) {
 			stop_left = true;
 		}

@@ -29,6 +29,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_LIMIT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_DEATH_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ACTION] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_LIANA] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_CORRIENTE_AGUA] = true;
@@ -56,6 +57,22 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_DEATH][COLLIDER_PORTAL_NORMAL2] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_PORTAL_CHANGESCENE1] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_PORTAL_CHANGESCENEFINAL] = true;
+
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_SUELO] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_LIMIT] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_ACTION] = false;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_LIANA] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_CORRIENTE_AGUA] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_PORTAL_AGUA] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_PORTAL_FUEGO] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_PORTAL_PLANTA] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_PORTAL_HIELO] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_PORTAL_NORMAL1] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_PORTAL_NORMAL2] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_PORTAL_CHANGESCENE1] = true;
+	matrix[COLLIDER_DEATH_ENEMY][COLLIDER_PORTAL_CHANGESCENEFINAL] = true;
 
 	matrix[COLLIDER_ACTION][COLLIDER_LIMIT] = true;
 	matrix[COLLIDER_ACTION][COLLIDER_PLAYER] = false;
@@ -160,6 +177,9 @@ void j1Collision::DebugDraw()
 		case COLLIDER_DEATH: // red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
+		case COLLIDER_DEATH_ENEMY: // red
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
+			break;
 		case COLLIDER_ACTION: // yellow
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
@@ -212,7 +232,7 @@ bool j1Collision::CleanUp()
 	
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if ((colliders[i] != nullptr) && (colliders[i]->type != COLLIDER_PLAYER) && (colliders[i]->type != COLLIDER_CAMERA) && (colliders[i]->type != COLLIDER_CAMERA_LLEFT) && (colliders[i]->type != COLLIDER_CAMERA_LRIGHT))
+		if ((colliders[i] != nullptr) && (colliders[i]->type != COLLIDER_PLAYER) && (colliders[i]->type != COLLIDER_CAMERA) && (colliders[i]->type != COLLIDER_CAMERA_LLEFT) && (colliders[i]->type != COLLIDER_CAMERA_LRIGHT) && (colliders[i]->type != COLLIDER_DEATH_ENEMY))
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
