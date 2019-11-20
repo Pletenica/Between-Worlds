@@ -189,6 +189,15 @@ bool j1Scene::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+		if (App->fpsCapON == true) {
+			App->fpsCapON = false;
+		}
+		else {
+			App->fpsCapON = true;
+		}
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		App->player->ChangeToLevel1();
 
