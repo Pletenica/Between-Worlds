@@ -6,17 +6,16 @@
 	<audio />
 	<map />
 	<scene>
-		<scene camx="0" actualscene="false" />
+		<scene camx="1594" actualscene="true" />
 	</scene>
-	<:anonymous />
-	<:anonymous />
+	<collision />
 	<player>
 		<player />
-		<playerposition x="84" y="225" />
+		<playerposition x="1814" y="86" />
 		<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
 		<playerattribute godmode="false" ice_right="false" ice_left="false" />
 	</player>
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-3188" y="0" />
 	</renderer>
 </game_state>

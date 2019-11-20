@@ -53,8 +53,8 @@
     <normalportal3 x="1590" y="165"/>
     <normalportal4 x="3430" y="195"/>
     <endportal x="4000" y="200"/>
-    <checkpointscene1 x="100" y="230"/>
-    <checkpointscene2 x="200" y="230"/>
+    <checkpointscene1 x="1530" y="142"/>
+    <checkpointscene2 x="1832" y="112"/>
   </scene>
 
 </config>
