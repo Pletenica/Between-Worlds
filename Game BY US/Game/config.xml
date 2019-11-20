@@ -1,0 +1,58 @@
+<!-- Config file for the game -->
+
+<config>
+  <app>
+    <title>Between Worlds</title>
+    <organization>Pletenica Games</organization>
+  </app>
+	
+  <renderer>
+    <vsync value="false"/>
+  </renderer>
+
+  <window>
+    <resolution width="800" height="640" scale="2"/>
+    <fullscreen value="false"/>
+    <borderless value="false"/>
+    <resizable value="false"/>
+    <fullscreen_window value="false"/>
+  </window>
+
+  <player>
+    <gravity Ginit="1" JumpVel="12" Gmax="17"/>
+    <speed movement="2" iceinercy="1" movementinair="2"/>
+  </player>
+
+  <file_system>
+    <path>data.zip</path>
+  </file_system>
+
+  <map>
+    <folder>maps/</folder>
+    <colliderground one="30" two="31" three="95" wall="159"/>
+    <collidergroundice one="175" two="223" three="271" wall="319"/>
+    <othercolliders death="158" liana="94" corriente="479"/>
+  </map>
+
+  <scene>
+    <plantportal x="440" y="100"/>
+    <iceportal x="1920" y="5"/>
+    <normalportal1 x="1455" y="100"/>
+    <normalportal2 x="3380" y="165"/>
+    <finalportal x="4000" y="100"/>
+    <camlimits left="-20" right="4064"/>
+    <positionplayerinit x="20" y="226"/>
+    <fireportal x="130" y="165"/>
+    <firering1 x="450" y="140"/>
+    <firering2 x="470" y="120"/>
+    <firering3 x="880" y="120"/>
+    <firering4 x="1100" y="20"/>
+    <firering5 x="1350" y="135"/>
+    <firering6 x="1450" y="120"/>
+    <watterportal x="2200" y="160"/>
+    <normalportal3 x="1590" y="165"/>
+    <normalportal4 x="3430" y="195"/>
+    <endportal x="4000" y="200"/>
+  </scene>
+
+</config>
