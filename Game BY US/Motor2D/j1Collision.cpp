@@ -25,7 +25,10 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_CHANGESCENE1] = true;
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_CHANGESCENEFINAL] = true;
 
+	matrix[COLLIDER_CHECKPOINT_SCENE][COLLIDER_PLAYER] = true;
+
 	matrix[COLLIDER_PLAYER][COLLIDER_SUELO] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_CHECKPOINT_SCENE] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_LIMIT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
@@ -79,6 +82,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_ACTION][COLLIDER_DEATH] = true;
 	matrix[COLLIDER_ACTION][COLLIDER_ACTION] = false;
 
+	name.create("collision");
 }
 
 // Destructor
@@ -197,6 +201,9 @@ void j1Collision::DebugDraw()
 			break;
 		case COLLIDER_PORTAL_PLANTA: //yellow
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
+			break;
+		case COLLIDER_CHECKPOINT_SCENE: //blue
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 		case COLLIDER_PORTAL_NORMAL1: //blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);

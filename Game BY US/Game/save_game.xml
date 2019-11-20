@@ -7,13 +7,15 @@
 	<map />
 	<scene>
 		<scene camx="0" actualscene="false" />
-		<playerposition x="20" y="227" />
-		<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
-		<playerattribute godmode="false" ice_right="false" ice_left="false" />
 	</scene>
 	<:anonymous />
 	<:anonymous />
-	<:anonymous />
+	<player>
+		<player />
+		<playerposition x="84" y="225" />
+		<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
+		<playerattribute godmode="false" ice_right="false" ice_left="false" />
+	</player>
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>

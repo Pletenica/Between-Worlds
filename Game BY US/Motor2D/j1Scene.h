@@ -5,6 +5,7 @@
 #include "j1Animation.h"
 
 struct SDL_Texture;
+struct Collider;
 
 class j1Scene : public j1Module
 {
@@ -37,8 +38,12 @@ public:
 	bool Save(pugi::xml_node&) const;
 	void ResetCurrentLevel(bool);
 
+	void OnCollision(Collider*, Collider*);
+
 public:
 	SDL_Texture* objects_graphics = nullptr;
+	SDL_Texture* checkpoint_none_graphics = nullptr;
+	SDL_Texture* checkpoint_done_graphics = nullptr;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	Collider* movecamright;
 	Collider* movecamleft;
@@ -68,6 +73,8 @@ public:
 	Collider* firering52;
 	Collider* firering61;
 	Collider* firering62;
+	Collider* checkpointcol_scene1;
+	Collider* checkpointcol_scene2;
 	Animation final_portal;
 	Animation plant_portal;
 	Animation ice_portal;
@@ -75,8 +82,10 @@ public:
 	Animation watter_portal;
 	Animation fire_ring_anim;
 	Animation watter_wave_anim;
+	Animation checkpoint_flag;
 	Animation normal_portal;
 	int cameraxinvert = 0;
+	bool justtouchcheckpoint = false;
 	bool donecollidersscene1 = false;
 	bool donecollidersscene2 = false;
 	bool changelevel = false;
@@ -113,6 +122,11 @@ public:
 	int firering5y;
 	int firering6x;
 	int firering6y;
+
+	int checkpointscene1x;
+	int checkpointscene1y;
+	int checkpointscene2x;
+	int checkpointscene2y;
 
 	int camlimitleft;
 	int camlimitright;

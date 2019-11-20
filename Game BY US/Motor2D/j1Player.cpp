@@ -47,6 +47,8 @@ j1Player::j1Player()
 	dead.PushBack({ 96, 0, 32, 32 });
 	dead.PushBack({ 96, 0, 32, 32 });
 	dead.speed = 0.1f;
+
+	name.create("player");
 }
 
 j1Player::~j1Player()
@@ -429,6 +431,9 @@ bool j1Player::Update(float dt)
 	if (dimensionnormal == true) {
 		current_graphics = normal_graphics;
 	}
+
+
+
 	return true;
 }
 
@@ -448,7 +453,7 @@ bool j1Player::PostUpdate() {
 		stop_right = true;
 	}
 	App->render->Blit(current_graphics, position.x, position.y, &(Current_Animation.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
-	
+	//App->scene->justtouchcheckpoint = false;
 	return exitgame;
 }
 
@@ -571,6 +576,7 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 		if (other->type == COLLIDER_PORTAL_CHANGESCENE1) {
 			App->audio->PlayFx(portalsound, 0);
 			App->player->ChangeToLevel2();
+			App->SaveGame();
 		}
 
 		if (other->type == COLLIDER_SUELO) {
@@ -659,6 +665,12 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 		if (other->type == COLLIDER_PORTAL_CHANGESCENEFINAL) {
 			exitgame = false;
 		}
+		if (other->type == COLLIDER_CHECKPOINT_SCENE) {
+			if (App->scene->justtouchcheckpoint != true) {
+				App->SaveGame();
+			}
+			App->scene->justtouchcheckpoint = true;
+		}
 	}
 }
 
@@ -671,6 +683,9 @@ void j1Player::ChangeToLevel1() {
 	dimensionhielo = false;
 	dimensionplanta = false;
 	current_graphics = normal_graphics;
+	if (deadbool == true) {
+		App->LoadGame();
+	}
 	deadbool = false;
 	App->scene->cameraxinvert = 0;
 	App->render->camera.x = 0;
@@ -684,6 +699,7 @@ void j1Player::ChangeToLevel1() {
 	App->scene->donecollidersscene2 = true;
 	App->scene->donecollidersscene1 = false;
 	App->scene->changelevel = false;
+	App->scene->justtouchcheckpoint = false;
 }
 
 void j1Player::ChangeToLevel2() {
@@ -695,6 +711,9 @@ void j1Player::ChangeToLevel2() {
 	dimensionhielo = false;
 	dimensionplanta = false;
 	current_graphics = normal_graphics;
+	if (deadbool == true) {
+		App->LoadGame();
+	}
 	deadbool = false;
 	App->scene->cameraxinvert = 0;
 	App->render->camera.x = 0;
@@ -711,21 +730,42 @@ void j1Player::ChangeToLevel2() {
 	App->scene->donecollidersscene2 = false;
 	App->scene->donecollidersscene1 = true;
 	App->scene->changelevel = true;
+	App->scene->justtouchcheckpoint = false;
 }
 
 
 bool j1Player::Save(pugi::xml_node& data) const
 {
-	//data.append_child("player");
-	//data.child("player").append_attribute("x") = position.x;
-	//data.child("player").append_attribute("y") = position.y;
+	data.append_child("player");
+	data.append_child("playerposition");
+	data.child("playerposition").append_attribute("x") = position.x;
+	data.child("playerposition").append_attribute("y") = position.y;
+	data.append_child("playerworld");
+	data.child("playerworld").append_attribute("watter") = dimensionagua;
+	data.child("playerworld").append_attribute("fire") = dimensionfuego;
+	data.child("playerworld").append_attribute("plant") = dimensionplanta;
+	data.child("playerworld").append_attribute("ice") = dimensionhielo;
+	data.child("playerworld").append_attribute("normal") = dimensionnormal;
+	data.append_child("playerattribute");
+	data.child("playerattribute").append_attribute("godmode") = godmode;
+	data.child("playerattribute").append_attribute("ice_right") = ice_right;
+	data.child("playerattribute").append_attribute("ice_left") = ice_left;
 	return true;
 }
 
 bool j1Player::Load(pugi::xml_node& data)
 {
-	//position.x = data.child("player").attribute("x").as_int();
-	//position.y = data.child("player").attribute("y").as_int();
+
+	position.x = data.child("playerposition").attribute("x").as_int();
+	position.y = data.child("playerposition").attribute("y").as_int();
+	dimensionnormal = data.child("playerworld").attribute("normal").as_bool();
+	dimensionagua = data.child("playerworld").attribute("watter").as_bool();
+	dimensionfuego = data.child("playerworld").attribute("fire").as_bool();
+	dimensionplanta = data.child("playerworld").attribute("plant").as_bool();
+	dimensionhielo = data.child("playerworld").attribute("ice").as_bool();
+	godmode = data.child("playerattribute").attribute("godmode").as_bool();
+	ice_right = data.child("playerattribute").attribute("ice_right").as_bool();
+	ice_left = data.child("playerattribute").attribute("ice_left").as_bool();
 
 	return true;
 }

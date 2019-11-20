@@ -79,36 +79,53 @@ void j1App::AddModule(j1Module* module)
 // Called before render is available
 bool j1App::Awake()
 {
+	PERF_START(ptimer);
+
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
 
+	save_game = "save_file.xml";
+	load_game = "save_file.xml";
 	bool ret = false;
-		
+
 	config = LoadConfig(config_file);
 
-	if(config.empty() == false)
+	if (config.empty() == false)
 	{
 		// self-config
 		ret = true;
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
+		//framerate = app_config.attribute("framerate_cap").as_uint(INFINITE);
+		int cap = app_config.attribute("framerate_cap").as_int(-1);
+
+		if (cap > 0)
+		{
+			framerate = 1000 / cap;
+		}
 	}
 
-	if(ret == true)
+	if (ret == true)
 	{
 		p2List_item<j1Module*>* item;
 		item = modules.start;
 
-		while(item != NULL && ret == true)
+		while (item != NULL && ret == true)
 		{
 			ret = item->data->Awake(config.child(item->data->name.GetString()));
+			if (!ret)
+			{
+				LOG("name: %s", item->data->name.GetString());
+			}
 			item = item->next;
 		}
 	}
 
-	return ret;
+	PERF_PEEK(ptimer);
+
+	return true;
 }
 
 // Called before the first frame
@@ -366,6 +383,7 @@ bool j1App::LoadGameNow()
 		while(item != NULL && ret == true)
 		{
 			ret = item->data->Load(root.child(item->data->name.GetString()));
+			LOG("Name: %s", item->data->name.GetString());
 			item = item->next;
 		}
 

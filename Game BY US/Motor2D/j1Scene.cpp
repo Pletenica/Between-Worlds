@@ -66,6 +66,12 @@ j1Scene::j1Scene() : j1Module()
 	watter_wave_anim.PushBack({ 150, 288, 96, 64 });
 	watter_wave_anim.speed = 0.08f;
 
+	/////PLANT PORTAL ANIMATION//////
+	checkpoint_flag.PushBack({ 0, 0, 25, 26 });
+	checkpoint_flag.PushBack({ 0, 26, 25, 26 });
+	checkpoint_flag.speed = 0.08f;
+
+
 	name.create("scene");
 
 }
@@ -116,6 +122,10 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	firering6x = config.child("firering6").attribute("x").as_int();
 	firering6y = config.child("firering6").attribute("y").as_int();
 
+	checkpointscene1x = config.child("checkpointscene1").attribute("x").as_int();
+	checkpointscene1y = config.child("checkpointscene1").attribute("y").as_int();
+	checkpointscene2x = config.child("checkpointscene2").attribute("x").as_int();
+	checkpointscene2y = config.child("checkpointscene2").attribute("y").as_int();
 
 	/////// PLAYER AND CAMERA VARIABLES ///////
 	camlimitleft = config.child("camlimits").attribute("left").as_int();
@@ -133,6 +143,8 @@ bool j1Scene::Start()
 {
 	App->map->Load("Scene01.tmx");
 	objects_graphics = App->tex->Load("textures/Objects.png");
+	checkpoint_done_graphics = App->tex->Load("textures/CheckPoint_NONE.png");
+	checkpoint_none_graphics = App->tex->Load("textures/CheckPoint_DONE.png");
 
 	///// CAMERA COLLISIONS /////
 	cameralimit01 = App->collision->AddCollider({ 0,0,20,350 }, COLLIDER_CAMERA, this);
@@ -150,16 +162,20 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate()
 {
 	if (changelevel == false && donecollidersscene1 == false) {
+		//App->SaveGame();
 		///// PORTAL COLLLIDERS SCENE 1/////
 		plantportal = App->collision->AddCollider({ plantportalx + 30,plantportaly,20,64 }, COLLIDER_PORTAL_PLANTA, this);
 		normalportal01 = App->collision->AddCollider({ normal1portalx + 30,normal1portaly,20,64 }, COLLIDER_PORTAL_NORMAL1, this);
 		iceportal = App->collision->AddCollider({ iceportalx + 30,iceportaly,20,64 }, COLLIDER_PORTAL_HIELO, this);
 		normalportal02 = App->collision->AddCollider({ normal2portalx + 30,normal2portaly,20,64 }, COLLIDER_PORTAL_NORMAL1, this);
 		finalportal = App->collision->AddCollider({ finalportalx + 30,finalportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENE1, this);
+
+		checkpointcol_scene1 = App->collision->AddCollider({ checkpointscene1x,checkpointscene1y,25,32 }, COLLIDER_CHECKPOINT_SCENE, this);
 		donecollidersscene1 = true;
 	}
 
 	if (changelevel == true && donecollidersscene2 == false) {
+		//App->SaveGame();
 		///// PORTAL COLLLIDERS SCENE 2/////
 		firering11 = App->collision->AddCollider({ firering1x -17,firering1y+23,15,10 }, COLLIDER_DEATH, this);
 		firering11 = App->collision->AddCollider({ firering1x -80,firering1y + 23,10,10 }, COLLIDER_DEATH, this);
@@ -178,6 +194,8 @@ bool j1Scene::PreUpdate()
 		watterportal = App->collision->AddCollider({ watterportalx + 30,watterportaly,20,64 }, COLLIDER_PORTAL_AGUA, this);
 		normalportal04 = App->collision->AddCollider({ normal4portalx + 30,normal4portaly,20,64 }, COLLIDER_PORTAL_NORMAL2, this);
 		endportal = App->collision->AddCollider({ endportalx + 30,endportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENEFINAL, this);
+
+		checkpointcol_scene2 = App->collision->AddCollider({ checkpointscene2x,checkpointscene2y,25,32 }, COLLIDER_CHECKPOINT_SCENE, this);
 		donecollidersscene2 = true;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
@@ -257,6 +275,12 @@ bool j1Scene::PostUpdate()
 		App->render->Blit(objects_graphics, iceportalx, iceportaly, &(ice_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 		App->render->Blit(objects_graphics, normal2portalx, normal2portaly, &(normal_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 		App->render->Blit(objects_graphics, finalportalx, finalportaly, &(final_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+		if (justtouchcheckpoint == true) {
+		App->render->Blit(checkpoint_none_graphics, checkpointscene1x, checkpointscene1y, &(checkpoint_flag.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+		}
+		if (justtouchcheckpoint == false) {
+			App->render->Blit(checkpoint_done_graphics, checkpointscene1x, checkpointscene1y, &(checkpoint_flag.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+		}
 	}
 	else {
 		if (App->player->dimensionfuego) {
@@ -279,6 +303,12 @@ bool j1Scene::PostUpdate()
 		App->render->Blit(objects_graphics, watterportalx, watterportaly, &(watter_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 		App->render->Blit(objects_graphics, normal4portalx, normal4portaly, &(normal_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 		App->render->Blit(objects_graphics, endportalx, endportaly, &(final_portal.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
+		if (justtouchcheckpoint == true) {
+			App->render->Blit(checkpoint_none_graphics, checkpointscene2x, checkpointscene2y, &(checkpoint_flag.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+		}
+		if (justtouchcheckpoint == false) {
+			App->render->Blit(checkpoint_done_graphics, checkpointscene2x, checkpointscene2y, &(checkpoint_flag.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+		}
 	}
 
 
@@ -299,22 +329,11 @@ bool j1Scene::CleanUp()
 
 bool j1Scene::Save(pugi::xml_node& data) const
 {
+
 	data.append_child("scene");
 	data.child("scene").append_attribute("camx") = cameraxinvert;
 	data.child("scene").append_attribute("actualscene") = changelevel;
-	data.append_child("playerposition");
-	data.child("playerposition").append_attribute("x") = App->player->position.x;
-	data.child("playerposition").append_attribute("y") = App->player->position.y;
-	data.append_child("playerworld");
-	data.child("playerworld").append_attribute("watter") = App->player->dimensionagua;
-	data.child("playerworld").append_attribute("fire") = App->player->dimensionfuego;
-	data.child("playerworld").append_attribute("plant") = App->player->dimensionplanta;
-	data.child("playerworld").append_attribute("ice") = App->player->dimensionhielo;
-	data.child("playerworld").append_attribute("normal") = App->player->dimensionnormal;
-	data.append_child("playerattribute");
-	data.child("playerattribute").append_attribute("godmode") = App->player->godmode;
-	data.child("playerattribute").append_attribute("ice_right") = App->player->ice_right;
-	data.child("playerattribute").append_attribute("ice_left") = App->player->ice_left;
+
 	return true;
 }
 
@@ -334,17 +353,6 @@ bool j1Scene::Load(pugi::xml_node& data)
 			}
 		}
 	}
-	cameraxinvert = data.child("scene").attribute("camx").as_int();
-	App->player->position.x = data.child("playerposition").attribute("x").as_int();
-	App->player->position.y = data.child("playerposition").attribute("y").as_int();
-	App->player->dimensionnormal = data.child("playerworld").attribute("normal").as_bool();
-	App->player->dimensionagua = data.child("playerworld").attribute("watter").as_bool();
-	App->player->dimensionfuego = data.child("playerworld").attribute("fire").as_bool();
-	App->player->dimensionplanta = data.child("playerworld").attribute("plant").as_bool();
-	App->player->dimensionhielo = data.child("playerworld").attribute("ice").as_bool();
-	App->player->godmode = data.child("playerattribute").attribute("godmode").as_bool();
-	App->player->ice_right = data.child("playerattribute").attribute("ice_right").as_bool();
-	App->player->ice_left = data.child("playerattribute").attribute("ice_left").as_bool();
 
 	cameralimit01->rect.x = cameraxinvert;
 	cameralimit02->rect.x = cameraxinvert + 380;
@@ -358,5 +366,17 @@ void j1Scene::ResetCurrentLevel(bool current_level)
 	}
 	else if (current_level == false) {
 		App->player->ChangeToLevel1();
+	}
+}
+
+void j1Scene::OnCollision(Collider* player, Collider* object)
+{
+	if (player->type == COLLIDER_PLAYER) {
+		if (object->type == COLLIDER_CHECKPOINT_SCENE) {
+			App->scene->justtouchcheckpoint = true;
+			if (App->scene->justtouchcheckpoint == true) {
+				App->SaveGame();
+			}
+		}
 	}
 }
