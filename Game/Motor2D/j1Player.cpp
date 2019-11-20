@@ -8,6 +8,7 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "SDL/include/SDL_timer.h"
+#include "../Game/Brofiler/Brofiler.h"
 
 j1Player::j1Player()
 {
@@ -108,6 +109,7 @@ bool j1Player::CleanUp() {
 
 
 bool j1Player::PreUpdate() {
+	BROFILER_CATEGORY("PlayerPreUpdate", Profiler::Color::Chartreuse)
 	right = false;
 	left = false;
 
@@ -411,7 +413,7 @@ bool j1Player::PreUpdate() {
 // Update: draw background
 bool j1Player::Update(float dt)
 {
-
+	BROFILER_CATEGORY("PlayerUpdate", Profiler::Color::DarkSeaGreen)
 	if (dimensionfuego == true) {
 		current_graphics = fire_graphics;
 	}
@@ -431,7 +433,7 @@ bool j1Player::Update(float dt)
 }
 
 bool j1Player::PostUpdate() {
-
+	BROFILER_CATEGORY("PlayerPostUpdate", Profiler::Color::YellowGreen)
 	isinair = true;
 	isinliana = false;
 	stop_right = false;
@@ -452,6 +454,7 @@ bool j1Player::PostUpdate() {
 
 
 void j1Player::OnCollision(Collider* player, Collider* other) {
+	BROFILER_CATEGORY("PlayerOnCollision", Profiler::Color::MediumAquaMarine)
 	if (player->type == COLLIDER_PLAYER) {
 		if (other->type == COLLIDER_CORRIENTE_AGUA) {
 			if (godmode == false) {

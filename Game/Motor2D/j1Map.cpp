@@ -9,6 +9,7 @@
 #include "j1Window.h"
 #include "j1Player.h"
 #include "j1Scene.h"
+#include "../Game/Brofiler/Brofiler.h"
 //
 #include <math.h>
 
@@ -57,6 +58,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
+	BROFILER_CATEGORY("DrawMap", Profiler::Color::DarkViolet)
 	if(map_loaded == false)
 		return;
 
