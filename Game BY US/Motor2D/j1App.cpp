@@ -13,6 +13,7 @@
 #include "j1Map.h"
 #include "j1Animation.h"
 #include "j1Collision.h"
+#include "j1PathFinding.h"
 #include "j1Player.h"
 #include "j1App.h"
 
@@ -32,6 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	collision = new j1Collision();
 	player = new j1Player();
+	pathfinding = new j1PathFinding();
 	map = new j1Map();
 
 	// Ordered for awake / Start / Update
@@ -41,8 +43,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
+	AddModule(pathfinding);
 	AddModule(scene);
 	AddModule(collision);
+
 	AddModule(player);
 
 
@@ -215,7 +219,7 @@ void j1App::FinishUpdate()
 	static char title[256];
 	//sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
 	//	avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
-	sprintf_s(title, 256, "Between Worlds: FPS: %i || Avg.FPS: %.2f || Ms of the last Frame %02u || Cap %s || Vsync %s", frames_on_last_update, avg_fps, last_frame_ms, fpsCapON ? "ON" : "OFF", SDL_RENDERER_PRESENTVSYNC ? "ON" : "OFF");
+	sprintf_s(title, 256, "Between Worlds: FPS: %i || Avg.FPS: %.2f || Ms of the last Frame %02u || Cap %s || Vsync %s", frames_on_last_update, avg_fps, last_frame_ms, fpsCapON ? "ON" : "OFF", App->render->vsyncbool ? "ON" : "OFF");
 	App->win->SetTitle(title);
 
 	if (framerate > 0 && last_frame_ms < framerate && fpsCapON)

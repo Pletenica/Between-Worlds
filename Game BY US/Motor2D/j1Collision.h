@@ -68,13 +68,14 @@ public:
 	bool CleanUp();
 	bool CleanBackMapPlayer(int x);
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
+	bool debug = false;
 	void DebugDraw();
 
 private:
 
 	Collider* colliders[MAX_COLLIDERS];
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
-	bool debug = false;
+
 };
 
 #endif // __ModuleCollision_H__

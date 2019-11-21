@@ -86,6 +86,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
     </ClCompile>
+    <ClCompile Include="J1PathFinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1Scene.cpp" />
@@ -99,6 +100,7 @@
   <ItemGroup>
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1Map.h" />
+    <ClInclude Include="j1PathFinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Scene.h" />

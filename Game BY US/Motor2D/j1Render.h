@@ -49,6 +49,7 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
+	bool			vsyncbool;
 };
 
 #endif // __j1RENDER_H__

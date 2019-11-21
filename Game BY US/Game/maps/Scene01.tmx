@@ -7133,7 +7133,10 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Collision" width="127" height="10" visible="0">
+ <layer name="Collision" width="127" height="10">
+  <properties>
+   <property name="Navigation" value="1"/>
+  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>

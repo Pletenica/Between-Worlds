@@ -19,6 +19,7 @@ class j1Collision;
 class j1Player;
 class j1Enemies;
 class j1Animation;
+class j1PathFinding;
 
 class j1App
 {
@@ -93,6 +94,7 @@ public:
 	j1Animation*		animation;
 	j1Player*			player;
 	j1Enemies*			enemies;
+	j1PathFinding*		pathfinding;
 	bool				fpsCapON = true;
 
 private:
