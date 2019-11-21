@@ -14,6 +14,7 @@
 #include "j1Animation.h"
 #include "j1Collision.h"
 #include "j1PathFinding.h"
+#include "j1EntityManager.h"
 #include "j1Player.h"
 #include "j1App.h"
 
@@ -25,6 +26,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	frames = 0;
 	want_to_save = want_to_load = false;
 
+	entities = new j1EntityManager();
 	input = new j1Input();
 	win = new j1Window();
 	render = new j1Render();

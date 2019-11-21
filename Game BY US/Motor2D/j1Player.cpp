@@ -7,10 +7,11 @@
 #include "j1Player.h"
 #include "j1Scene.h"
 #include "j1Map.h"
+#include "j1EntityManager.h"
 #include "SDL/include/SDL_timer.h"
 #include "../Game/Brofiler/Brofiler.h"
 
-j1Player::j1Player()
+j1Player::j1Player() :j1Entity(EntityType::PLAYER)
 {
 	/////IDLE ANIMATION//////
 	idle.PushBack({ 0, 0, 32, 32 });

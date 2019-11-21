@@ -2,7 +2,6 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1PathFinding.h"
-#include "../Game/Brofiler/Brofiler.h"
 
 j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
@@ -54,6 +53,7 @@ bool j1PathFinding::IsWalkable(const iPoint& pos) const
 uchar j1PathFinding::GetTileAt(const iPoint& pos) const
 {
 	if (CheckBoundaries(pos))
+		if(pos.x!=0 && pos.y!=0)
 		return map[(pos.y*width) + pos.x];
 
 	return INVALID_WALK_CODE;
@@ -168,12 +168,11 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
-	BROFILER_CATEGORY("CreatePath", Profiler::Color::Azure)
-		//if origin or destination are not walkable, return -1
-		if ((!IsWalkable(origin)) || (!IsWalkable(destination)))
-		{
-			return -1;
-		}
+	//if origin or destination are not walkable, return -1
+	if ((!IsWalkable(origin)) || (!IsWalkable(destination)))
+	{
+		return -1;
+	}
 	last_path.Clear();
 	// TODO 2: Create two lists: open, close
 	// Add the origin tile to open
@@ -236,12 +235,5 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		}
 	}
 
-	// TODO 5: Fill a list of all adjancent nodes
-
-	// TODO 6: Iterate adjancent nodes:
-	// ignore nodes in the closed list
-	// If it is NOT found, calculate its F and add it to the open list
-	// If it is already in the open list, check if it is a better path (compare G)
-	// If it is a better path, Update the parent
 	return -1;
 }

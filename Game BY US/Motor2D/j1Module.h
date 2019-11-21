@@ -21,7 +21,10 @@ public:
 
 	void Init()
 	{
-		active = true;
+		if (this != nullptr) {
+			active = true;
+		}
+
 	}
 
 	// Called before render is available

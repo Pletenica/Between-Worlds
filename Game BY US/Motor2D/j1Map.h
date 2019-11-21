@@ -6,14 +6,50 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-// TODO 1: Create a struct for the map layer
-// ----------------------------------------------------
+struct Properties
+{
+	struct Property
+	{
+		p2SString name;
+		int value;
+	};
+
+	~Properties()
+	{
+		p2List_item<Property*>* item;
+		item = list.start;
+
+		while (item != NULL)
+		{
+			RELEASE(item->data);
+			item = item->next;
+		}
+
+		list.clear();
+	}
+
+	int Get(const char* name, int default_value = 0) const;
+
+	p2List<Property*>	list;
+};
 
 struct MapLayer {
-	p2SString name = "Name_Null";
-	uint width = 0u;
-	uint height = 0u;
-	uint* gid = nullptr;
+	p2SString	name = "Name_Null";
+	uint		width = 0u;
+	uint		height = 0u;
+	uint*		data;
+	uint*		gid = nullptr;
+
+	Properties	properties;
+
+	MapLayer() : gid(NULL)
+	{}
+
+	~MapLayer()
+	{
+		RELEASE(gid);
+	}
+
 	// TODO 6: Short function to get the value of x,y
 	inline uint Get(int x, int y) const {
 		return (y * width) + x;
@@ -98,13 +134,19 @@ public:
 		*y *= data.tile_height;
 	}
 
+	iPoint MapToWorld(int x, int y) const;
+	iPoint WorldToMap(int x, int y) const;
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+
 private:
 
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
-	// TODO 3: Create a method that loads a single laye
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+
+	TileSet* GetTilesetFromTileId(int id) const;
 
 public:
 	bool inair;

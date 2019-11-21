@@ -7,12 +7,12 @@
 	<map />
 	<pathfinding />
 	<scene>
-		<scene camx="0" actualscene="false" />
+		<scene camx="0" actualscene="true" />
 	</scene>
 	<collision />
 	<player>
 		<player />
-		<playerposition x="20" y="227" />
+		<playerposition x="22" y="226" />
 		<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
 		<playerattribute godmode="false" ice_right="false" ice_left="false" />
 	</player>

@@ -125,8 +125,19 @@ void j1Render::ResetViewPort()
 	SDL_RenderSetViewport(renderer, &viewport);
 }
 
+iPoint j1Render::ScreenToWorld(int x, int y) const
+{
+	iPoint ret;
+	int scale = App->win->GetScale();
+
+	ret.x = (x - camera.x / scale);
+	ret.y = (y - camera.y / scale);
+
+	return ret;
+}
+
 // Blit to screen
-bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y, SDL_RendererFlip flip) const
+bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section=NULL, float speed=1.0f, double angle=0, int pivot_x=INT_MAX, int pivot_y=INT_MAX, SDL_RendererFlip flip=SDL_FLIP_NONE) const
 {
 	bool ret = true;
 	uint scale = App->win->GetScale();

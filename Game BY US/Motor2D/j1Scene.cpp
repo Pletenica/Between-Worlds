@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Collision.h"
+#include "j1PathFinding.h"
 #include "j1Player.h"
 #include "j1Map.h"
 #include "j1Scene.h"
@@ -155,12 +156,29 @@ bool j1Scene::Start()
 	App->SaveGame();
 	App->player->dimensionhielo = false;
 	App->audio->PlayMusic("audio/music/back.ogg");
+
+	//Pathinding
+	if (App->map->Load("Scene01.tmx") == true)
+	{
+		int w, h;
+		uchar* data = NULL;
+		if (App->map->CreateWalkabilityMap(w, h, &data))
+			App->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+	}
+
+	pathfinding_tex = App->tex->Load("maps/path2.png");
+
+
 	return true;
 }
 
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+
+
 	if (changelevel == false && donecollidersscene1 == false) {
 		//App->SaveGame();
 		///// PORTAL COLLLIDERS SCENE 1/////
@@ -222,6 +240,29 @@ bool j1Scene::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->player->ChangeToLevel2();
 
+	// debug pathfing ------------------
+	static iPoint origin;
+	static bool origin_selected = false;
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (origin_selected == true)
+		{
+			App->pathfinding->CreatePath(origin, p);
+			origin_selected = false;
+		}
+		else
+		{
+			origin = p;
+			origin_selected = true;
+		}
+	}
+
 	return true;
 }
 
@@ -256,10 +297,27 @@ bool j1Scene::Update(float dt)
 
 		}
 	}
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count());
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
+
+	// Debug pathfinding ------------------------------
+	//int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+	p = App->map->MapToWorld(p.x, p.y);
+
+	App->render->Blit(pathfinding_tex, p.x, p.y, NULL, 1.0f, 0, INT_MAX, INT_MAX, SDL_FLIP_NONE);
+
+	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		App->render->Blit(pathfinding_tex, pos.x, pos.y, NULL, 1.0f, 0, INT_MAX, INT_MAX, SDL_FLIP_NONE);
+	}
 
 	return true;
 }

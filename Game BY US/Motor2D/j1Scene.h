@@ -132,6 +132,9 @@ public:
 	int camlimitright;
 	int positionplayerinitx;
 	int positionplayerinity;
+
+	private:
+		SDL_Texture* pathfinding_tex;
 };
 
 #endif // __j1SCENE_H__
