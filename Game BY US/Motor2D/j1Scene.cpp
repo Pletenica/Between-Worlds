@@ -269,34 +269,20 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-
+	if ((App->player->dimensionhielo)&&(App->player->ice_right == true)&& (App->player->right == false)) {
+		cameraxinvert += App->player->speed_player_ice*1.12;
+	}
 	App->map->Draw();
 	if (App->player->position.x > cameraxinvert + 200) {
-		if ((((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && (App->player->stop_right == false)) && (cameralimit02->CheckCollision(camrightlim->rect) == false))|| (App->player->ice_right == true)) {
-			if (App->player->ice_right == true) {
-				if ((App->player->right == false)) {
-					cameraxinvert += App->player->speed_player_ice;
-					App->render->camera.x -= App->player->speed_player_ice* App->win->GetScale();
-					cameralimit01->rect.x += App->player->speed_player_ice;
-					cameralimit02->rect.x += App->player->speed_player_ice;
-				}
-				else if (App->player->right == true) {
-					cameraxinvert += App->player->speed_player_ice + App->player->speed_player;
-					App->render->camera.x -= (App->player->speed_player_ice + App->player->speed_player) * App->win->GetScale();
-					cameralimit01->rect.x += App->player->speed_player_ice + App->player->speed_player;
-					cameralimit02->rect.x += App->player->speed_player_ice + App->player->speed_player;
-				}
+		if ((((App->player->stop_right == false)) && (cameralimit02->CheckCollision(camrightlim->rect) == false))|| (App->player->ice_right == true)) {
 
-			}
-			else {
-				cameraxinvert += App->player->speed_player;
-				App->render->camera.x -= App->player->speed_player * App->win->GetScale();
-				cameralimit01->rect.x += App->player->speed_player;
-				cameralimit02->rect.x += App->player->speed_player;
-			}
-
+			cameraxinvert = App->player->position.x - 200;
 		}
 	}
+
+	App->render->camera.x = -2 * cameraxinvert;
+	cameralimit01->rect.x = cameraxinvert;
+	cameralimit02->rect.x = cameraxinvert + 380;
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
@@ -390,6 +376,7 @@ bool j1Scene::Save(pugi::xml_node& data) const
 
 	data.append_child("scene");
 	data.child("scene").append_attribute("camx") = cameraxinvert;
+	data.child("scene").append_attribute("real_camx") = App->render->camera.x;
 	data.child("scene").append_attribute("actualscene") = changelevel;
 
 	return true;
@@ -398,6 +385,8 @@ bool j1Scene::Save(pugi::xml_node& data) const
 bool j1Scene::Load(pugi::xml_node& data)
 {
 	bool changeyet = false;
+	App->render->camera.x = data.child("scene").attribute("real_camx").as_float();
+	cameraxinvert = data.child("scene").attribute("camx").as_float();
 	if (changelevel != data.child("scene").attribute("actualscene").as_bool()) {
 		if (changelevel == false) {
 			App->player->ChangeToLevel2();

@@ -48,23 +48,26 @@ public:
 	SDL_Rect rectoli;
 
 
-	iPoint position;
+	fPoint position;
 	int mult;
 	int jump_max = 80;
 	Collider* body;
 	Collider*movecamright;
-	int Ginit;
-	int G = Ginit;
-	int jump_vel;
-	int G_max;
-	int speed_player;
-	int speed_player_ice;
-	int speed_player_jump;
+	float Ginit;
+	float G = Ginit;
+	float jump_vel;
+	float G_max;
+	float speed_player;
+	float speed_player_aux;
+	float speed_player_ice;
+	float speed_player_ice_aux;
+	float speed_player_jump;
+	float speed_player_jump_aux;
 	int limit_liana = 0;
 	int limit_watter = 0;
 	int limit_wave_watter = 0;
 	int limit_ice = 0;
-
+	float G_aux = G;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	bool insidedeath = false;
 	bool insideportal = false;

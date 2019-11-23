@@ -7,6 +7,7 @@
 #include "j1Player.h"
 #include "j1Scene.h"
 #include "j1Map.h"
+#include <math.h>
 #include "j1EntityManager.h"
 #include "SDL/include/SDL_timer.h"
 #include "../Game/Brofiler/Brofiler.h"
@@ -58,12 +59,12 @@ j1Player::~j1Player()
 bool j1Player::Awake(pugi::xml_node& config)
 {
 	/////// SCENE 1 PORTALS ///////
-	Ginit = config.child("gravity").attribute("Ginit").as_int(1);
-	jump_vel = config.child("gravity").attribute("JumpVel").as_int(12);
-	G_max = config.child("gravity").attribute("Gmax").as_int(17);
-	speed_player = config.child("speed").attribute("movement").as_int(2);
-	speed_player_ice = config.child("speed").attribute("iceinercy").as_int(1);
-	speed_player_jump = config.child("speed").attribute("movementinair").as_int(2);
+	Ginit = config.child("gravity").attribute("Ginit").as_float(1);
+	jump_vel = config.child("gravity").attribute("JumpVel").as_float(12);
+	G_max = config.child("gravity").attribute("Gmax").as_float(17);
+	speed_player_aux = config.child("speed").attribute("movement").as_float(2);
+	speed_player_ice_aux = config.child("speed").attribute("iceinercy").as_int(1);
+	speed_player_jump_aux = config.child("speed").attribute("movementinair").as_int(2);
 
 
 	return true;
@@ -88,8 +89,8 @@ bool j1Player::Start()
 	deathsound = App->audio->LoadFx("audio/fx/death.wav");
 	walkingsound = App->audio->LoadFx("audio/fx/walk.wav");
 	portalsound = App->audio->LoadFx("audio/fx/portal.wav");
-	body = App->collision->AddCollider({ position.x,position.y,20,32 }, COLLIDER_PLAYER, this);
-	
+	body = App->collision->AddCollider({ (int)position.x,(int)position.y,20,32 }, COLLIDER_PLAYER, this);
+
 	return true;
 }
 
@@ -111,10 +112,18 @@ bool j1Player::CleanUp() {
 }
 
 
-bool j1Player::PreUpdate() {
+bool j1Player::Update(float dt) {
 	BROFILER_CATEGORY("PlayerPreUpdate", Profiler::Color::Chartreuse)
 	right = false;
 	left = false;
+	speed_player = speed_player_aux;
+	speed_player = speed_player * dt * 500;
+	speed_player_jump = speed_player_jump_aux;
+	speed_player_jump = speed_player_jump * dt * 100;
+	speed_player_ice = speed_player_ice_aux;
+	speed_player_ice = speed_player_ice * dt * 50;
+
+	round(speed_player);
 
 	if (deadbool == false && isinair == false && isjumping == false && isdoublejumping==false) {
 		Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
@@ -205,6 +214,7 @@ bool j1Player::PreUpdate() {
 			if (App->audio->PlayFx(walkingsound, 0) == true || App->audio->PlayFx(walkingsound, 0) == false) {
 				App->audio->PlayFx(jumpingsound, 0);
 			}
+			G_max = position.y - 80;
 		}
 	}
 
@@ -214,15 +224,10 @@ bool j1Player::PreUpdate() {
 		isdoublejumping = false;
 		Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 		if (godmode == false) {
-			if (isinair) {
-				if (limit_watter == 0) {
-					position.y++;
-				}
-				limit_watter++;
-				if (limit_watter == 3) {
-					limit_watter = 0;
-				}
-			}
+
+			position.y += speed_player/5;
+
+			
 			if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !stop_left) {
 				position.x -= speed_player;
 				left = true;
@@ -251,15 +256,7 @@ bool j1Player::PreUpdate() {
 		isjumping = false;
 		isdoublejumping = false;
 		Current_Animation.GetCurrentFrame() = liana.GetCurrentFrame();
-		if (isinair == false) {
-			if (limit_liana == 0) {
-				position.y++;
-			}
-			limit_liana++;
-			if (limit_liana == 3) {
-				limit_liana = 0;
-			}
-		}
+		position.y += speed_player / 10;
 		
 		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (stop_left == false)) {
 			position.x -= speed_player;
@@ -285,18 +282,21 @@ bool j1Player::PreUpdate() {
 			if (isdoublejumping == false) {
 				if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 					isdoublejumping = true;
+					isjumping = false;
 					if (App->audio->PlayFx(walkingsound, 0) == true || App->audio->PlayFx(walkingsound, 0) == false) {
 						App->audio->PlayFx(jumpingsound, 0);
 					}
+					G_max = position.y - 80;
 					G = Ginit;
 				}
 				isinair = false;
 				ice_left = false;
 				ice_right = false;
-				if (G < G_max) {
-					G++;
+				
+				if (position.y < G_max) {
+					G = G + 5;
 				}
-				position.y += G - jump_vel;
+				position.y += (G - jump_vel)*dt * 20;
 
 				if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !stop_left) {
 					position.x -= speed_player_jump;
@@ -323,10 +323,11 @@ bool j1Player::PreUpdate() {
 			isinair = false;
 			ice_left = false;
 			ice_right = false;
-			if (G < G_max) {
-				G++;
+
+			if (position.y < G_max) {
+				G = G + 5;
 			}
-			position.y += G - jump_vel;
+			position.y += (G - jump_vel)*dt * 20;
 
 			if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !stop_left) {
 				position.x -= speed_player_jump;
@@ -363,9 +364,7 @@ bool j1Player::PreUpdate() {
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_NONE;
 		}
-		if (G < G_max) {
-			G++;
-		}
+		G++;
 		position.y += G;
 	}
 
@@ -409,12 +408,21 @@ bool j1Player::PreUpdate() {
 		body->rect.y = position.y;
 	}
 
+	if (dimensionhielo == true) {
+		if ((ice_left == true)&& (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT)) {
+			position.x -= speed_player_ice;
+		}
+		if ((ice_right == true) && (App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT)) {
+			position.x += speed_player_ice;
+		}
+	}
+
 	return true;
 }
 
 
 // Update: draw background
-bool j1Player::Update(float dt)
+bool j1Player::PreUpdate()
 {
 	BROFILER_CATEGORY("PlayerUpdate", Profiler::Color::DarkSeaGreen)
 	if (dimensionfuego == true) {
@@ -463,15 +471,8 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 	BROFILER_CATEGORY("PlayerOnCollision", Profiler::Color::MediumAquaMarine)
 	if (player->type == COLLIDER_PLAYER) {
 		if (other->type == COLLIDER_CORRIENTE_AGUA) {
-			if (godmode == false) {
-				if (limit_wave_watter == 0) {
-					position.x--;
-				}
-				limit_wave_watter++;
-				if (limit_wave_watter == 3) {
-					limit_wave_watter = 0;
-				}
-			}
+			position.x -= speed_player / 4;
+			
 		}
 		if (other->type == COLLIDER_PORTAL_AGUA) {
 			App->audio->PlayFx(portalsound, 0);
@@ -612,20 +613,7 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 					stop_left = true;
 					Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 				}
-				if (dimensionhielo == true) {
-					if (limit_ice == 0) {
-						if (ice_left == true) {
-							position.x -= speed_player_ice;
-						}
-						if (ice_right == true) {
-							position.x += speed_player_ice;
-						}
-					}
-					limit_ice++;
-					if (limit_ice >= 2) {
-						limit_ice = 0;
-					}
-				}
+
 			}
 		}
 
@@ -751,14 +739,21 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.child("playerattribute").append_attribute("godmode") = godmode;
 	data.child("playerattribute").append_attribute("ice_right") = ice_right;
 	data.child("playerattribute").append_attribute("ice_left") = ice_left;
+	data.child("playerattribute").append_attribute("left") = left;
+	data.child("playerattribute").append_attribute("right") = right;
+	data.child("playerattribute").append_attribute("body_col_x") = body->rect.x;
+	data.child("playerattribute").append_attribute("body_col_y") = body->rect.y;
 	return true;
 }
 
 bool j1Player::Load(pugi::xml_node& data)
 {
-
-	position.x = data.child("playerposition").attribute("x").as_int();
-	position.y = data.child("playerposition").attribute("y").as_int();
+	body->rect.x= data.child("playerattribute").attribute("body_col_x").as_int();
+	body->rect.y = data.child("playerattribute").attribute("body_col_y").as_int();
+	right=data.child("playerattribute").attribute("right").as_bool();
+	left = data.child("playerattribute").attribute("left").as_bool();
+	position.x = data.child("playerposition").attribute("x").as_float();
+	position.y = data.child("playerposition").attribute("y").as_float()-15;
 	dimensionnormal = data.child("playerworld").attribute("normal").as_bool();
 	dimensionagua = data.child("playerworld").attribute("watter").as_bool();
 	dimensionfuego = data.child("playerworld").attribute("fire").as_bool();
