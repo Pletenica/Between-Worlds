@@ -33,34 +33,33 @@ struct Properties
 	p2List<Property*>	list;
 };
 
-struct MapLayer {
-	p2SString	name = "Name_Null";
-	uint		width = 0u;
-	uint		height = 0u;
+// ----------------------------------------------------
+struct MapLayer
+{
+	p2SString	name;
+	int			width;
+	int			height;
 	uint*		data;
-	uint*		gid = nullptr;
-
 	Properties	properties;
 
-	MapLayer() : gid(NULL)
+	MapLayer() : data(NULL)
 	{}
 
 	~MapLayer()
 	{
-		RELEASE(gid);
+		RELEASE(data);
 	}
 
-	// TODO 6: Short function to get the value of x,y
-	inline uint Get(int x, int y) const {
-		return (y * width) + x;
+	inline uint Get(int x, int y) const
+	{
+		return data[(y*width) + x];
 	}
 };
-
 
 // ----------------------------------------------------
 struct TileSet
 {
-	// TODO 7: Create a method that receives a tile id and returns it's Rect
+	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
 	int					firstgid;
@@ -75,14 +74,6 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
-	SDL_Rect GetRect(int id) {
-		int n = id - firstgid;
-		int x = n % num_tiles_width;
-		x = ((x * tile_width) + (x * spacing)) + margin;
-		int y = n / num_tiles_width;
-		y = ((y * tile_height) + (y * spacing)) + margin;
-		return { x,y,tile_width,tile_height };
-	}
 };
 
 enum MapTypes
@@ -103,7 +94,6 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	layers;
-	// TODO 2: Add a list/array of layers to the map!
 };
 
 // ----------------------------------------------------
@@ -128,7 +118,6 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
-	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
 	void Translate_Coord(int* x, int* y) {
 		*x *= data.tile_width;
 		*y *= data.tile_height;
@@ -152,7 +141,7 @@ public:
 	bool inair;
 	MapData data;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	bool collidersdone=false;
+	bool collidersdone = false;
 
 private:
 

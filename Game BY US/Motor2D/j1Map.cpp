@@ -4,13 +4,11 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
-#include "j1Collision.h"
-#include "j1Input.h"
-#include "j1Window.h"
+#include "j1App.h"
 #include "j1Player.h"
+#include "j1Collision.h"
 #include "j1Scene.h"
 #include "../Game/Brofiler/Brofiler.h"
-//
 #include <math.h>
 
 int gidcollgroundone;
@@ -24,6 +22,11 @@ int gidcollgroundicewall;
 int gidcolldeath;
 int gidcollliana;
 int gidcorrienteagua;
+int gidpathfinding;
+int gidenemyliana;
+int gidenemyfire;
+int gidenemywatter;
+int gidenemyice;
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -52,133 +55,124 @@ bool j1Map::Awake(pugi::xml_node& config)
 	gidcollliana = config.child("othercolliders").attribute("liana").as_int();
 	gidcolldeath = config.child("othercolliders").attribute("death").as_int();
 	gidcorrienteagua = config.child("othercolliders").attribute("corriente").as_int();
+	gidpathfinding = config.child("pathfinding").attribute("id").as_int();
+	gidenemyliana = config.child("enemies").attribute("liana").as_int();
+	gidenemyfire = config.child("enemies").attribute("fire").as_int();
+	gidenemywatter = config.child("enemies").attribute("watter").as_int();
+	gidenemyice = config.child("enemies").attribute("ice").as_int();
 
 	return ret;
 }
 
 void j1Map::Draw()
 {
-	BROFILER_CATEGORY("DrawMap", Profiler::Color::DarkViolet)
-	if(map_loaded == false)
+	if (map_loaded == false)
 		return;
 
-	bool ret = false;
-	int number_of_layers = data.layers.count();
-	p2List_item<MapLayer*>* coord_layer = data.layers.start;
+	p2List_item<MapLayer*>* item = data.layers.start;
 	p2List_item<TileSet*>* coord_tileset = data.tilesets.start;
+	int number_of_layers = data.layers.count();
+	int count_layers = 0;
+	for (; item != NULL; item = item->next)
+	{
+		count_layers++;
+		MapLayer* layer = item->data;
 
-	// TODO 5: Prepare the loop to iterate all the tiles in a layer
+		//if(layer->properties.Get("Nodraw") != 0)
+			//continue;
 
-	int colliderCounter = 0;
-	for (int layer_counter = 0; layer_counter < number_of_layers; layer_counter++) {
-		for (int i = 0; i < coord_layer->data->height; i++) {
-			for (int j = 0; j < coord_layer->data->width; j++) {
-				int n = coord_layer->data->Get(j, i);
-				int gid = coord_layer->data->gid[n];
-				if ((j * 32  < App->player->position.x + 400) && (j*32 > App->player->position.x - 550)) {
-					if (gid != 0) {
-						while (ret == false) {
-							if (coord_tileset->next != NULL && coord_tileset->next->data->firstgid <= gid) coord_tileset = coord_tileset->next;
-							else if (coord_tileset->prev != NULL && coord_tileset->data->firstgid > gid)coord_tileset = coord_tileset->prev;
-							else ret = true;
+		for (int y = 0; y < data.height; ++y)
+		{
+			for (int x = 0; x < data.width; ++x)
+			{
+				int tile_id = layer->Get(x, y);
+				if (tile_id > 0)
+				{
+					if ((x * 32 < App->player->position.x + 400) && (x * 32 > App->player->position.x - 550)) {
+						TileSet* tileset = GetTilesetFromTileId(tile_id);
+
+						SDL_Rect r = tileset->GetTileRect(tile_id);
+						iPoint pos = MapToWorld(x, y);
+						SDL_Rect rect;
+
+						if (tile_id == gidcollgroundone) {//1 NORMAL
+							App->collision->AddCollider({ pos.x,pos.y + 12,32,20 }, COLLIDER_SUELO, this);
 						}
-						ret = false;
-						SDL_Rect rect = coord_tileset->data->GetRect(coord_layer->data->gid[n]);
-						int x = j;
-						int y = i;
-						Translate_Coord(&x, &y);
-						
-							if (gid == gidcollgroundone) {//1 NORMAL
-								App->collision->AddCollider({ x,y + 12,32,20 }, COLLIDER_SUELO, this);
-							}
-							if (gid == gidcollgroundtwo) {//2 NORMAL
-								App->collision->AddCollider({ x,y + 12,32,52 }, COLLIDER_SUELO, this);
-							}
-							if (gid == gidcollgroundthree) {//3 NORMAL
-								App->collision->AddCollider({ x,y + 12,32,84 }, COLLIDER_SUELO, this);
-							}
-							if (gid == gidcollgroundwall) { //W NORMAL
-								App->collision->AddCollider({ x,y + 12,32,188 }, COLLIDER_SUELO, this);
-							}
-							if (gid == gidcollliana) { //W HIELO
-								App->collision->AddCollider({ x,y,32,32 }, COLLIDER_LIANA, this);
-							}
-							if (gid == gidcorrienteagua) { //CORRIENTE AGUA
-								App->collision->AddCollider({ x,y,32,32 }, COLLIDER_CORRIENTE_AGUA, this);
-							}
-							if (gid == gidcolldeath) {
-								App->collision->AddCollider({ x,y + 10,32,32 }, COLLIDER_DEATH, this);
-							}
+						if (tile_id == gidcollgroundtwo) {//2 NORMAL
+							App->collision->AddCollider({ pos.x,pos.y + 12,32,52 }, COLLIDER_SUELO, this);
+						}
+						if (tile_id == gidcollgroundthree) {//3 NORMAL
+							App->collision->AddCollider({ pos.x,pos.y + 12,32,84 }, COLLIDER_SUELO, this);
+						}
+						if (tile_id == gidcollgroundwall) { //W NORMAL
+							App->collision->AddCollider({ pos.x,pos.y + 12,32,188 }, COLLIDER_SUELO, this);
+						}
+						if (tile_id == gidcollliana) { //W HIELO
+							App->collision->AddCollider({ pos.x,pos.y,32,32 }, COLLIDER_LIANA, this);
+						}
+						if (tile_id == gidcorrienteagua) { //CORRIENTE AGUA
+							App->collision->AddCollider({ pos.x,pos.y,32,32 }, COLLIDER_CORRIENTE_AGUA, this);
+						}
+						if (tile_id == gidcolldeath) {
+							App->collision->AddCollider({ pos.x,pos.y + 10,32,32 }, COLLIDER_DEATH, this);
+						}
 
-							if (((App->player->dimensionplanta == true) || (App->player->dimensionhielo == true)) && ((App->player->dimensionfuego == false) && (App->player->dimensionagua == false))) {
-								if (layer_counter >= 6) {
-									if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
-										if ((layer_counter == 6) || (layer_counter == 8) || (layer_counter == 9)) {
-											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.96F, 0, 0, 0, flip);
+						if (tile_id != gidpathfinding && tile_id != gidenemyfire && tile_id != gidenemywatter && tile_id != gidenemyice && tile_id != gidenemyliana) {
+							if (App->scene->changelevel == false) {
+								if (App->player->dimensionnormal == true) {
+									if (count_layers < 6) {
+										if (count_layers == 0 || count_layers == 1) {
+											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 0.96f, 0, NULL, NULL, SDL_FLIP_NONE);
 										}
 										else {
-											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 1.0f, 0, NULL, NULL, SDL_FLIP_NONE);
 										}
-										
-										App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+									}
+								}
+								if ((App->player->dimensionplanta == true) || (App->player->dimensionhielo == true)) {
+									if (count_layers >= 6) {
+										if (count_layers == 6 || count_layers == 8 || count_layers == 9) {
+											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 0.96f, 0, NULL, NULL, SDL_FLIP_NONE);
+										}
+										else {
+											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 1.0f, 0, NULL, NULL, SDL_FLIP_NONE);
+										}
 									}
 								}
 							}
 
-							if (((App->player->dimensionfuego == true) || (App->player->dimensionagua == true)) && ((App->player->dimensionhielo == false) && (App->player->dimensionplanta == false))) {
-								if (layer_counter >= 5) {
-									if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
-										if (layer_counter == 5) {
-											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.96F, 0, 0, 0, flip);
+							if (App->scene->changelevel == true) {
+								if (App->player->dimensionnormal == true) {
+									if (count_layers < 5) {
+										if (count_layers == 0) {
+											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 0.96f, 0, NULL, NULL, SDL_FLIP_NONE);
 										}
 										else {
-											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
+											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 1.0f, 0, NULL, NULL, SDL_FLIP_NONE);
+										}
+									}
+								}
+								if ((App->player->dimensionfuego == true) || (App->player->dimensionagua == true)) {
+									if (count_layers >= 5) {
+										if (count_layers == 5) {
+											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 0.96f, 0, NULL, NULL, SDL_FLIP_NONE);
+										}
+										else {
+											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 1.0f, 0, NULL, NULL, SDL_FLIP_NONE);
 										}
 									}
 								}
 							}
-							if ((App->player->dimensionplanta == false) && (App->player->dimensionhielo == false) && (App->player->dimensionfuego == false) && (App->player->dimensionagua == false)) {
-								if (App->scene->changelevel == false) {
-									if (layer_counter < 6) {
-										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
-											if ((layer_counter == 0) || (layer_counter == 1)) {
-											App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.96F, 0, 0, 0, flip);
-											}
-											else {
-												App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
-											}
-										}
-									}
-								}
-								else {
-									if (layer_counter < 5) {
-										if (gid != gidcolldeath && gid != gidcollliana && gid != gidcollgroundone && gid != gidcollgroundtwo && gid != gidcollgroundthree && gid != gidcollgroundwall && gid != gidcorrienteagua) {
-											if (layer_counter == 0) {
-												App->render->Blit(coord_tileset->data->texture, x, y, &rect, 0.96F, 0, 0, 0, flip);
-											}
-											else {
-												App->render->Blit(coord_tileset->data->texture, x, y, &rect, 1.0F, 0, 0, 0, flip);
-											}
-										}
-									}
-								}
-							}
+
+						}
+					}
+					if (x * 32 < App->player->position.x - 400) {
+						App->collision->CleanBackMapPlayer(x * 32);
 					}
 				}
-
-				if (j*32 < App->player->position.x - 400) {
-					App->collision->CleanBackMapPlayer(j*32);
-				}
-
 			}
 		}
-
-
-		
-		coord_layer = coord_layer->next;
 	}
-
-	collidersdone = true;
 }
 
 int Properties::Get(const char* value, int default_value) const
@@ -263,6 +257,16 @@ iPoint j1Map::WorldToMap(int x, int y) const
 	return ret;
 }
 
+SDL_Rect TileSet::GetTileRect(int id) const
+{
+	int relative_id = id - firstgid;
+	SDL_Rect rect;
+	rect.w = tile_width;
+	rect.h = tile_height;
+	rect.x = margin + ((rect.w + spacing) * (relative_id % num_tiles_width));
+	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
+	return rect;
+}
 
 // Called before quitting
 bool j1Map::CleanUp()
@@ -273,29 +277,26 @@ bool j1Map::CleanUp()
 	p2List_item<TileSet*>* item;
 	item = data.tilesets.start;
 
-	while(item != NULL)
+	while (item != NULL)
 	{
-		App->tex->UnLoad(item->data->texture);
-		//App->tex->UnLoad(App->scene->objects_graphics);
 		RELEASE(item->data);
 		item = item->next;
 	}
 	data.tilesets.clear();
 
-	// TODO 2: clean up all layer data
 	// Remove all layers
-	p2List_item<MapLayer*>* iteml;
-	iteml = data.layers.start;
-	while (item != NULL)
+	p2List_item<MapLayer*>* item2;
+	item2 = data.layers.start;
+
+	while (item2 != NULL)
 	{
-		RELEASE(iteml->data->gid);
-		RELEASE(iteml->data);
-		iteml = iteml->next;
+		RELEASE(item2->data);
+		item2 = item2->next;
 	}
 	data.layers.clear();
 
+	// Clean up the pugui tree
 	map_file.reset();
-	App->collision->CleanUp();
 
 	return true;
 }
@@ -308,30 +309,30 @@ bool j1Map::Load(const char* file_name)
 
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
 
-	if(result == NULL)
+	if (result == NULL)
 	{
 		LOG("Could not load map xml file %s. pugi error: %s", file_name, result.description());
 		ret = false;
 	}
 
 	// Load general info ----------------------------------------------
-	if(ret == true)
+	if (ret == true)
 	{
 		ret = LoadMap();
 	}
 
 	// Load all tilesets info ----------------------------------------------
 	pugi::xml_node tileset;
-	for(tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
+	for (tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
 	{
 		TileSet* set = new TileSet();
 
-		if(ret == true)
+		if (ret == true)
 		{
 			ret = LoadTilesetDetails(tileset, set);
 		}
 
-		if(ret == true)
+		if (ret == true)
 		{
 			ret = LoadTilesetImage(tileset, set);
 		}
@@ -339,28 +340,26 @@ bool j1Map::Load(const char* file_name)
 		data.tilesets.add(set);
 	}
 
-	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
 	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
-		MapLayer* set = new MapLayer();
+		MapLayer* lay = new MapLayer();
+
+		ret = LoadLayer(layer, lay);
 
 		if (ret == true)
-		{
-			ret = LoadLayer(layer, set);
-		}
-		data.layers.add(set);
+			data.layers.add(lay);
 	}
 
-	if(ret == true)
+	if (ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
 		LOG("width: %d height: %d", data.width, data.height);
 		LOG("tile_width: %d tile_height: %d", data.tile_width, data.tile_height);
 
 		p2List_item<TileSet*>* item = data.tilesets.start;
-		while(item != NULL)
+		while (item != NULL)
 		{
 			TileSet* s = item->data;
 			LOG("Tileset ----");
@@ -370,11 +369,8 @@ bool j1Map::Load(const char* file_name)
 			item = item->next;
 		}
 
-		// TODO 4: Add info here about your loaded layers
-		// Adapt this code with your own variables
-		
 		p2List_item<MapLayer*>* item_layer = data.layers.start;
-		while(item_layer != NULL)
+		while (item_layer != NULL)
 		{
 			MapLayer* l = item_layer->data;
 			LOG("Layer ----");
@@ -395,12 +391,11 @@ bool j1Map::LoadMap()
 	bool ret = true;
 	pugi::xml_node map = map_file.child("map");
 
-	if(map == NULL)
+	if (map == NULL)
 	{
 		LOG("Error parsing map xml file: Cannot find 'map' tag.");
 		ret = false;
 	}
-
 	else
 	{
 		data.width = map.attribute("width").as_int();
@@ -414,7 +409,7 @@ bool j1Map::LoadMap()
 		data.background_color.b = 0;
 		data.background_color.a = 0;
 
-		if(bg_color.Length() > 0)
+		if (bg_color.Length() > 0)
 		{
 			p2SString red, green, blue;
 			bg_color.SubString(1, 2, red);
@@ -424,26 +419,26 @@ bool j1Map::LoadMap()
 			int v = 0;
 
 			sscanf_s(red.GetString(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.r = v;
+			if (v >= 0 && v <= 255) data.background_color.r = v;
 
 			sscanf_s(green.GetString(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.g = v;
+			if (v >= 0 && v <= 255) data.background_color.g = v;
 
 			sscanf_s(blue.GetString(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.b = v;
+			if (v >= 0 && v <= 255) data.background_color.b = v;
 		}
 
 		p2SString orientation(map.attribute("orientation").as_string());
 
-		if(orientation == "orthogonal")
+		if (orientation == "orthogonal")
 		{
 			data.type = MAPTYPE_ORTHOGONAL;
 		}
-		else if(orientation == "isometric")
+		else if (orientation == "isometric")
 		{
 			data.type = MAPTYPE_ISOMETRIC;
 		}
-		else if(orientation == "staggered")
+		else if (orientation == "staggered")
 		{
 			data.type = MAPTYPE_STAGGERED;
 		}
@@ -467,7 +462,7 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	set->spacing = tileset_node.attribute("spacing").as_int();
 	pugi::xml_node offset = tileset_node.child("tileoffset");
 
-	if(offset != NULL)
+	if (offset != NULL)
 	{
 		set->offset_x = offset.attribute("x").as_int();
 		set->offset_y = offset.attribute("y").as_int();
@@ -486,7 +481,7 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	bool ret = true;
 	pugi::xml_node image = tileset_node.child("image");
 
-	if(image == NULL)
+	if (image == NULL)
 	{
 		LOG("Error parsing tileset xml file: Cannot find 'image' tag.");
 		ret = false;
@@ -498,14 +493,14 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 		SDL_QueryTexture(set->texture, NULL, NULL, &w, &h);
 		set->tex_width = image.attribute("width").as_int();
 
-		if(set->tex_width <= 0)
+		if (set->tex_width <= 0)
 		{
 			set->tex_width = w;
 		}
 
 		set->tex_height = image.attribute("height").as_int();
 
-		if(set->tex_height <= 0)
+		if (set->tex_height <= 0)
 		{
 			set->tex_height = h;
 		}
@@ -517,38 +512,34 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
-// TODO 3: Create the definition for a function that loads a single layer
 bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
 	bool ret = true;
-	layer->name = node.child("layer").attribute("name").as_string();
-	if (strcmp(layer->name.GetString(), "Name_Null") == 0) {
-		LOG("Error geting layer name");
-		return false;
+
+	layer->name = node.attribute("name").as_string();
+	layer->width = node.attribute("width").as_int();
+	layer->height = node.attribute("height").as_int();
+	LoadProperties(node, layer->properties);
+	pugi::xml_node layer_data = node.child("data");
+
+	if (layer_data == NULL)
+	{
+		LOG("Error parsing map xml file: Cannot find 'layer/data' tag.");
+		ret = false;
+		RELEASE(layer);
 	}
-	else {
-		LOG("OK");
+	else
+	{
+		layer->data = new uint[layer->width*layer->height];
+		memset(layer->data, 0, layer->width*layer->height);
+
+		int i = 0;
+		for (pugi::xml_node tile = layer_data.child("tile"); tile; tile = tile.next_sibling("tile"))
+		{
+			layer->data[i++] = tile.attribute("gid").as_int(0);
+		}
 	}
-	layer->width = node.attribute("width").as_uint();
-	if (layer->width == 0) {
-		LOG("Error geting layer width");
-		return false;
-	}
-	layer->height = node.attribute("height").as_uint();
-	if (layer->height == 0) {
-		LOG("Error geting layer height");
-		return false;
-	}
-	uint total_gid = layer->width * layer->height;
-	layer->gid = new uint[total_gid];
-	memset(layer->gid, 0, total_gid*sizeof(uint));
-	pugi::xml_node tile = node.child("data").child("tile");
-	int i = 0;
-	while (tile && strcmp(tile.name(),"tile")==0) {
-		layer->gid[i] = tile.attribute("gid").as_uint();
-		i++;
-		tile = tile.next_sibling("tile");
-	}
+
 	return ret;
 }
 
