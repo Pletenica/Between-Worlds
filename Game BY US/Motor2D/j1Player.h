@@ -47,7 +47,8 @@ public:
 	SDL_Rect rectplayer;
 	SDL_Rect rectoli;
 
-
+	float positionxinit;
+	float positionyinit;
 	fPoint position;
 	int mult;
 	int jump_max = 80;

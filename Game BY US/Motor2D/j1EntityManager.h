@@ -11,9 +11,10 @@ class j1Entity;
 enum class EntityType
 {
 	PLAYER,
-	ENEMY,
-	TRAPS,
-	PARTICLES,
+	ENEMY_LIANA,
+	ENEMY_FIRE,
+	ENEMY_WATTER,
+	ENEMY_ICE,
 	UNKNOWN
 };
 

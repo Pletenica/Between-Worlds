@@ -15,7 +15,8 @@
 
 j1EntityManager::j1EntityManager()
 {
-	name.create("entityManager");
+	name.create("EntityManager");
+	
 }
 
 
@@ -31,12 +32,17 @@ j1Entity* j1EntityManager::CreateEntity(EntityType type)
 	case EntityType::PLAYER:
 		entity = new j1Player();
 		break;
-	case EntityType::ENEMY:
-		//ret = new j1Enemy();
+	case EntityType::ENEMY_LIANA:
+		//entity = new EnemyLiana();
 		break;
-	case EntityType::TRAPS:
+	case EntityType::ENEMY_FIRE:
+		//entity = new EnemyFire();
 		break;
-	case EntityType::PARTICLES:
+	case EntityType::ENEMY_WATTER:
+		//entity = new EnemyWatter();
+		break;
+	case EntityType::ENEMY_ICE:
+		//entity = new EnemyIce();
 		break;
 	case EntityType::UNKNOWN:
 		break;
@@ -54,53 +60,84 @@ void j1EntityManager::DestroyEntity(j1Entity* delete_entity)
 
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
-	bool ret = true;
+	j1Player* player = (j1Player*)App->entities->CreateEntity(EntityType::PLAYER);
 
-	return ret;
+	for (int i = 0; i < entities.count(); i++)
+	{
+		entities.At(i)->data->Awake(config);
+	}
+	return true;
 }
 
 bool j1EntityManager::Start()
 {
-	bool ret = true;
-	j1Player* player = (j1Player*)App->entities->CreateEntity(EntityType::PLAYER);
-	return ret;
+	
+
+	for (int i = 0; i < entities.count(); i++)
+	{
+		entities.At(i)->data->Start();
+	}
+	return true;
 }
 
 bool j1EntityManager::PreUpdate()
 {
-	bool ret = true;
-	return ret;
+	for (int i = 0; i < entities.count(); i++)
+	{
+		entities.At(i)->data->PreUpdate();
+	}
+	return true;
 }
 
 bool j1EntityManager::Update(float dt)
 {
-	bool ret = true;
-	return ret;
+	for (int i = 0; i < entities.count(); i++)
+	{
+		entities.At(i)->data->Update(dt);
+	}
+	return true;
 }
 
 bool j1EntityManager::PostUpdate()
 {
-	bool ret = true;
-	return ret;
+	for (int i = 0; i < entities.count(); i++)
+	{
+		entities.At(i)->data->PostUpdate();
+	}
+	return true;
 }
 
 bool j1EntityManager::CleanUp()
 {
-	bool ret = true;
-	return ret;
+	for (int i = entities.count() - 1; i >= 0; i--)
+	{
+		entities.del(entities.At(i));
+	}
+	entities.clear();
+	return true;
 }
 
 void j1EntityManager::OnCollision(Collider* c1, Collider* c2) {
+	for (int i = 0; i < entities.count(); i++)
+	{
+		entities.At(i)->data->OnCollision(c1, c2);
+	}
 }
 
 bool j1EntityManager::Load(pugi::xml_node& data)
 {
-	bool ret = true;
-	return ret;
+	for (int i = 0; i < entities.count(); i++)
+	{
+		entities.At(i)->data->Load(data);
+	}
+	return true;
 }
 
 bool j1EntityManager::Save(pugi::xml_node& data)
 {
-	bool ret = true;
-	return ret;
+	for (int i = 0; i < entities.count(); i++)
+	{
+		entities.At(i)->data->Save(data);
+	}
+	return true;
 }

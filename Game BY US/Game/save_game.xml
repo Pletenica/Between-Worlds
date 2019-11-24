@@ -10,12 +10,7 @@
 		<scene camx="0" real_camx="0" actualscene="false" />
 	</scene>
 	<collision />
-	<player>
-		<player />
-		<playerposition x="20" y="227" />
-		<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
-		<playerattribute godmode="false" ice_right="false" ice_left="false" left="false" right="false" body_col_x="25" body_col_y="227" />
-	</player>
+	<EntityManager />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>

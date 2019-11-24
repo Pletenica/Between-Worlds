@@ -9,11 +9,14 @@
 #include "j1Collision.h"
 #include "j1PathFinding.h"
 #include "j1Player.h"
+#include "j1EntityManager.h"
+#include "j1Entity.h"
 #include "j1Map.h"
 #include "j1Scene.h"
 
 j1Scene::j1Scene() : j1Module()
 {
+	
 	/////PLANT PORTAL ANIMATION//////
 	plant_portal.PushBack({ 0, 64, 50, 64 });
 	plant_portal.PushBack({ 50, 64, 50, 64 });

@@ -59,13 +59,14 @@ j1Player::~j1Player()
 bool j1Player::Awake(pugi::xml_node& config)
 {
 	/////// SCENE 1 PORTALS ///////
-	Ginit = config.child("gravity").attribute("Ginit").as_float(1);
-	jump_vel = config.child("gravity").attribute("JumpVel").as_float(12);
-	G_max = config.child("gravity").attribute("Gmax").as_float(17);
-	speed_player_aux = config.child("speed").attribute("movement").as_float(2);
-	speed_player_ice_aux = config.child("speed").attribute("iceinercy").as_int(1);
-	speed_player_jump_aux = config.child("speed").attribute("movementinair").as_int(2);
-
+	Ginit = config.child("player").child("gravity").attribute("Ginit").as_float(1);
+	jump_vel = config.child("player").child("gravity").attribute("JumpVel").as_float(12);
+	G_max = config.child("player").child("gravity").attribute("Gmax").as_float(17);
+	speed_player_aux = config.child("player").child("speed").attribute("movement").as_float(2);
+	speed_player_ice_aux = config.child("player").child("speed").attribute("iceinercy").as_int(1);
+	speed_player_jump_aux = config.child("player").child("speed").attribute("movementinair").as_int(2);
+	positionxinit = config.child("player").child("position").attribute("positionxinit").as_int(2);
+	positionyinit = config.child("player").child("position").attribute("positionyinit").as_int(2);
 
 	return true;
 }
@@ -75,6 +76,8 @@ bool j1Player::Start()
 {
 	//// Load All CONDITIONS //// 
 	Current_Animation =idle;
+	position.x = positionxinit;
+	position.y = positionyinit;
 
 	//// Load All Graphics //// 
 	normal_graphics = App->tex->Load("textures/PlayerNormal.png");
@@ -89,7 +92,8 @@ bool j1Player::Start()
 	deathsound = App->audio->LoadFx("audio/fx/death.wav");
 	walkingsound = App->audio->LoadFx("audio/fx/walk.wav");
 	portalsound = App->audio->LoadFx("audio/fx/portal.wav");
-	body = App->collision->AddCollider({ (int)position.x,(int)position.y,20,32 }, COLLIDER_PLAYER, this);
+	body = App->collision->AddCollider({ (int)position.x,(int)position.y,18,32 }, COLLIDER_PLAYER, this);
+
 
 	return true;
 }
@@ -395,18 +399,13 @@ bool j1Player::Update(float dt) {
 				ChangeToLevel2();
 			}
 		}
+
 	}
 
+	body->rect.x = position.x+5;
+	body->rect.y = position.y;
 
-	//////// CHANGE PLAYER COLLIDER IF FLIP ////////
-	if (flip == SDL_FLIP_HORIZONTAL) {
-		body->rect.x = App->player->position.x +7;
-		body->rect.y = position.y;
-	}
-	if (flip == SDL_FLIP_NONE) {
-		body->rect.x = App->player->position.x +5;
-		body->rect.y = position.y;
-	}
+
 
 	if (dimensionhielo == true) {
 		if ((ice_left == true)&& (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT)) {
@@ -632,7 +631,8 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				stop_right = true;
 				stop_left = true;
 				stop_jump = true;
-				position.y = other->rect.y - 10;
+				position.x = positionxinit;
+				position.y = positionyinit;
 			}
 		}
 		if (other->type == COLLIDER_DEATH_ENEMY) {
@@ -664,6 +664,8 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 }
 
 void j1Player::ChangeToLevel1() {
+	position.x = positionxinit;
+	position.y = positionyinit;
 	ice_right = false;
 	ice_left = false;
 	dimensionnormal = true;
@@ -683,15 +685,16 @@ void j1Player::ChangeToLevel1() {
 	App->map->Load("Scene01.tmx");
 	App->scene->cameralimit01->rect.x = App->render->camera.x;
 	App->scene->cameralimit02->rect.x = App->render->camera.x + 380;
-	position.x = App->scene->positionplayerinitx;
-	position.y = App->scene->positionplayerinity;
 	App->scene->donecollidersscene2 = true;
 	App->scene->donecollidersscene1 = false;
 	App->scene->changelevel = false;
 	App->scene->justtouchcheckpoint = false;
+	position.x = positionxinit;
+	position.y = positionyinit;
 }
 
 void j1Player::ChangeToLevel2() {
+
 	ice_right = false;
 	ice_left = false;
 	dimensionnormal = true;
@@ -710,16 +713,14 @@ void j1Player::ChangeToLevel2() {
 	App->map->CleanUp();
 	App->map->collidersdone = false;
 	App->map->Load("Scene02.tmx");
-	//App->tex->UnLoad(App->scene->objects_graphics);
-	//App->scene->objects_graphics = App->tex->Load("textures/Objects.png");
 	App->scene->cameralimit01->rect.x = App->render->camera.x;
 	App->scene->cameralimit02->rect.x = App->render->camera.x + 380;
-	position.x = App->scene->positionplayerinitx;
-	position.y = App->scene->positionplayerinity;
 	App->scene->donecollidersscene2 = false;
 	App->scene->donecollidersscene1 = true;
 	App->scene->changelevel = true;
 	App->scene->justtouchcheckpoint = false;
+	position.x = positionxinit;
+	position.y = positionyinit;
 }
 
 
@@ -729,6 +730,8 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.append_child("playerposition");
 	data.child("playerposition").append_attribute("x") = position.x;
 	data.child("playerposition").append_attribute("y") = position.y;
+	data.child("playerposition").append_attribute("x_init") = positionxinit;
+	data.child("playerposition").append_attribute("y_init") = positionyinit;
 	data.append_child("playerworld");
 	data.child("playerworld").append_attribute("watter") = dimensionagua;
 	data.child("playerworld").append_attribute("fire") = dimensionfuego;
@@ -754,6 +757,8 @@ bool j1Player::Load(pugi::xml_node& data)
 	left = data.child("playerattribute").attribute("left").as_bool();
 	position.x = data.child("playerposition").attribute("x").as_float();
 	position.y = data.child("playerposition").attribute("y").as_float()-15;
+	positionxinit = data.child("playerposition").attribute("x_init").as_float();
+	positionyinit = data.child("playerposition").attribute("y_init").as_float();
 	dimensionnormal = data.child("playerworld").attribute("normal").as_bool();
 	dimensionagua = data.child("playerworld").attribute("watter").as_bool();
 	dimensionfuego = data.child("playerworld").attribute("fire").as_bool();

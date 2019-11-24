@@ -5,13 +5,6 @@
 #include "j1Collision.h"
 #include "j1EntityManager.h"
 
-j1Entity::j1Entity(EntityType type) : j1EntityManager() {
-}
-
-j1Entity::~j1Entity() {
-
-}
-
 bool j1Entity::Awake(pugi::xml_node&) {
 	return true;
 }
@@ -25,8 +18,8 @@ bool j1Entity::Start() {
 bool j1Entity::CleanUp() {
 	bool ret = true;
 	ret = App->tex->UnLoad(texture);
-	collider->to_delete = true;
-	collider = nullptr;
+	body->to_delete = true;
+	body = nullptr;
 	texture = nullptr;
 	return ret;
 }
