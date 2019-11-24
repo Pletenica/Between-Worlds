@@ -6,6 +6,7 @@
 #include "p2List.h"
 #include "j1Animation.h"
 
+
 class j1Entity;
 
 enum class EntityType
@@ -20,6 +21,11 @@ enum class EntityType
 
 class j1EntityManager : public j1Module
 {
+public:
+
+	p2List<j1Entity*> entities_list;
+	pugi::xml_node config;
+
 public:
 
 	j1EntityManager();
@@ -37,10 +43,7 @@ public:
 
 	j1Entity* CreateEntity(EntityType type);
 	virtual void DestroyEntity(j1Entity* delete_entity);
-public:
 
-	p2List<j1Entity*> entities;
-	pugi::xml_node config;
 
 };
 

@@ -49,7 +49,7 @@ public:
 
 	float positionxinit;
 	float positionyinit;
-	fPoint position;
+	//fPoint position;
 	int mult;
 	int jump_max = 80;
 	Collider* body;

@@ -95,6 +95,8 @@ void j1Map::Draw()
 						iPoint pos = MapToWorld(x, y);
 						SDL_Rect rect;
 
+						//CreateEnemies(tile_id);
+
 						if (tile_id == gidcollgroundone) {//1 NORMAL
 							App->collision->AddCollider({ pos.x,pos.y + 12,32,20 }, COLLIDER_SUELO, this);
 						}
@@ -614,4 +616,19 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	}
 
 	return ret;
+}
+
+void j1Map::CreateEnemies(int gid) {
+	if (gid == gidenemyliana) {
+		App->entities->CreateEntity(EntityType::ENEMY_LIANA);
+	}
+	if (gid == gidenemyfire) {
+		App->entities->CreateEntity(EntityType::ENEMY_FIRE);
+	}
+	if (gid == gidenemywatter) {
+		App->entities->CreateEntity(EntityType::ENEMY_WATTER);
+	}
+	if (gid == gidenemyice) {
+		App->entities->CreateEntity(EntityType::ENEMY_ICE);
+	}
 }

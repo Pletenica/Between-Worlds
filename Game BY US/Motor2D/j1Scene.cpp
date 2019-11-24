@@ -136,8 +136,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	camlimitright = config.child("camlimits").attribute("right").as_int();
 	positionplayerinitx = config.child("positionplayerinit").attribute("x").as_int();
 	positionplayerinity = config.child("positionplayerinit").attribute("y").as_int();
-	App->player->position.x = positionplayerinitx;
-	App->player->position.y = positionplayerinity;
+	//App->player->position.x = positionplayerinitx;
+	//App->player->position.y = positionplayerinity;
 
 	return ret;
 }
@@ -278,8 +278,7 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 	if (App->player->position.x > cameraxinvert + 200) {
 		if ((((App->player->stop_right == false)) && (cameralimit02->CheckCollision(camrightlim->rect) == false))|| (App->player->ice_right == true)) {
-
-			cameraxinvert = App->player->position.x - 200;
+			cameraxinvert = App->entities->entities_list.start->data->position.x - 200;
 		}
 	}
 

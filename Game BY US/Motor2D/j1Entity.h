@@ -33,6 +33,7 @@ public:
 	Animation liana;
 	Animation dead;
 	Animation jump;
+	fPoint position;
 	Animation* current_animation = nullptr;
 	EntityType type = EntityType::UNKNOWN;
 	SDL_Texture* texture = nullptr;

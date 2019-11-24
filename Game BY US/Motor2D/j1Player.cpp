@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include <math.h>
 #include "j1EntityManager.h"
+#include "EnemyLiana.h"
 #include "SDL/include/SDL_timer.h"
 #include "../Game/Brofiler/Brofiler.h"
 
@@ -659,6 +660,9 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				App->SaveGame();
 			}
 			App->scene->justtouchcheckpoint = true;
+		}
+		if (other->type == COLLIDER_TO_KILL_ENEMY) {
+			//App->entities->entities_list.del();
 		}
 	}
 }

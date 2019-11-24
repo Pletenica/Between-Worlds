@@ -137,6 +137,7 @@ private:
 
 	TileSet* GetTilesetFromTileId(int id) const;
 
+	void CreateEnemies(int gid);
 public:
 	bool inair;
 	MapData data;

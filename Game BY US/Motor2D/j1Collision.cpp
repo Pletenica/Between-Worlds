@@ -26,7 +26,9 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_CHANGESCENEFINAL] = true;
 
 	matrix[COLLIDER_CHECKPOINT_SCENE][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_TO_KILL_ENEMY][COLLIDER_PLAYER] = true;
 
+	matrix[COLLIDER_PLAYER][COLLIDER_TO_KILL_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_SUELO] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_CHECKPOINT_SCENE] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_LIMIT] = true;
@@ -176,6 +178,9 @@ void j1Collision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 		case COLLIDER_LIANA: // green
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+		case COLLIDER_TO_KILL_ENEMY: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 		case COLLIDER_DEATH: // red
