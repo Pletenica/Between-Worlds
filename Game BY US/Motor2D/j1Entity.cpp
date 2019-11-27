@@ -5,6 +5,10 @@
 #include "j1Collision.h"
 #include "j1EntityManager.h"
 
+j1Entity::j1Entity(EntityType type) {
+
+}
+
 bool j1Entity::Awake(pugi::xml_node&) {
 	return true;
 }

@@ -10,7 +10,6 @@
 #include "j1PathFinding.h"
 #include "j1Player.h"
 #include "j1EntityManager.h"
-#include "j1Entity.h"
 #include "j1Map.h"
 #include "j1Scene.h"
 
@@ -157,7 +156,7 @@ bool j1Scene::Start()
 	camrightlim = App->collision->AddCollider({ camlimitright,0,20,350 }, COLLIDER_CAMERA_LRIGHT, this);
 
 	App->SaveGame();
-	App->player->dimensionhielo = false;
+	App->entities->player->dimensionhielo = false;
 	App->audio->PlayMusic("audio/music/back.ogg");
 
 	//Pathinding
@@ -238,10 +237,10 @@ bool j1Scene::PreUpdate()
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		App->player->ChangeToLevel1();
+		App->entities->player->ChangeToLevel1();
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->player->ChangeToLevel2();
+		App->entities->player->ChangeToLevel2();
 
 	// debug pathfing ------------------
 	static iPoint origin;
@@ -272,12 +271,12 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if ((App->player->dimensionhielo)&&(App->player->ice_right == true)&& (App->player->right == false)) {
-		cameraxinvert += App->player->speed_player_ice*1.12;
+	if ((App->entities->player->dimensionhielo)&&(App->entities->player->ice_right == true)&& (App->entities->player->right == false)) {
+		cameraxinvert += App->entities->player->speed_player_ice*1.12;
 	}
 	App->map->Draw();
-	if (App->player->position.x > cameraxinvert + 200) {
-		if ((((App->player->stop_right == false)) && (cameralimit02->CheckCollision(camrightlim->rect) == false))|| (App->player->ice_right == true)) {
+	if (App->entities->player->position.x > cameraxinvert + 200) {
+		if ((((App->entities->player->stop_right == false)) && (cameralimit02->CheckCollision(camrightlim->rect) == false))|| (App->entities->player->ice_right == true)) {
 			cameraxinvert = App->entities->entities_list.start->data->position.x - 200;
 		}
 	}
@@ -329,7 +328,7 @@ bool j1Scene::PostUpdate()
 		}
 	}
 	else {
-		if (App->player->dimensionfuego) {
+		if (App->entities->player->dimensionfuego) {
 			App->render->Blit(objects_graphics, firering1x, firering1y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 90, 0, 0, flip);
 			App->render->Blit(objects_graphics, firering2x, firering2y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 			App->render->Blit(objects_graphics, firering3x, firering3y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
@@ -337,7 +336,7 @@ bool j1Scene::PostUpdate()
 			App->render->Blit(objects_graphics, firering5x, firering5y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 90, 0, 0, flip);
 			App->render->Blit(objects_graphics, firering6x, firering6y, &(fire_ring_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 		}
-		if (App->player->dimensionagua) {
+		if (App->entities->player->dimensionagua) {
 			App->render->Blit(objects_graphics, 2464, 192, &(watter_wave_anim.GetCurrentFrame()), 1.0f, 180, 0, 0, flip);
 			App->render->Blit(objects_graphics, 2816, 256, &(watter_wave_anim.GetCurrentFrame()), 1.0f, 180, 0, 0, flip);
 			App->render->Blit(objects_graphics, 2816, 128, &(watter_wave_anim.GetCurrentFrame()), 1.0f, 180, 0, 0, flip);
@@ -359,7 +358,7 @@ bool j1Scene::PostUpdate()
 
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = App->player->exitgame = false;
+		ret = App->entities->player->exitgame = false;
 
 	return ret;
 }
@@ -391,13 +390,13 @@ bool j1Scene::Load(pugi::xml_node& data)
 	cameraxinvert = data.child("scene").attribute("camx").as_float();
 	if (changelevel != data.child("scene").attribute("actualscene").as_bool()) {
 		if (changelevel == false) {
-			App->player->ChangeToLevel2();
+			App->entities->player->ChangeToLevel2();
 			changelevel = data.child("scene").attribute("actualscene").as_bool();
 			changeyet = true;
 		}
 		if (changelevel == true) {
 			if (changeyet == false) {
-				App->player->ChangeToLevel1();
+				App->entities->player->ChangeToLevel1();
 				changelevel = data.child("scene").attribute("actualscene").as_bool();
 			}
 		}
@@ -411,10 +410,10 @@ bool j1Scene::Load(pugi::xml_node& data)
 void j1Scene::ResetCurrentLevel(bool current_level)
 {
 	if (current_level == true) {
-		App->player->ChangeToLevel2();
+		App->entities->player->ChangeToLevel2();
 	}
 	else if (current_level == false) {
-		App->player->ChangeToLevel1();
+		App->entities->player->ChangeToLevel1();
 	}
 }
 

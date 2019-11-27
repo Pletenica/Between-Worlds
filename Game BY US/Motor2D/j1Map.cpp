@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1EntityManager.h"
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Player.h"
@@ -88,7 +89,7 @@ void j1Map::Draw()
 				int tile_id = layer->Get(x, y);
 				if (tile_id > 0)
 				{
-					if ((x * 32 < App->player->position.x + 400) && (x * 32 > App->player->position.x - 550)) {
+					if ((x * 32 < App->entities->player->position.x + 400) && (x * 32 > App->entities->player->position.x - 550)) {
 						TileSet* tileset = GetTilesetFromTileId(tile_id);
 
 						SDL_Rect r = tileset->GetTileRect(tile_id);
@@ -121,7 +122,7 @@ void j1Map::Draw()
 
 						if (tile_id != gidpathfinding && tile_id != gidenemyfire && tile_id != gidenemywatter && tile_id != gidenemyice && tile_id != gidenemyliana) {
 							if (App->scene->changelevel == false) {
-								if (App->player->dimensionnormal == true) {
+								if (App->entities->player->dimensionnormal == true) {
 									if (count_layers < 6) {
 										if (count_layers == 0 || count_layers == 1) {
 											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 0.96f, 0, NULL, NULL, SDL_FLIP_NONE);
@@ -131,7 +132,7 @@ void j1Map::Draw()
 										}
 									}
 								}
-								if ((App->player->dimensionplanta == true) || (App->player->dimensionhielo == true)) {
+								if ((App->entities->player->dimensionplanta == true) || (App->entities->player->dimensionhielo == true)) {
 									if (count_layers >= 6) {
 										if (count_layers == 6 || count_layers == 8 || count_layers == 9) {
 											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 0.96f, 0, NULL, NULL, SDL_FLIP_NONE);
@@ -144,7 +145,7 @@ void j1Map::Draw()
 							}
 
 							if (App->scene->changelevel == true) {
-								if (App->player->dimensionnormal == true) {
+								if (App->entities->player->dimensionnormal == true) {
 									if (count_layers < 5) {
 										if (count_layers == 0) {
 											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 0.96f, 0, NULL, NULL, SDL_FLIP_NONE);
@@ -154,7 +155,7 @@ void j1Map::Draw()
 										}
 									}
 								}
-								if ((App->player->dimensionfuego == true) || (App->player->dimensionagua == true)) {
+								if ((App->entities->player->dimensionfuego == true) || (App->entities->player->dimensionagua == true)) {
 									if (count_layers >= 5) {
 										if (count_layers == 5) {
 											App->render->Blit(tileset->texture, pos.x, pos.y, &r, 0.96f, 0, NULL, NULL, SDL_FLIP_NONE);
@@ -168,7 +169,7 @@ void j1Map::Draw()
 
 						}
 					}
-					if (x * 32 < App->player->position.x - 400) {
+					if (x * 32 < App->entities->player->position.x - 400) {
 						App->collision->CleanBackMapPlayer(x * 32);
 					}
 				}

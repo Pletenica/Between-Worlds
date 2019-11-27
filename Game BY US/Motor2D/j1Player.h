@@ -10,9 +10,6 @@ struct SDL_Texture;
 struct Mix_Chunk;
 struct Collider;
 
-#define INPUTSOUTS 8
-
-
 class j1Player : public j1Entity
 {
 public:

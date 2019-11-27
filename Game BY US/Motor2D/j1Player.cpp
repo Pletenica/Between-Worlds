@@ -152,13 +152,13 @@ bool j1Player::Update(float dt) {
 
 	//////// GOD MODE ////////
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
-		if (App->player->godmode == true) {
+		if (App->entities->player->godmode == true) {
 			//body = App->collision->AddCollider({ position.x,position.y,20,32 }, COLLIDER_PLAYER, this);
 			godmode = false;
 		}
 		else {
 			isinair = false;
-			App->player->godmode = true;
+			App->entities->player->godmode = true;
 
 		}
 	}
@@ -577,7 +577,7 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 		}
 		if (other->type == COLLIDER_PORTAL_CHANGESCENE1) {
 			App->audio->PlayFx(portalsound, 0);
-			App->player->ChangeToLevel2();
+			App->entities->player->ChangeToLevel2();
 			App->SaveGame();
 		}
 
@@ -668,8 +668,6 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 }
 
 void j1Player::ChangeToLevel1() {
-	position.x = positionxinit;
-	position.y = positionyinit;
 	ice_right = false;
 	ice_left = false;
 	dimensionnormal = true;
@@ -698,7 +696,6 @@ void j1Player::ChangeToLevel1() {
 }
 
 void j1Player::ChangeToLevel2() {
-
 	ice_right = false;
 	ice_left = false;
 	dimensionnormal = true;
@@ -730,6 +727,7 @@ void j1Player::ChangeToLevel2() {
 
 bool j1Player::Save(pugi::xml_node& data) const
 {
+
 	data.append_child("player");
 	data.append_child("playerposition");
 	data.child("playerposition").append_attribute("x") = position.x;

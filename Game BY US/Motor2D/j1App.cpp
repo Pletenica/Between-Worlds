@@ -34,7 +34,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene = new j1Scene();
 	collision = new j1Collision();
-	player = new j1Player();
+	//player = new j1Player();
 	pathfinding = new j1PathFinding();
 	map = new j1Map();
 

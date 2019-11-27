@@ -16,6 +16,7 @@
 
 j1EntityManager::j1EntityManager()
 {
+	player = (j1Player*)CreateEntity(EntityType::PLAYER);
 	name.create("EntityManager");
 	
 }
@@ -61,7 +62,7 @@ void j1EntityManager::DestroyEntity(j1Entity* delete_entity)
 
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
-	j1Player* player = (j1Player*)App->entities->CreateEntity(EntityType::PLAYER);
+	
 	EnemyLiana* enemy_liana = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA);
 
 	for (int i = 0; i < entities_list.count(); i++)
@@ -73,8 +74,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 bool j1EntityManager::Start()
 {
-		for (int i = 0; i < entities_list.count(); i++)
-	{
+	for (int i = 0; i < entities_list.count(); i++){
 		entities_list.At(i)->data->Start();
 	}
 	return true;
@@ -135,6 +135,7 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 
 bool j1EntityManager::Save(pugi::xml_node& data)
 {
+
 	for (int i = 0; i < entities_list.count(); i++)
 	{
 		entities_list.At(i)->data->Save(data);

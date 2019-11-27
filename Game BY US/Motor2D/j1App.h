@@ -17,7 +17,6 @@ class j1Scene;
 class j1Map;
 class j1EntityManager;
 class j1Collision;
-class j1Player;
 class j1Animation;
 class j1PathFinding;
 
@@ -92,7 +91,6 @@ public:
 	j1Map*				map;
 	j1Collision*		collision;
 	j1Animation*		animation;
-	j1Player*			player;
 	j1PathFinding*		pathfinding;	
 	j1EntityManager*	entities;
 	bool				fpsCapON = true;

@@ -1,19 +1,31 @@
 #ifndef _j1ENTITY_H
 #define _j1ENTITY_H
+
+#include "j1Module.h"
 #include "SDL/include/SDL.h"
 #include "j1Animation.h"
-#include "j1EntityManager.h"
+#include "p2Point.h"
 
 struct SDL_Texture;
 struct Collider;
 
+enum class EntityType
+{
+	NONE,
+	PLAYER,
+	ENEMY_LIANA,
+	ENEMY_FIRE,
+	ENEMY_WATTER,
+	ENEMY_ICE,
+	UNKNOWN
+};
 
 
-class j1Entity : public j1EntityManager
+class j1Entity : public j1Module
 {
 public:
 
-	j1Entity(EntityType type) {};
+	j1Entity(EntityType type);
 	virtual ~j1Entity() {};
 
 	virtual bool Awake(pugi::xml_node&);
@@ -23,6 +35,8 @@ public:
 	virtual bool PostUpdate();
 	virtual bool CleanUp();
 	virtual void OnCollision(Collider* c1, Collider* c2) {};
+	virtual bool Load(pugi::xml_node& data){return true;};
+	virtual bool Save(pugi::xml_node& data){return true;};
 
 public:
 
@@ -35,7 +49,7 @@ public:
 	Animation jump;
 	fPoint position;
 	Animation* current_animation = nullptr;
-	EntityType type = EntityType::UNKNOWN;
+	EntityType type;
 	SDL_Texture* texture = nullptr;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 };

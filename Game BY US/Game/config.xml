@@ -9,7 +9,7 @@
   <EntityManager>
   <player>
     <gravity Ginit="1" JumpVel="12" Gmax="17"/>
-    <speed movement="0.5" iceinercy="1" movementinair="2"/>
+    <speed movement="0.4" iceinercy="1" movementinair="2"/>
     <position positionxinit="50" positionyinit="250"/>
   </player>
   </EntityManager>
