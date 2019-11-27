@@ -251,6 +251,7 @@ bool j1Scene::PreUpdate()
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
 
+	/*
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		if (origin_selected == true)
@@ -264,7 +265,7 @@ bool j1Scene::PreUpdate()
 			origin_selected = true;
 		}
 	}
-
+	*/
 	return true;
 }
 
@@ -291,20 +292,23 @@ bool j1Scene::Update(float dt)
 
 	// Debug pathfinding ------------------------------
 	//int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-	p = App->map->MapToWorld(p.x, p.y);
+	if (App->collision->debug == true) {
+		App->input->GetMousePosition(x, y);
+		iPoint p = App->render->ScreenToWorld(x, y);
+		p = App->map->WorldToMap(p.x, p.y);
+		p = App->map->MapToWorld(p.x, p.y);
 
-	App->render->Blit(pathfinding_tex, p.x, p.y, NULL, 1.0f, 0, INT_MAX, INT_MAX, SDL_FLIP_NONE);
+		App->render->Blit(pathfinding_tex, p.x, p.y, NULL, 1.0f, 0, INT_MAX, INT_MAX, SDL_FLIP_NONE);
 
-	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+		const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 
-	for (uint i = 0; i < path->Count(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		App->render->Blit(pathfinding_tex, pos.x, pos.y, NULL, 1.0f, 0, INT_MAX, INT_MAX, SDL_FLIP_NONE);
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			App->render->Blit(pathfinding_tex, pos.x, pos.y, NULL, 1.0f, 0, INT_MAX, INT_MAX, SDL_FLIP_NONE);
+		}
 	}
+
 
 	return true;
 }

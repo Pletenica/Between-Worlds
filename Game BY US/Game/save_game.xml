@@ -18,8 +18,8 @@
 			<playerattribute godmode="false" ice_right="false" ice_left="false" left="false" right="false" body_col_x="55" body_col_y="251" />
 		</player>
 		<enemy_liana>
-			<enemies />
-			<enemyattribute body_col_x="200" body_col_y="103" />
+			<enemyattribute body_col_x="200" body_col_y="103" check_col_x="120" check_col_y="10" to_kill_col_x="205" to_kill_col_y="100" />
+			<enemyposition position_x="200" position_y="100" />
 		</enemy_liana>
 	</EntityManager>
 	<renderer>

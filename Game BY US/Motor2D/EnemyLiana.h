@@ -4,8 +4,6 @@
 #include "j1Module.h"
 #include "j1Animation.h"
 #include "p2Point.h"
-#include "j1Entity.h"
-#include "Enemy.h"
 
 struct SDL_Texture;
 struct Mix_Chunk;
@@ -26,6 +24,7 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 	void OnCollision(Collider*, Collider*);
+	float Move(float);
 
 public:
 	Animation Current_Animation;
@@ -33,6 +32,11 @@ public:
 	Animation walk;
 	SDL_Rect rectenemy;
 
+	bool isincoltoplayer = false;
+	float enemyspeed = 1.0f;
+	iPoint enemypoint;
+	iPoint playerpoint;
+	float angle = 0;
 	float positionxinit;
 	float positionyinit;
 	Collider* body;
