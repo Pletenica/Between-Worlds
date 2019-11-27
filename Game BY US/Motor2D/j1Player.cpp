@@ -403,10 +403,11 @@ bool j1Player::Update(float dt) {
 
 	}
 
-	body->rect.x = position.x+5;
+
+	body->rect.x = position.x + 5;
 	body->rect.y = position.y;
-
-
+	
+	   
 
 	if (dimensionhielo == true) {
 		if ((ice_left == true)&& (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT)) {
@@ -632,8 +633,6 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				stop_right = true;
 				stop_left = true;
 				stop_jump = true;
-				position.x = positionxinit;
-				position.y = positionyinit;
 			}
 		}
 		if (other->type == COLLIDER_DEATH_ENEMY) {
@@ -676,9 +675,11 @@ void j1Player::ChangeToLevel1() {
 	dimensionhielo = false;
 	dimensionplanta = false;
 	current_graphics = normal_graphics;
+	
 	if (deadbool == true) {
 		App->LoadGame();
 	}
+	
 	deadbool = false;
 	App->scene->cameraxinvert = 0;
 	App->render->camera.x = 0;
@@ -704,9 +705,11 @@ void j1Player::ChangeToLevel2() {
 	dimensionhielo = false;
 	dimensionplanta = false;
 	current_graphics = normal_graphics;
+	
 	if (deadbool == true) {
 		App->LoadGame();
 	}
+	
 	deadbool = false;
 	App->scene->cameraxinvert = 0;
 	App->render->camera.x = 0;

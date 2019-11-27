@@ -10,7 +10,18 @@
 		<scene camx="0" real_camx="0" actualscene="false" />
 	</scene>
 	<collision />
-	<EntityManager />
+	<EntityManager>
+		<player>
+			<player />
+			<playerposition x="50" y="251" x_init="50" y_init="250" />
+			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
+			<playerattribute godmode="false" ice_right="false" ice_left="false" left="false" right="false" body_col_x="55" body_col_y="251" />
+		</player>
+		<enemy_liana>
+			<enemies />
+			<enemyattribute body_col_x="200" body_col_y="103" />
+		</enemy_liana>
+	</EntityManager>
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>

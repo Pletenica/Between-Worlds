@@ -30,7 +30,7 @@ public:
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 	bool Load(pugi::xml_node& data);
-	bool Save(pugi::xml_node& data);
+	bool Save(pugi::xml_node& data)const;
 
 	j1Entity* CreateEntity(EntityType type);
 	virtual void DestroyEntity(j1Entity* delete_entity);

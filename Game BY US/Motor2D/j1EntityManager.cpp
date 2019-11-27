@@ -128,17 +128,17 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 {
 	for (int i = 0; i < entities_list.count(); i++)
 	{
-		entities_list.At(i)->data->Load(data);
+		entities_list.At(i)->data->Load(data.child(entities_list.At(i)->data->name.GetString()));
 	}
 	return true;
 }
 
-bool j1EntityManager::Save(pugi::xml_node& data)
+bool j1EntityManager::Save(pugi::xml_node& data) const
 {
 
 	for (int i = 0; i < entities_list.count(); i++)
 	{
-		entities_list.At(i)->data->Save(data);
+		entities_list.At(i)->data->Save(data.append_child(entities_list.At(i)->data->name.GetString()));
 	}
 	return true;
 }
