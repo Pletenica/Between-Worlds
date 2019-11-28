@@ -24,7 +24,7 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 	void OnCollision(Collider*, Collider*);
-	float Move(float);
+	fPoint Move(fPoint);
 
 public:
 	Animation Current_Animation;
@@ -33,7 +33,7 @@ public:
 	SDL_Rect rectenemy;
 
 	bool isincoltoplayer = false;
-	float enemyspeed = 1.0f;
+	fPoint enemyspeed = { 1.0, 1.0 };
 	iPoint enemypoint;
 	iPoint playerpoint;
 	float angle = 0;

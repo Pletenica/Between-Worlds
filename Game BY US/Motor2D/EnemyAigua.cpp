@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1EntityManager.h"
 #include "EnemyAigua.h"
+#include "p2Log.h"
 
 #include "SDL/include/SDL_timer.h"
 #include "../Game/Brofiler/Brofiler.h"
@@ -66,11 +67,14 @@ bool EnemyAigua::Update(float dt) {
 		App->pathfinding->CreatePath(App->map->WorldToMap(enemypoint.x, enemypoint.y), App->map->WorldToMap(playerpoint.x, playerpoint.y));
 
 		App->map->WorldToMap(enemypoint.x, enemypoint.y);
-
-		enemyspeed=Move(enemyspeed);
-
-		enemypoint.x += enemyspeed;
-		enemypoint.y -= enemyspeed;
+		if (App->pathfinding->last_path.At(1) != NULL) {
+			enemyspeed = Move(enemyspeed);
+			LOG("%f, %f", enemyspeed.x, enemyspeed.y);
+			LOG("%f, %f", App->pathfinding->last_path.At(1)->x, App->pathfinding->last_path.At(0)->y);
+		}
+		
+		enemypoint.x += enemyspeed.x;
+		enemypoint.y -= enemyspeed.y;
 	}
 
 	position.x = enemypoint.x;
@@ -148,13 +152,20 @@ bool EnemyAigua::Load(pugi::xml_node& data)
 	return true;
 }
 
-float EnemyAigua::Move(float speed) {
+fPoint EnemyAigua::Move(fPoint speed) {
 
-	if (position.x > App->entities->player->position.x) {
-		speed = -1;
+	if (position.x > App->pathfinding->last_path.At(1)->x) {
+		speed.x = -1;
 	}
-	else {
-		speed = 1;
+	else if (position.x < App->pathfinding->last_path.At(1)->x){
+		speed.x = 1;
+	}
+
+	if (position.y > App->pathfinding->last_path.At(1)->y) {
+		speed.y = -1;
+}
+	else if (position.y < App->pathfinding->last_path.At(1)->y){
+		speed.y = 1;
 	}
 	
 	return speed;
