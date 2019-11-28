@@ -8,14 +8,14 @@
 #include "j1PathFinding.h"
 #include "j1Map.h"
 #include "j1EntityManager.h"
-#include "EnemyLiana.h"
+#include "EnemyAigua.h"
 
 #include "SDL/include/SDL_timer.h"
 #include "../Game/Brofiler/Brofiler.h"
 
-EnemyLiana::EnemyLiana() :j1Entity(EntityType::ENEMY_LIANA)
+EnemyAigua::EnemyAigua() :j1Entity(EntityType::ENEMY_WATTER)
 {
-	type = EntityType::ENEMY_LIANA;
+	type = EntityType::ENEMY_WATTER;
 
 	
 	/////IDLE ANIMATION//////
@@ -27,18 +27,18 @@ EnemyLiana::EnemyLiana() :j1Entity(EntityType::ENEMY_LIANA)
 
 
 
-	name.create("enemy_liana");
+	name.create("enemy_aigua");
 }
 
-EnemyLiana::~EnemyLiana()
+EnemyAigua::~EnemyAigua()
 {}
 
-bool EnemyLiana::CleanUp(){
+bool EnemyAigua::CleanUp(){
 
 	return true;
 }
 
-bool EnemyLiana::Start() {
+bool EnemyAigua::Start() {
 	//// Load All CONDITIONS //// 
 	Current_Animation = idle;
 	position.x = 200;
@@ -54,7 +54,7 @@ bool EnemyLiana::Start() {
 	return true;
 }
 
-bool EnemyLiana::Update(float dt) {
+bool EnemyAigua::Update(float dt) {
 	BROFILER_CATEGORY("EnemiesPreUpdate", Profiler::Color::Chartreuse)
 
 	enemypoint.x = position.x;
@@ -81,7 +81,7 @@ bool EnemyLiana::Update(float dt) {
 	return true;
 }
 
-bool EnemyLiana::PreUpdate()
+bool EnemyAigua::PreUpdate()
 {
 	BROFILER_CATEGORY("EnemiesUpdate", Profiler::Color::DarkSeaGreen)
 
@@ -89,7 +89,7 @@ bool EnemyLiana::PreUpdate()
 	return true;
 }
 
-bool EnemyLiana::PostUpdate() {
+bool EnemyAigua::PostUpdate() {
 	BROFILER_CATEGORY("EnemiesPostUpdate", Profiler::Color::YellowGreen)
 
 	if (App->entities->player->position.x >= position.x) {
@@ -110,7 +110,7 @@ bool EnemyLiana::PostUpdate() {
 	return true;
 }
 
-void EnemyLiana::OnCollision(Collider* enemy, Collider* player) {
+void EnemyAigua::OnCollision(Collider* enemy, Collider* player) {
 	BROFILER_CATEGORY("PlayerOnCollision", Profiler::Color::MediumAquaMarine)
 		if (enemy->type == COLLIDER_CHECK_ENEMY) {
 			if (player->type == COLLIDER_PLAYER) {
@@ -119,7 +119,7 @@ void EnemyLiana::OnCollision(Collider* enemy, Collider* player) {
 		}
 }
 
-bool EnemyLiana::Save(pugi::xml_node& data) const
+bool EnemyAigua::Save(pugi::xml_node& data) const
 {
 	data.append_child("enemyattribute");
 	data.child("enemyattribute").append_attribute("body_col_x") = body->rect.x;
@@ -134,7 +134,7 @@ bool EnemyLiana::Save(pugi::xml_node& data) const
 	return true;
 }
 
-bool EnemyLiana::Load(pugi::xml_node& data)
+bool EnemyAigua::Load(pugi::xml_node& data)
 {
 	body->rect.x = data.child("enemyattribute").attribute("body_col_x").as_int();
 	body->rect.y = data.child("enemyattribute").attribute("body_col_y").as_int();
@@ -148,7 +148,7 @@ bool EnemyLiana::Load(pugi::xml_node& data)
 	return true;
 }
 
-float EnemyLiana::Move(float speed) {
+float EnemyAigua::Move(float speed) {
 
 	if (position.x > App->entities->player->position.x) {
 		speed = -1;

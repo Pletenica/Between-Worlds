@@ -9,11 +9,11 @@ struct SDL_Texture;
 struct Mix_Chunk;
 struct Collider;
 
-class EnemyLiana : public j1Entity
+class EnemyAigua : public j1Entity
 {
 public:
-	EnemyLiana();
-	virtual ~EnemyLiana();
+	EnemyAigua();
+	virtual ~EnemyAigua();
 
 	bool Awake(pugi::xml_node&config) { return true; };
 	bool Start();

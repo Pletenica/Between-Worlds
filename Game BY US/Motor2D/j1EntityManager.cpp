@@ -2,7 +2,7 @@
 #include "j1Entity.h"
 #include "j1App.h"
 #include "j1Player.h"
-#include "EnemyLiana.h"
+#include "EnemyAigua.h"
 #include "p2Log.h"
 #include "j1Textures.h"
 #include "j1Render.h"
@@ -34,14 +34,14 @@ j1Entity* j1EntityManager::CreateEntity(EntityType type)
 	case EntityType::PLAYER:
 		entity = new j1Player();
 		break;
-	case EntityType::ENEMY_LIANA:
-		entity = new EnemyLiana();
+	case EntityType::ENEMY_WATTER:
+		entity = new EnemyAigua();
 		break;
 	case EntityType::ENEMY_FIRE:
 		//entity = new EnemyFire();
 		break;
-	case EntityType::ENEMY_WATTER:
-		//entity = new EnemyWatter();
+	case EntityType::ENEMY_LIANA:
+		//entity = new EnemyLiana();
 		break;
 	case EntityType::ENEMY_ICE:
 		//entity = new EnemyIce();
@@ -63,7 +63,7 @@ void j1EntityManager::DestroyEntity(j1Entity* delete_entity)
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	
-	EnemyLiana* enemy_liana = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA);
+	EnemyAigua* enemy_aigua = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER);
 
 	for (int i = 0; i < entities_list.count(); i++)
 	{

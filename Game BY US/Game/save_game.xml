@@ -13,14 +13,14 @@
 	<EntityManager>
 		<player>
 			<player />
-			<playerposition x="50" y="251" x_init="50" y_init="250" />
+			<playerposition x="50" y="236" x_init="50" y_init="250" />
 			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
-			<playerattribute godmode="false" ice_right="false" ice_left="false" left="false" right="false" body_col_x="55" body_col_y="251" />
+			<playerattribute godmode="false" ice_right="false" ice_left="false" left="false" right="false" body_col_x="55" body_col_y="236" />
 		</player>
-		<enemy_liana>
+		<enemy_aigua>
 			<enemyattribute body_col_x="200" body_col_y="103" check_col_x="120" check_col_y="10" to_kill_col_x="205" to_kill_col_y="100" />
 			<enemyposition position_x="200" position_y="100" />
-		</enemy_liana>
+		</enemy_aigua>
 	</EntityManager>
 	<renderer>
 		<camera x="0" y="0" />
