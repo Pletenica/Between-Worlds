@@ -70,7 +70,7 @@ bool EnemyAigua::Update(float dt) {
 		if (App->pathfinding->last_path.At(1) != NULL) {
 			enemyspeed = Move(enemyspeed);
 			LOG("%f, %f", enemyspeed.x, enemyspeed.y);
-			LOG("%f, %f", App->pathfinding->last_path.At(1)->x, App->pathfinding->last_path.At(0)->y);
+			LOG("%d, %d", App->pathfinding->last_path.At(1)->x, App->pathfinding->last_path.At(1)->y);
 		}
 		
 		enemypoint.x += enemyspeed.x;
@@ -154,18 +154,19 @@ bool EnemyAigua::Load(pugi::xml_node& data)
 
 fPoint EnemyAigua::Move(fPoint speed) {
 
-	if (position.x > App->pathfinding->last_path.At(1)->x) {
+	iPoint position_map=App->map->WorldToMap(position.x, position.y);
+	if (position_map.x > App->pathfinding->last_path.At(1)->x) {
 		speed.x = -1;
 	}
-	else if (position.x < App->pathfinding->last_path.At(1)->x){
+	else if (position_map.x < App->pathfinding->last_path.At(1)->x){
 		speed.x = 1;
 	}
 
-	if (position.y > App->pathfinding->last_path.At(1)->y) {
-		speed.y = -1;
-}
-	else if (position.y < App->pathfinding->last_path.At(1)->y){
+	if (position_map.y > App->pathfinding->last_path.At(1)->y) {
 		speed.y = 1;
+}
+	else if (position_map.y < App->pathfinding->last_path.At(1)->y){
+		speed.y = -1;
 	}
 	
 	return speed;

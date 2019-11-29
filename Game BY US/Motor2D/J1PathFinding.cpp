@@ -231,7 +231,6 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			}
 
 			last_path.Flip();
-			LOG("%f, %f", App->pathfinding->last_path.At(1)->x, App->pathfinding->last_path.At(0)->y);
 			return last_path.Count();
 		}
 	}
