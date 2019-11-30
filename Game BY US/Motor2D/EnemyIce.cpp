@@ -27,11 +27,12 @@ EnemyIce::EnemyIce() :j1Entity(EntityType::ENEMY_ICE)
 	idle.speed = 0.07f;
 
 	/////MOVEMENT ANIMATION//////
+	/*
 	idle.PushBack({ 0, 17, 35, 21 });
 	idle.PushBack({ 41, 15, 35, 24 });
 	idle.PushBack({ 78, 14, 36, 24 });
 	idle.PushBack({ 41, 15, 35, 24 });
-	idle.speed = 0.03f;
+	idle.speed = 0.03f;*/
 
 
 	name.create("enemy_aigua");
@@ -48,8 +49,8 @@ bool EnemyIce::CleanUp() {
 bool EnemyIce::Start() {
 	//// Load All CONDITIONS //// 
 	Current_Animation = idle;
-	position.x = 200;
-	position.y = 100;
+	position.x = 20;
+	position.y = 10;
 
 	//// Load All Graphics //// 
 	texture = App->tex->Load("textures/enemiesspriteshit.png");

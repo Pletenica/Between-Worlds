@@ -41,13 +41,13 @@ j1Entity* j1EntityManager::CreateEntity(EntityType type)
 		entity = new EnemyAigua();
 		break;
 	case EntityType::ENEMY_FIRE:
-		//entity = new EnemyFire();
+		entity = new EnemyFire();
 		break;
 	case EntityType::ENEMY_LIANA:
-		//entity = new EnemyLiana();
+		entity = new EnemyLiana();
 		break;
 	case EntityType::ENEMY_ICE:
-		//entity = new EnemyIce();
+		entity = new EnemyIce();
 		break;
 	case EntityType::UNKNOWN:
 		break;
@@ -67,6 +67,9 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	
 	EnemyAigua* enemy_aigua = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER);
+	EnemyFire* enemy_fire = (EnemyFire*)App->entities->CreateEntity(EntityType::ENEMY_FIRE);
+	EnemyIce* enemy_ice = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE);
+	EnemyLiana* enemy_liana = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA);
 
 	for (int i = 0; i < entities_list.count(); i++)
 	{

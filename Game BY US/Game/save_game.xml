@@ -18,9 +18,21 @@
 			<playerattribute godmode="false" ice_right="false" ice_left="false" left="false" right="false" body_col_x="55" body_col_y="251" />
 		</player>
 		<enemy_aigua>
-			<enemyattribute body_col_x="200" body_col_y="103" check_col_x="120" check_col_y="10" to_kill_col_x="205" to_kill_col_y="100" />
-			<enemyposition position_x="200" position_y="100" />
+			<enemyattribute body_col_x="20" body_col_y="103" check_col_x="-60" check_col_y="10" to_kill_col_x="25" to_kill_col_y="100" />
+			<enemyposition position_x="20" position_y="100" />
 		</enemy_aigua>
+		<enemy_fire>
+			<enemyattribute body_col_x="100" body_col_y="53" check_col_x="20" check_col_y="-40" to_kill_col_x="105" to_kill_col_y="50" />
+			<enemyposition position_x="100" position_y="50" />
+		</enemy_fire>
+		<enemy_aigua>
+			<enemyattribute body_col_x="20" body_col_y="13" check_col_x="-60" check_col_y="-80" to_kill_col_x="25" to_kill_col_y="10" />
+			<enemyposition position_x="20" position_y="10" />
+		</enemy_aigua>
+		<enemy_liana>
+			<enemyattribute body_col_x="80" body_col_y="43" check_col_x="0" check_col_y="-50" to_kill_col_x="85" to_kill_col_y="40" />
+			<enemyposition position_x="80" position_y="40" />
+		</enemy_liana>
 	</EntityManager>
 	<renderer>
 		<camera x="0" y="0" />

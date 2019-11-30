@@ -20,18 +20,19 @@ EnemyFire::EnemyFire() :j1Entity(EntityType::ENEMY_FIRE)
 
 
 	/////IDLE ANIMATION//////
-	idle.PushBack({ 0, 86, 35, 28 });
-	idle.PushBack({ 40,86, 35, 28 });
-	idle.PushBack({ 80, 86, 35, 28 });
-	idle.PushBack({ 40,86, 35, 28 });
+	idle.PushBack({ 49, 51, 41, 24 });
+	idle.PushBack({ 3, 54, 41, 21 });
+	idle.PushBack({ 49, 51, 41, 24 });
+	idle.PushBack({ 97, 53, 40, 22 });
 	idle.speed = 0.07f;
 
 	/////MOVEMENT ANIMATION//////
+	/*
 	idle.PushBack({ 1, 165, 33, 24 });
 	idle.PushBack({ 41, 166, 34, 23 });
 	idle.PushBack({ 1, 165, 33, 24 });
 	idle.PushBack({ 78, 165, 40, 24 });
-	idle.speed = 0.03f;
+	idle.speed = 0.03f;*/
 
 
 	name.create("enemy_fire");
@@ -48,8 +49,8 @@ bool EnemyFire::CleanUp() {
 bool EnemyFire::Start() {
 	//// Load All CONDITIONS //// 
 	Current_Animation = idle;
-	position.x = 200;
-	position.y = 100;
+	position.x = 100;
+	position.y = 50;
 
 	//// Load All Graphics //// 
 	texture = App->tex->Load("textures/enemiesspriteshit.png");

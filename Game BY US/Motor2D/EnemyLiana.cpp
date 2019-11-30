@@ -42,8 +42,8 @@ bool EnemyLiana::CleanUp() {
 bool EnemyLiana::Start() {
 	//// Load All CONDITIONS //// 
 	Current_Animation = idle;
-	position.x = 200;
-	position.y = 100;
+	position.x = 80;
+	position.y = 40;
 
 	//// Load All Graphics //// 
 	texture = App->tex->Load("textures/enemiesspriteshit.png");

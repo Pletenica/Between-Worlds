@@ -20,13 +20,15 @@ EnemyAigua::EnemyAigua() :j1Entity(EntityType::ENEMY_WATTER)
 
 	
 	/////MOVEMENT ANIMATION//////
+	/*
 	idle.PushBack({ 0, 86, 35, 28 });
 	idle.PushBack({ 40,86, 35, 28 });
 	idle.PushBack({ 80, 86, 35, 28 });
 	idle.PushBack({ 40,86, 35, 28 });
-	idle.speed = 0.03f;
+	idle.speed = 0.03f;*/
 
 	/////IDLE ANIMATION//////
+	
 	idle.PushBack({ 1, 198, 28, 29 });
 	idle.PushBack({ 41, 198, 30, 29 });
 	idle.PushBack({ 80, 198, 30, 29 });
@@ -46,7 +48,7 @@ bool EnemyAigua::CleanUp(){
 bool EnemyAigua::Start() {
 	//// Load All CONDITIONS //// 
 	Current_Animation = idle;
-	position.x = 200;
+	position.x = 20;
 	position.y = 100;
 
 	//// Load All Graphics //// 
