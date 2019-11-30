@@ -1,5 +1,5 @@
-#ifndef __ENEMYAIGUA_H__
-#define __ENEMYAIGUA_H__
+#ifndef __ENEMYICE_H__
+#define __ENEMYLICE_H__
 
 #include "j1Module.h"
 #include "j1Animation.h"
@@ -9,11 +9,11 @@ struct SDL_Texture;
 struct Mix_Chunk;
 struct Collider;
 
-class EnemyAigua : public j1Entity
+class EnemyIce : public j1Entity
 {
 public:
-	EnemyAigua();
-	virtual ~EnemyAigua();
+	EnemyIce();
+	virtual ~EnemyIce();
 
 	bool Awake(pugi::xml_node&config) { return true; };
 	bool Start();

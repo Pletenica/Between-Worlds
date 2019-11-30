@@ -7,22 +7,22 @@
 	<map />
 	<pathfinding />
 	<scene>
-		<scene camx="1642" real_camx="-3284" actualscene="true" />
+		<scene camx="0" real_camx="0" actualscene="false" />
 	</scene>
 	<collision />
 	<EntityManager>
 		<player>
 			<player />
-			<playerposition x="1842.99634" y="87.2000351" x_init="50" y_init="250" />
+			<playerposition x="50" y="251" x_init="50" y_init="250" />
 			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
-			<playerattribute godmode="false" ice_right="false" ice_left="false" left="false" right="false" body_col_x="1847" body_col_y="87" />
+			<playerattribute godmode="false" ice_right="false" ice_left="false" left="false" right="false" body_col_x="55" body_col_y="251" />
 		</player>
 		<enemy_aigua>
-			<enemyattribute body_col_x="1400" body_col_y="95" check_col_x="1320" check_col_y="2" to_kill_col_x="1405" to_kill_col_y="92" />
-			<enemyposition position_x="1400" position_y="92" />
+			<enemyattribute body_col_x="200" body_col_y="103" check_col_x="120" check_col_y="10" to_kill_col_x="205" to_kill_col_y="100" />
+			<enemyposition position_x="200" position_y="100" />
 		</enemy_aigua>
 	</EntityManager>
 	<renderer>
-		<camera x="-3284" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

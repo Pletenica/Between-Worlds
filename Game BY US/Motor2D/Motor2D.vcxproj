@@ -77,6 +77,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EnemyAigua.cpp" />
+    <ClCompile Include="EnemyFire.cpp" />
+    <ClCompile Include="EnemyIce.cpp" />
+    <ClCompile Include="EnemyLiana.cpp" />
     <ClCompile Include="j1Animation.h" />
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1Entity.cpp" />
@@ -102,6 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnemyAigua.h" />
+    <ClInclude Include="EnemyFire.h" />
+    <ClInclude Include="EnemyIce.h" />
+    <ClInclude Include="EnemyLiana.h" />
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1Entity.h" />
     <ClInclude Include="j1EntityManager.h" />

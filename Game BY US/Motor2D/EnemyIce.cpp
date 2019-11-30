@@ -8,17 +8,17 @@
 #include "j1PathFinding.h"
 #include "j1Map.h"
 #include "j1EntityManager.h"
-#include "EnemyAigua.h"
+#include "EnemyIce.h"
 #include "p2Log.h"
 
 #include "SDL/include/SDL_timer.h"
 #include "../Game/Brofiler/Brofiler.h"
 
-EnemyAigua::EnemyAigua() :j1Entity(EntityType::ENEMY_WATTER)
+EnemyIce::EnemyIce() :j1Entity(EntityType::ENEMY_ICE)
 {
-	type = EntityType::ENEMY_WATTER;
+	type = EntityType::ENEMY_ICE;
 
-	
+
 	/////IDLE ANIMATION//////
 	idle.PushBack({ 0, 86, 35, 28 });
 	idle.PushBack({ 40,86, 35, 28 });
@@ -31,15 +31,15 @@ EnemyAigua::EnemyAigua() :j1Entity(EntityType::ENEMY_WATTER)
 	name.create("enemy_aigua");
 }
 
-EnemyAigua::~EnemyAigua()
+EnemyIce::~EnemyIce()
 {}
 
-bool EnemyAigua::CleanUp(){
+bool EnemyIce::CleanUp() {
 
 	return true;
 }
 
-bool EnemyAigua::Start() {
+bool EnemyIce::Start() {
 	//// Load All CONDITIONS //// 
 	Current_Animation = idle;
 	position.x = 200;
@@ -48,17 +48,17 @@ bool EnemyAigua::Start() {
 	//// Load All Graphics //// 
 	texture = App->tex->Load("textures/enemiesspriteshit.png");
 
-	body = App->collision->AddCollider({ (int)position.x,(int)position.y+3,32,25 }, COLLIDER_DEATH_ENEMY, this);
-	todeathcol = App->collision->AddCollider({ (int)position.x+5,(int)position.y,20,3 }, COLLIDER_TO_KILL_ENEMY, this);
-	colchecktoplayer = App->collision->AddCollider({ (int)position.x -80,(int)position.y-90,200,200 }, COLLIDER_CHECK_ENEMY, this);
+	body = App->collision->AddCollider({ (int)position.x,(int)position.y + 3,32,25 }, COLLIDER_DEATH_ENEMY, this);
+	todeathcol = App->collision->AddCollider({ (int)position.x + 5,(int)position.y,20,3 }, COLLIDER_TO_KILL_ENEMY, this);
+	colchecktoplayer = App->collision->AddCollider({ (int)position.x - 80,(int)position.y - 90,200,200 }, COLLIDER_CHECK_ENEMY, this);
 
 	return true;
 }
 
-bool EnemyAigua::Update(float dt) {
+bool EnemyIce::Update(float dt) {
 	BROFILER_CATEGORY("EnemiesPreUpdate", Profiler::Color::Chartreuse)
 
-	enemypoint.x = position.x;
+		enemypoint.x = position.x;
 	enemypoint.y = position.y;
 	playerpoint.x = App->entities->player->position.x;
 	playerpoint.y = App->entities->player->position.y;
@@ -72,7 +72,7 @@ bool EnemyAigua::Update(float dt) {
 			LOG("%f, %f", enemyspeed.x, enemyspeed.y);
 			LOG("%d, %d", App->pathfinding->last_path.At(1)->x, App->pathfinding->last_path.At(1)->y);
 		}
-		
+
 		enemypoint.x += enemyspeed.x;
 		enemypoint.y -= enemyspeed.y;
 	}
@@ -85,36 +85,36 @@ bool EnemyAigua::Update(float dt) {
 	return true;
 }
 
-bool EnemyAigua::PreUpdate()
+bool EnemyIce::PreUpdate()
 {
 	BROFILER_CATEGORY("EnemiesUpdate", Profiler::Color::DarkSeaGreen)
 
 
-	return true;
+		return true;
 }
 
-bool EnemyAigua::PostUpdate() {
+bool EnemyIce::PostUpdate() {
 	BROFILER_CATEGORY("EnemiesPostUpdate", Profiler::Color::YellowGreen)
 
-	if (App->entities->player->position.x >= position.x) {
-		flip = SDL_FLIP_HORIZONTAL;
-	}
-	else {
-		flip = SDL_FLIP_NONE;
-	}
+		if (App->entities->player->position.x >= position.x) {
+			flip = SDL_FLIP_HORIZONTAL;
+		}
+		else {
+			flip = SDL_FLIP_NONE;
+		}
 
 	colchecktoplayer->rect.x = (int)position.x - 80;
 	colchecktoplayer->rect.y = (int)position.y - 90;
-	todeathcol->rect.x = (int)position.x +5;
+	todeathcol->rect.x = (int)position.x + 5;
 	todeathcol->rect.y = (int)position.y;
 	body->rect.x = (int)position.x;
-	body->rect.y = (int)position.y+3;
+	body->rect.y = (int)position.y + 3;
 
 	App->render->Blit(texture, (int)position.x, (int)position.y, &(idle.GetCurrentFrame()), 1.0f, angle, 0, 0, flip);
 	return true;
 }
 
-void EnemyAigua::OnCollision(Collider* enemy, Collider* player) {
+void EnemyIce::OnCollision(Collider* enemy, Collider* player) {
 	BROFILER_CATEGORY("PlayerOnCollision", Profiler::Color::MediumAquaMarine)
 		if (enemy->type == COLLIDER_CHECK_ENEMY) {
 			if (player->type == COLLIDER_PLAYER) {
@@ -123,7 +123,7 @@ void EnemyAigua::OnCollision(Collider* enemy, Collider* player) {
 		}
 }
 
-bool EnemyAigua::Save(pugi::xml_node& data) const
+bool EnemyIce::Save(pugi::xml_node& data) const
 {
 	data.append_child("enemyattribute");
 	data.child("enemyattribute").append_attribute("body_col_x") = body->rect.x;
@@ -138,7 +138,7 @@ bool EnemyAigua::Save(pugi::xml_node& data) const
 	return true;
 }
 
-bool EnemyAigua::Load(pugi::xml_node& data)
+bool EnemyIce::Load(pugi::xml_node& data)
 {
 	body->rect.x = data.child("enemyattribute").attribute("body_col_x").as_int();
 	body->rect.y = data.child("enemyattribute").attribute("body_col_y").as_int();
@@ -146,28 +146,28 @@ bool EnemyAigua::Load(pugi::xml_node& data)
 	colchecktoplayer->rect.y = data.child("enemyattribute").attribute("check_col_y").as_int();
 	todeathcol->rect.x = data.child("enemyattribute").attribute("to_kill_col_x").as_int();
 	todeathcol->rect.y = data.child("enemyattribute").attribute("to_kill_col_y").as_int();
-	position.x= data.child("enemyposition").attribute("position_x").as_float();
+	position.x = data.child("enemyposition").attribute("position_x").as_float();
 	position.y = data.child("enemyposition").attribute("position_y").as_float();
 
 	return true;
 }
 
-fPoint EnemyAigua::Move(fPoint speed) {
+fPoint EnemyIce::Move(fPoint speed) {
 
-	iPoint position_map=App->map->WorldToMap(position.x, position.y);
+	iPoint position_map = App->map->WorldToMap(position.x, position.y);
 	if (position_map.x > App->pathfinding->last_path.At(1)->x) {
 		speed.x = -1;
-	} 
-	else if (position_map.x < App->pathfinding->last_path.At(1)->x){
+	}
+	else if (position_map.x < App->pathfinding->last_path.At(1)->x) {
 		speed.x = 1;
 	}
 
 	if (position_map.y > App->pathfinding->last_path.At(1)->y) {
 		speed.y = 1;
-}
-	else if (position_map.y < App->pathfinding->last_path.At(1)->y){
+	}
+	else if (position_map.y < App->pathfinding->last_path.At(1)->y) {
 		speed.y = -1;
 	}
-	
+
 	return speed;
 }
