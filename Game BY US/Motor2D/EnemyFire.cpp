@@ -26,6 +26,12 @@ EnemyFire::EnemyFire() :j1Entity(EntityType::ENEMY_FIRE)
 	idle.PushBack({ 40,86, 35, 28 });
 	idle.speed = 0.07f;
 
+	/////MOVEMENT ANIMATION//////
+	idle.PushBack({ 1, 165, 33, 24 });
+	idle.PushBack({ 41, 166, 34, 23 });
+	idle.PushBack({ 1, 165, 33, 24 });
+	idle.PushBack({ 78, 165, 40, 24 });
+	idle.speed = 0.03f;
 
 
 	name.create("enemy_fire");

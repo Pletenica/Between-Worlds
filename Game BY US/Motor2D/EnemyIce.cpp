@@ -20,12 +20,18 @@ EnemyIce::EnemyIce() :j1Entity(EntityType::ENEMY_ICE)
 
 
 	/////IDLE ANIMATION//////
-	idle.PushBack({ 0, 86, 35, 28 });
-	idle.PushBack({ 40,86, 35, 28 });
-	idle.PushBack({ 80, 86, 35, 28 });
-	idle.PushBack({ 40,86, 35, 28 });
+	idle.PushBack({ 1, 128, 41, 23 });
+	idle.PushBack({ 48, 127, 41, 24 });
+	idle.PushBack({ 95, 128, 39, 23 });
+	idle.PushBack({ 48, 127, 41, 24 });
 	idle.speed = 0.07f;
 
+	/////MOVEMENT ANIMATION//////
+	idle.PushBack({ 0, 17, 35, 21 });
+	idle.PushBack({ 41, 15, 35, 24 });
+	idle.PushBack({ 78, 14, 36, 24 });
+	idle.PushBack({ 41, 15, 35, 24 });
+	idle.speed = 0.03f;
 
 
 	name.create("enemy_aigua");

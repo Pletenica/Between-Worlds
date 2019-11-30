@@ -19,12 +19,12 @@ EnemyLiana::EnemyLiana() :j1Entity(EntityType::ENEMY_LIANA)
 	type = EntityType::ENEMY_LIANA;
 
 
-	/////IDLE ANIMATION//////
-	idle.PushBack({ 0, 86, 35, 28 });
-	idle.PushBack({ 40,86, 35, 28 });
-	idle.PushBack({ 80, 86, 35, 28 });
-	idle.PushBack({ 40,86, 35, 28 });
-	idle.speed = 0.07f;
+	/////MOVEMENT ANIMATION//////
+	idle.PushBack({ 149, 47, 20, 26 });
+	idle.PushBack({ 146, 12, 24, 32 });
+	idle.PushBack({ 149, 47, 20, 26 });
+	idle.PushBack({ 149, 75, 23, 34 });
+	idle.speed = 0.03f;
 
 
 
