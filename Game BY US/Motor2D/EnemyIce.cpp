@@ -49,8 +49,8 @@ bool EnemyIce::CleanUp() {
 bool EnemyIce::Start() {
 	//// Load All CONDITIONS //// 
 	Current_Animation = idle;
-	position.x = 2144;
-	position.y = 208;
+	position.x;
+	position.y;
 
 	//// Load All Graphics //// 
 	texture = App->tex->Load("textures/enemiesspriteshit.png");

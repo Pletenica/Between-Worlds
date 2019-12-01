@@ -49,8 +49,8 @@ bool EnemyFire::CleanUp() {
 bool EnemyFire::Start() {
 	//// Load All CONDITIONS //// 
 	Current_Animation = idle;
-	position.x = 640;
-	position.y = 224;
+	position.x;
+	position.y;
 
 	//// Load All Graphics //// 
 	texture = App->tex->Load("textures/enemiesspriteshit.png");

@@ -48,8 +48,8 @@ bool EnemyAigua::CleanUp(){
 bool EnemyAigua::Start() {
 	//// Load All CONDITIONS //// 
 	Current_Animation = idle;
-	position.x = 2208;
-	position.y = 160;
+	position.x;
+	position.y;
 
 	//// Load All Graphics //// 
 	texture = App->tex->Load("textures/enemiesspriteshit.png");

@@ -28,7 +28,7 @@ j1EntityManager::j1EntityManager()
 j1EntityManager::~j1EntityManager()
 {}
 
-j1Entity* j1EntityManager::CreateEntity(EntityType type)
+j1Entity* j1EntityManager::CreateEntity(EntityType type, int posx, int posy)
 {
 	//static_assert(EntityType::UNKNOWN == 4, "code needs update");
 	j1Entity* entity = nullptr;
@@ -39,15 +39,23 @@ j1Entity* j1EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::ENEMY_WATTER:
 		entity = new EnemyAigua();
+		entity->position.x = posx;
+		entity->position.y = posy;
 		break;
 	case EntityType::ENEMY_FIRE:
 		entity = new EnemyFire();
+		entity->position.x = posx;
+		entity->position.y = posy;
 		break;
 	case EntityType::ENEMY_LIANA:
 		entity = new EnemyLiana();
+		entity->position.x = posx;
+		entity->position.y = posy;
 		break;
 	case EntityType::ENEMY_ICE:
 		entity = new EnemyIce();
+		entity->position.x = posx;
+		entity->position.y = posy;
 		break;
 	case EntityType::UNKNOWN:
 		break;
@@ -66,10 +74,20 @@ void j1EntityManager::DestroyEntity(j1Entity* delete_entity)
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	
-	EnemyAigua* enemy_aigua = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER);
-	EnemyFire* enemy_fire = (EnemyFire*)App->entities->CreateEntity(EntityType::ENEMY_FIRE);
-	EnemyIce* enemy_ice = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE);
-	EnemyLiana* enemy_liana = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA);
+	EnemyAigua* enemy_aigua1 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 2208, 160);
+	EnemyAigua* enemy_aigua2 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 2624, 160);
+	EnemyAigua* enemy_aigua3 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 3008, 96);
+	EnemyAigua* enemy_aigua4 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 3008, 24);
+	EnemyFire* enemy_fire1 = (EnemyFire*)App->entities->CreateEntity(EntityType::ENEMY_FIRE, 640, 224);
+	EnemyFire* enemy_fire2 = (EnemyFire*)App->entities->CreateEntity(EntityType::ENEMY_FIRE, 832, 224);
+	EnemyIce* enemy_ice1 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2144, 208);
+	EnemyIce* enemy_ice2 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2560, 208);
+	EnemyIce* enemy_ice3 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 3168, 208);
+	EnemyLiana* enemy_liana1 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 776, 80);
+	EnemyLiana* enemy_liana2 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 936, 144);
+	EnemyLiana* enemy_liana3 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1032, 48);
+	EnemyLiana* enemy_liana4 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1160, 112);
+	EnemyLiana* enemy_liana5 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1256, 48);
 
 	for (int i = 0; i < entities_list.count(); i++)
 	{

@@ -32,7 +32,7 @@ public:
 	bool Load(pugi::xml_node& data);
 	bool Save(pugi::xml_node& data)const;
 
-	j1Entity* CreateEntity(EntityType type);
+	j1Entity* CreateEntity(EntityType type, int posx=0, int posy=0);
 	virtual void DestroyEntity(j1Entity* delete_entity);
 
 
