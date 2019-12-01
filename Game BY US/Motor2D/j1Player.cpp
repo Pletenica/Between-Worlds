@@ -10,6 +10,9 @@
 #include <math.h>
 #include "j1EntityManager.h"
 #include "EnemyAigua.h"
+#include "EnemyFire.h"
+#include "EnemyIce.h"
+#include "EnemyLiana.h"
 #include "SDL/include/SDL_timer.h"
 #include "../Game/Brofiler/Brofiler.h"
 
@@ -694,6 +697,8 @@ void j1Player::ChangeToLevel1() {
 	App->scene->justtouchcheckpoint = false;
 	position.x = positionxinit;
 	position.y = positionyinit;
+
+
 }
 
 void j1Player::ChangeToLevel2() {
@@ -725,6 +730,8 @@ void j1Player::ChangeToLevel2() {
 	App->scene->justtouchcheckpoint = false;
 	position.x = positionxinit;
 	position.y = positionyinit;
+
+
 }
 
 

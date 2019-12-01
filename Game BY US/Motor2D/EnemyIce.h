@@ -32,6 +32,7 @@ public:
 	Animation walk;
 	SDL_Rect rectenemy;
 
+	bool isinground;
 	bool isincoltoplayer = false;
 	fPoint enemyspeed = { 1.0, 1.0 };
 	iPoint enemypoint;

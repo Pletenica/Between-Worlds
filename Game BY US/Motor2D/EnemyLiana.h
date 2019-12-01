@@ -23,7 +23,6 @@ public:
 	bool CleanUp();
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
-	void OnCollision(Collider*, Collider*);
 	fPoint Move(fPoint);
 
 public:
@@ -32,6 +31,8 @@ public:
 	Animation walk;
 	SDL_Rect rectenemy;
 
+	bool isup = true;
+	fPoint initialposition;
 	bool isincoltoplayer = false;
 	fPoint enemyspeed = { 1.0, 1.0 };
 	iPoint enemypoint;
@@ -40,8 +41,7 @@ public:
 	float positionxinit;
 	float positionyinit;
 	Collider* body;
-	Collider* todeathcol;
-	Collider* colchecktoplayer;
+
 };
 
 #endif

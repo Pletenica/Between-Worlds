@@ -70,18 +70,14 @@ bool EnemyIce::Update(float dt) {
 	playerpoint.x = App->entities->player->position.x;
 	playerpoint.y = App->entities->player->position.y;
 
-	if (isincoltoplayer == true) {
+	if (isincoltoplayer == true && isinground == true) {
 		App->pathfinding->CreatePath(App->map->WorldToMap(enemypoint.x, enemypoint.y), App->map->WorldToMap(playerpoint.x, playerpoint.y));
 
 		App->map->WorldToMap(enemypoint.x, enemypoint.y);
 		if (App->pathfinding->last_path.At(1) != NULL) {
 			enemyspeed = Move(enemyspeed);
-			LOG("%f, %f", enemyspeed.x, enemyspeed.y);
-			LOG("%d, %d", App->pathfinding->last_path.At(1)->x, App->pathfinding->last_path.At(1)->y);
 		}
-
 		enemypoint.x += enemyspeed.x;
-		enemypoint.y -= enemyspeed.y;
 	}
 
 	position.x = enemypoint.x;
@@ -118,6 +114,7 @@ bool EnemyIce::PostUpdate() {
 	body->rect.y = (int)position.y + 3;
 
 	App->render->Blit(texture, (int)position.x, (int)position.y, &(idle.GetCurrentFrame()), 1.0f, angle, 0, 0, flip);
+	isinground = false;
 	return true;
 }
 
@@ -128,6 +125,13 @@ void EnemyIce::OnCollision(Collider* enemy, Collider* player) {
 				isincoltoplayer = true;
 			}
 		}
+	if (enemy->type == COLLIDER_DEATH_ENEMY) {
+		if (player->type == COLLIDER_SUELO) {
+			if ((player->rect.y > enemy->rect.y) && (player->rect.x > enemy->rect.x)) {
+				isinground = true;
+			}
+		}
+	}
 }
 
 bool EnemyIce::Save(pugi::xml_node& data) const
@@ -169,12 +173,6 @@ fPoint EnemyIce::Move(fPoint speed) {
 		speed.x = 1;
 	}
 
-	if (position_map.y > App->pathfinding->last_path.At(1)->y) {
-		speed.y = 1;
-	}
-	else if (position_map.y < App->pathfinding->last_path.At(1)->y) {
-		speed.y = -1;
-	}
 
 	return speed;
 }

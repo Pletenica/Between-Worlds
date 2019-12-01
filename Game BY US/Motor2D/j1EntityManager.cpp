@@ -74,20 +74,23 @@ void j1EntityManager::DestroyEntity(j1Entity* delete_entity)
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	
-	EnemyAigua* enemy_aigua1 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 2208, 160);
+	enemy_ice1 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2144, 208);
+	enemy_ice2 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2558, 208);
+	enemy_ice3 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 3130, 208);
+	enemy_liana1 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 808, 95);
+	enemy_liana2 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 904, 189);
+	enemy_liana3 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1032, 96);
+	enemy_liana4 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1160, 146);
+	enemy_liana5 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1224, 96);
+	
+	/*
+	EnemyAigua* enemy_aigua1 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 2420, 64);
 	EnemyAigua* enemy_aigua2 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 2624, 160);
 	EnemyAigua* enemy_aigua3 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 3008, 96);
-	EnemyAigua* enemy_aigua4 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 3008, 24);
-	EnemyFire* enemy_fire1 = (EnemyFire*)App->entities->CreateEntity(EntityType::ENEMY_FIRE, 640, 224);
-	EnemyFire* enemy_fire2 = (EnemyFire*)App->entities->CreateEntity(EntityType::ENEMY_FIRE, 832, 224);
-	EnemyIce* enemy_ice1 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2144, 208);
-	EnemyIce* enemy_ice2 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2560, 208);
-	EnemyIce* enemy_ice3 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 3168, 208);
-	EnemyLiana* enemy_liana1 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 776, 80);
-	EnemyLiana* enemy_liana2 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 936, 144);
-	EnemyLiana* enemy_liana3 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1032, 48);
-	EnemyLiana* enemy_liana4 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1160, 112);
-	EnemyLiana* enemy_liana5 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1256, 48);
+	EnemyAigua* enemy_aigua4 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 3008, 224);
+	EnemyFire* enemy_fire1 = (EnemyFire*)App->entities->CreateEntity(EntityType::ENEMY_FIRE, 640, 240);
+	EnemyFire* enemy_fire2 = (EnemyFire*)App->entities->CreateEntity(EntityType::ENEMY_FIRE, 832, 240);
+	*/
 
 	for (int i = 0; i < entities_list.count(); i++)
 	{
@@ -106,6 +109,8 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::PreUpdate()
 {
+
+
 	for (int i = 0; i < entities_list.count(); i++)
 	{
 		entities_list.At(i)->data->PreUpdate();
@@ -115,6 +120,7 @@ bool j1EntityManager::PreUpdate()
 
 bool j1EntityManager::Update(float dt)
 {
+
 	for (int i = 0; i < entities_list.count(); i++)
 	{
 		entities_list.At(i)->data->Update(dt);
@@ -128,6 +134,31 @@ bool j1EntityManager::PostUpdate()
 	{
 		entities_list.At(i)->data->PostUpdate();
 	}
+	
+	/*
+	if (App->scene->changelevel == false && enemiesdone1 == false) {
+		EnemyIce* enemy_ice1 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2144, 208);
+		EnemyIce* enemy_ice2 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2558, 208);
+		EnemyIce* enemy_ice3 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 3130, 208);
+		EnemyLiana* enemy_liana1 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 808, 95);
+		EnemyLiana* enemy_liana2 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 904, 189);
+		EnemyLiana* enemy_liana3 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1032, 96);
+		EnemyLiana* enemy_liana4 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1160, 146);
+		EnemyLiana* enemy_liana5 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1224, 96);
+		enemiesdone1 = true;
+	}
+
+	if (App->scene->changelevel == true && enemiesdone2 == false) {
+		EnemyAigua* enemy_aigua1 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 2420, 64);
+		EnemyAigua* enemy_aigua2 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 2624, 160);
+		EnemyAigua* enemy_aigua3 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 3008, 96);
+		EnemyAigua* enemy_aigua4 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 3008, 224);
+		EnemyFire* enemy_fire1 = (EnemyFire*)App->entities->CreateEntity(EntityType::ENEMY_FIRE, 640, 240);
+		EnemyFire* enemy_fire2 = (EnemyFire*)App->entities->CreateEntity(EntityType::ENEMY_FIRE, 832, 240);
+		enemiesdone2 = true;
+	}
+	*/
+
 	return true;
 }
 
@@ -150,9 +181,14 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2) {
 
 bool j1EntityManager::Load(pugi::xml_node& data)
 {
-	for (int i = 0; i < entities_list.count(); i++)
+	pugi::xml_node data2 = data;
+	for (unsigned int i = 0; i < entities_list.count(); i++)
 	{
-		entities_list.At(i)->data->Load(data.child(entities_list.At(i)->data->name.GetString()));
+		data2 = data.child(entities_list.At(i)->data->name.GetString());
+		while (data2.attribute("id").as_int() != i) {
+			data2 = data2.next_sibling(entities_list.At(i)->data->name.GetString());
+		};
+		entities_list.At(i)->data->Load(data2);
 	}
 	return true;
 }
@@ -160,9 +196,13 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 bool j1EntityManager::Save(pugi::xml_node& data) const
 {
 
-	for (int i = 0; i < entities_list.count(); i++)
+	pugi::xml_node data2 = data;
+	for (unsigned int i = 0; i < entities_list.count(); i++)
 	{
-		entities_list.At(i)->data->Save(data.append_child(entities_list.At(i)->data->name.GetString()));
+		data2 = data.append_child(entities_list.At(i)->data->name.GetString());
+		entities_list.At(i)->data->Save(data2);
+		data2.append_attribute("id") = i;
 	}
+
 	return true;
 }

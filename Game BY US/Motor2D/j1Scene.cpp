@@ -11,6 +11,10 @@
 #include "j1Player.h"
 #include "j1EntityManager.h"
 #include "j1Map.h"
+#include "EnemyAigua.h"
+#include "EnemyLiana.h"
+#include "EnemyIce.h"
+#include "EnemyFire.h"
 #include "j1Scene.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -192,7 +196,8 @@ bool j1Scene::PreUpdate()
 
 		checkpointcol_scene1 = App->collision->AddCollider({ checkpointscene1x,checkpointscene1y,25,26 }, COLLIDER_CHECKPOINT_SCENE, this);
 		donecollidersscene1 = true;
-	}
+
+}
 
 	if (changelevel == true && donecollidersscene2 == false) {
 		//App->SaveGame();
@@ -217,6 +222,7 @@ bool j1Scene::PreUpdate()
 
 		checkpointcol_scene2 = App->collision->AddCollider({ checkpointscene2x,checkpointscene2y,25,26 }, COLLIDER_CHECKPOINT_SCENE, this);
 		donecollidersscene2 = true;
+
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
