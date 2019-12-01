@@ -96,8 +96,9 @@ bool EnemyLiana::PostUpdate() {
 
 	body->rect.x = (int)position.x;
 	body->rect.y = (int)position.y + 3;
-
-	App->render->Blit(texture, (int)position.x, (int)position.y, &(idle.GetCurrentFrame()), 1.0f, angle, 0, 0, flip);
+	if (App->scene->changelevel == false) {
+		App->render->Blit(texture, (int)position.x, (int)position.y, &(idle.GetCurrentFrame()), 1.0f, angle, 0, 0, flip);
+	}
 	return true;
 }
 

@@ -121,7 +121,7 @@ private:
 	float				DeltaTime;
 
 public:
-	uint16_t			framerate= 1000/45;
+	uint16_t			framerate= 1000/30;
 };
 
 extern j1App* App;

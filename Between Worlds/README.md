@@ -5,6 +5,11 @@ This project was started as an assigment for the Development of Videogames, subj
 The idea was to create this mini game where yo must adapt in diferents dimensions to surpass diferents obstacles that you will find in your way home. 
 This two levels are a small example of four differents dimensions where each of them has diferents mechanics. 
 
+We have 4 types of enemies:
+- Two that go through the ground (Ice and Fire)
+- One that walks along the lines
+- One that swims
+
 ### Controls
 -W for jump, double jump, climb and swim downwards.
 
@@ -28,6 +33,8 @@ Special debug keys:
 
 -F10 God Mode (fly around, cannot be killed)
 
+-F11 Cap FPS (Cap to 30 fps or not)
+
 ### Autors
 -Josep Sànchez Arbona: code and art.
 
@@ -39,6 +46,8 @@ Special debug keys:
 ### Disclosure
 
 We do not own all of the tilesets, music or sfx presented in this game. Authors credited below
+-Enemies: 
+	All the enemies ART has been made by us.
 
 -Tilesets: 
 	Lpc Modified by SuperMata from OpenGameArt.org - https://opengameart.org/content/lpc-modified-art

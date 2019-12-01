@@ -7,47 +7,47 @@
 	<map />
 	<pathfinding />
 	<scene>
-		<scene camx="0" real_camx="0" actualscene="true" />
+		<scene camx="0" real_camx="0" actualscene="false" />
 	</scene>
 	<collision />
 	<EntityManager>
 		<player id="0">
 			<player />
-			<playerposition x="54.5999985" y="250" x_init="50" y_init="250" />
+			<playerposition x="50" y="251" x_init="50" y_init="250" />
 			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
-			<playerattribute godmode="true" ice_right="false" ice_left="false" left="false" right="false" body_col_x="59" body_col_y="250" />
+			<playerattribute godmode="false" ice_right="false" ice_left="false" left="false" right="false" body_col_x="55" body_col_y="251" />
 		</player>
 		<enemy_aigua id="1">
-			<enemyattribute body_col_x="2139" body_col_y="211" check_col_x="2059" check_col_y="118" to_kill_col_x="2144" to_kill_col_y="208" />
-			<enemyposition position_x="2139" position_y="208" />
+			<enemyattribute body_col_x="2144" body_col_y="211" check_col_x="2064" check_col_y="118" to_kill_col_x="2149" to_kill_col_y="208" />
+			<enemyposition position_x="2144" position_y="208" />
 		</enemy_aigua>
 		<enemy_aigua id="2">
-			<enemyattribute body_col_x="2560" body_col_y="211" check_col_x="2480" check_col_y="118" to_kill_col_x="2565" to_kill_col_y="208" />
-			<enemyposition position_x="2560" position_y="208" />
+			<enemyattribute body_col_x="2558" body_col_y="211" check_col_x="2478" check_col_y="118" to_kill_col_x="2563" to_kill_col_y="208" />
+			<enemyposition position_x="2558" position_y="208" />
 		</enemy_aigua>
 		<enemy_aigua id="3">
-			<enemyattribute body_col_x="3136" body_col_y="211" check_col_x="3056" check_col_y="118" to_kill_col_x="3141" to_kill_col_y="208" />
-			<enemyposition position_x="3136" position_y="208" />
+			<enemyattribute body_col_x="3130" body_col_y="211" check_col_x="3050" check_col_y="118" to_kill_col_x="3135" to_kill_col_y="208" />
+			<enemyposition position_x="3130" position_y="208" />
 		</enemy_aigua>
 		<enemy_liana id="4">
-			<enemyattribute body_col_x="808" body_col_y="50" />
-			<enemyposition position_x="808" position_y="47" />
+			<enemyattribute body_col_x="808" body_col_y="97" />
+			<enemyposition position_x="808" position_y="94" />
 		</enemy_liana>
 		<enemy_liana id="5">
-			<enemyattribute body_col_x="904" body_col_y="162" />
-			<enemyposition position_x="904" position_y="159" />
+			<enemyattribute body_col_x="904" body_col_y="191" />
+			<enemyposition position_x="904" position_y="188" />
 		</enemy_liana>
 		<enemy_liana id="6">
-			<enemyattribute body_col_x="1032" body_col_y="39" />
-			<enemyposition position_x="1032" position_y="36" />
+			<enemyattribute body_col_x="1032" body_col_y="98" />
+			<enemyposition position_x="1032" position_y="95" />
 		</enemy_liana>
 		<enemy_liana id="7">
-			<enemyattribute body_col_x="1160" body_col_y="81" />
-			<enemyposition position_x="1160" position_y="78" />
+			<enemyattribute body_col_x="1160" body_col_y="148" />
+			<enemyposition position_x="1160" position_y="145" />
 		</enemy_liana>
 		<enemy_liana id="8">
-			<enemyattribute body_col_x="1224" body_col_y="39" />
-			<enemyposition position_x="1224" position_y="36" />
+			<enemyattribute body_col_x="1224" body_col_y="98" />
+			<enemyposition position_x="1224" position_y="95" />
 		</enemy_liana>
 	</EntityManager>
 	<renderer>
