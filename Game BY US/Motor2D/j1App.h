@@ -8,6 +8,7 @@
 #include "PugiXml\src\pugixml.hpp"
 
 // Modules
+class j1Menu;
 class j1Window;
 class j1Input;
 class j1Render;
@@ -89,6 +90,7 @@ public:
 	j1Audio*			audio;
 	j1Scene*			scene;
 	j1Map*				map;
+	j1Menu*				menu;
 	j1Collision*		collision;
 	j1Animation*		animation;
 	j1PathFinding*		pathfinding;	

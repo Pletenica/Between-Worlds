@@ -17,39 +17,8 @@
 			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
 			<playerattribute godmode="false" ice_right="false" ice_left="false" left="false" right="false" body_col_x="55" body_col_y="251" />
 		</player>
-		<enemy_aigua id="1">
-			<enemyattribute body_col_x="2144" body_col_y="211" check_col_x="2064" check_col_y="118" to_kill_col_x="2149" to_kill_col_y="208" />
-			<enemyposition position_x="2144" position_y="208" />
-		</enemy_aigua>
-		<enemy_aigua id="2">
-			<enemyattribute body_col_x="2558" body_col_y="211" check_col_x="2478" check_col_y="118" to_kill_col_x="2563" to_kill_col_y="208" />
-			<enemyposition position_x="2558" position_y="208" />
-		</enemy_aigua>
-		<enemy_aigua id="3">
-			<enemyattribute body_col_x="3130" body_col_y="211" check_col_x="3050" check_col_y="118" to_kill_col_x="3135" to_kill_col_y="208" />
-			<enemyposition position_x="3130" position_y="208" />
-		</enemy_aigua>
-		<enemy_liana id="4">
-			<enemyattribute body_col_x="808" body_col_y="97" />
-			<enemyposition position_x="808" position_y="94" />
-		</enemy_liana>
-		<enemy_liana id="5">
-			<enemyattribute body_col_x="904" body_col_y="191" />
-			<enemyposition position_x="904" position_y="188" />
-		</enemy_liana>
-		<enemy_liana id="6">
-			<enemyattribute body_col_x="1032" body_col_y="98" />
-			<enemyposition position_x="1032" position_y="95" />
-		</enemy_liana>
-		<enemy_liana id="7">
-			<enemyattribute body_col_x="1160" body_col_y="148" />
-			<enemyposition position_x="1160" position_y="145" />
-		</enemy_liana>
-		<enemy_liana id="8">
-			<enemyattribute body_col_x="1224" body_col_y="98" />
-			<enemyposition position_x="1224" position_y="95" />
-		</enemy_liana>
 	</EntityManager>
+	<menu />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>

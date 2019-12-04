@@ -5,6 +5,7 @@
 #include "p2Log.h"
 
 #include "j1Window.h"
+#include "j1Menu.h"
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Textures.h"
@@ -35,6 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collision = new j1Collision();
 	pathfinding = new j1PathFinding();
 	map = new j1Map();
+	menu = new j1Menu();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -47,6 +49,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(collision);
 	AddModule(entities);
+	AddModule(menu);
 
 
 	// render last to swap buffer

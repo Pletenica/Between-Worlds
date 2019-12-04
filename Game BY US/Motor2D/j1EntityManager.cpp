@@ -74,14 +74,14 @@ void j1EntityManager::DestroyEntity(j1Entity* delete_entity)
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	
-	enemy_ice1 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2144, 208);
-	enemy_ice2 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2558, 208);
-	enemy_ice3 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 3130, 208);
-	enemy_liana1 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 808, 95);
-	enemy_liana2 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 904, 189);
-	enemy_liana3 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1032, 96);
-	enemy_liana4 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1160, 146);
-	enemy_liana5 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1224, 96);
+	//enemy_ice1 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2144, 208);
+	//enemy_ice2 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 2558, 208);
+	//enemy_ice3 = (EnemyIce*)App->entities->CreateEntity(EntityType::ENEMY_ICE, 3130, 208);
+	//enemy_liana1 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 808, 95);
+	//enemy_liana2 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 904, 189);
+	//enemy_liana3 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1032, 96);
+	//enemy_liana4 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1160, 146);
+	//enemy_liana5 = (EnemyLiana*)App->entities->CreateEntity(EntityType::ENEMY_LIANA, 1224, 96);
 	
 	/*
 	EnemyAigua* enemy_aigua1 = (EnemyAigua*)App->entities->CreateEntity(EntityType::ENEMY_WATTER, 2420, 64);
@@ -135,7 +135,7 @@ bool j1EntityManager::PostUpdate()
 		entities_list.At(i)->data->PostUpdate();
 	}
 	
-	
+	/*
 	if (App->scene->changelevel == false && enemiesdone1 == false) {
 		DestroyEntity(enemy_aigua1);
 		DestroyEntity(enemy_aigua2);
@@ -173,7 +173,7 @@ bool j1EntityManager::PostUpdate()
 		EnemyFire* enemy_fire2 = (EnemyFire*)App->entities->CreateEntity(EntityType::ENEMY_FIRE, 832, 240);
 		enemiesdone2 = true;
 	}
-	
+	*/
 
 	return true;
 }
