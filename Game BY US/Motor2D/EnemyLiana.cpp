@@ -94,6 +94,14 @@ bool EnemyLiana::PostUpdate() {
 			flip = SDL_FLIP_NONE;
 		}
 
+	if (body == nullptr) {
+		//// Load All Graphics //// 
+		texture = App->tex->Load("textures/enemiesspriteshit.png");
+		body = App->collision->AddCollider({ (int)position.x - 5,(int)position.y,20,25 }, COLLIDER_DEATH_ENEMY, this);
+		initialposition.x = position.x;
+		initialposition.y = position.y;
+	}
+
 	body->rect.x = (int)position.x;
 	body->rect.y = (int)position.y + 3;
 	if (App->scene->changelevel == false) {

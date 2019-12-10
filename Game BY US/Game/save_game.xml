@@ -17,6 +17,54 @@
 			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
 			<playerattribute godmode="false" ice_right="false" ice_left="false" left="false" right="false" body_col_x="55" body_col_y="251" />
 		</player>
+		<enemy_liana id="1">
+			<enemyattribute body_col_x="992" body_col_y="34" />
+			<enemyposition position_x="992" position_y="31" />
+		</enemy_liana>
+		<enemy_liana id="2">
+			<enemyattribute body_col_x="1216" body_col_y="34" />
+			<enemyposition position_x="1216" position_y="31" />
+		</enemy_liana>
+		<enemy_liana id="3">
+			<enemyattribute body_col_x="768" body_col_y="66" />
+			<enemyposition position_x="768" position_y="63" />
+		</enemy_liana>
+		<enemy_liana id="4">
+			<enemyattribute body_col_x="160" body_col_y="98" />
+			<enemyposition position_x="160" position_y="95" />
+		</enemy_liana>
+		<enemy_liana id="5">
+			<enemyattribute body_col_x="1120" body_col_y="98" />
+			<enemyposition position_x="1120" position_y="95" />
+		</enemy_liana>
+		<enemy_liana id="6">
+			<enemyattribute body_col_x="896" body_col_y="130" />
+			<enemyposition position_x="896" position_y="127" />
+		</enemy_liana>
+		<enemy_liana id="7">
+			<enemyattribute body_col_x="992" body_col_y="34" />
+			<enemyposition position_x="992" position_y="31" />
+		</enemy_liana>
+		<enemy_liana id="8">
+			<enemyattribute body_col_x="1216" body_col_y="34" />
+			<enemyposition position_x="1216" position_y="31" />
+		</enemy_liana>
+		<enemy_liana id="9">
+			<enemyattribute body_col_x="768" body_col_y="66" />
+			<enemyposition position_x="768" position_y="63" />
+		</enemy_liana>
+		<enemy_liana id="10">
+			<enemyattribute body_col_x="160" body_col_y="98" />
+			<enemyposition position_x="160" position_y="95" />
+		</enemy_liana>
+		<enemy_liana id="11">
+			<enemyattribute body_col_x="1120" body_col_y="98" />
+			<enemyposition position_x="1120" position_y="95" />
+		</enemy_liana>
+		<enemy_liana id="12">
+			<enemyattribute body_col_x="896" body_col_y="130" />
+			<enemyposition position_x="896" position_y="127" />
+		</enemy_liana>
 	</EntityManager>
 	<menu />
 	<renderer>

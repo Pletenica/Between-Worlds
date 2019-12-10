@@ -619,17 +619,41 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	return ret;
 }
 
-void j1Map::CreateEnemies(int gid) {
+void j1Map::CreateEnemies(int gid, float x, float y) {
 	if (gid == gidenemyliana) {
-		App->entities->CreateEntity(EntityType::ENEMY_LIANA);
+		App->entities->CreateEntity(EntityType::ENEMY_LIANA, x, y);
 	}
 	if (gid == gidenemyfire) {
-		App->entities->CreateEntity(EntityType::ENEMY_FIRE);
+		App->entities->CreateEntity(EntityType::ENEMY_FIRE, x, y);
 	}
 	if (gid == gidenemywatter) {
-		App->entities->CreateEntity(EntityType::ENEMY_WATTER);
+		App->entities->CreateEntity(EntityType::ENEMY_WATTER, x, y);
 	}
 	if (gid == gidenemyice) {
-		App->entities->CreateEntity(EntityType::ENEMY_ICE);
+		App->entities->CreateEntity(EntityType::ENEMY_ICE, x, y);
+	}
+}
+
+void j1Map::DoEnemies()
+{
+	if (map_loaded == false)
+		return;
+
+	p2List_item<MapLayer*>* item = data.layers.start;
+
+	for (; item != NULL; item = item->next)
+	{
+		MapLayer* layer = item->data;
+		for (int y = 0; y < data.height; ++y)
+		{
+			for (int x = 0; x < data.width; ++x)
+			{
+				int tile_id = layer->Get(x, y);
+				if (tile_id > 0)
+				{
+					CreateEnemies(tile_id, x*32, y*32);
+				}
+			}
+		}
 	}
 }

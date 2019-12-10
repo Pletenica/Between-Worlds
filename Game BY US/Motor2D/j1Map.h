@@ -112,6 +112,9 @@ public:
 	// Called each loop iteration
 	void Draw();
 
+	// Do Enemies for the actual Scene
+	void DoEnemies();
+
 	// Called before quitting
 	bool CleanUp();
 
@@ -137,7 +140,7 @@ private:
 
 	TileSet* GetTilesetFromTileId(int id) const;
 
-	void CreateEnemies(int gid);
+	void CreateEnemies(int gid, float x, float y);
 public:
 	bool inair;
 	MapData data;

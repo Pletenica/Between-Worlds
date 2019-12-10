@@ -195,6 +195,7 @@ bool j1Scene::PreUpdate()
 		finalportal = App->collision->AddCollider({ finalportalx + 30,finalportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENE1, this);
 
 		checkpointcol_scene1 = App->collision->AddCollider({ checkpointscene1x,checkpointscene1y,25,26 }, COLLIDER_CHECKPOINT_SCENE, this);
+		App->map->DoEnemies();
 		donecollidersscene1 = true;
 
 }
@@ -221,6 +222,7 @@ bool j1Scene::PreUpdate()
 		endportal = App->collision->AddCollider({ endportalx + 30,endportaly,20,64 }, COLLIDER_PORTAL_CHANGESCENEFINAL, this);
 
 		checkpointcol_scene2 = App->collision->AddCollider({ checkpointscene2x,checkpointscene2y,25,26 }, COLLIDER_CHECKPOINT_SCENE, this);
+		App->map->DoEnemies();
 		donecollidersscene2 = true;
 
 	}
