@@ -8,6 +8,7 @@
 #include "EnemyLiana.h"
 #include "EnemyIce.h"
 #include "EnemyFire.h"
+#include "j1Map.h"
 #include "j1Collision.h"
 
 j1Collision::j1Collision()
@@ -260,6 +261,11 @@ bool j1Collision::CleanUp()
 			delete colliders[i];
 			colliders[i] = nullptr;
 		}
+		if ((colliders[i] != nullptr) && ((colliders[i]->type == COLLIDER_CHECK_ENEMY) || (colliders[i]->type == COLLIDER_PLAYER) || (colliders[i]->type == COLLIDER_DEATH_ENEMY) || (colliders[i]->type == COLLIDER_CHECK_ENEMY)))
+		{
+			delete colliders[i];
+			colliders[i] = nullptr;
+		}
 	}
 
 	return true;
@@ -270,23 +276,8 @@ bool j1Collision::CleanUpEnemies()
 {
 	int count = 0;
 	while (App->entities->entities_list.At(count) != nullptr) {
-
-		int k = 1;
-
-		if (App->entities->entities_list.At(count)->data->type != EntityType::PLAYER)
-		{
-			App->entities->DestroyEntity(App->entities->entities_list.At(count)->data);
-		}
+		App->entities->DestroyEntity(App->entities->entities_list.At(count)->data);
 		count++;
-	}
-
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
-	{
-		if ((colliders[i] != nullptr) && ((colliders[i]->type == COLLIDER_CHECK_ENEMY) || (colliders[i]->type == COLLIDER_DEATH_ENEMY) || (colliders[i]->type == COLLIDER_CHECK_ENEMY)))
-		{
-			delete colliders[i];
-			colliders[i] = nullptr;
-		}
 	}
 
 	return true;

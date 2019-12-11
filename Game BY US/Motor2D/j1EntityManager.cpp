@@ -21,7 +21,6 @@ j1EntityManager::j1EntityManager()
 {
 	player = (j1Player*)CreateEntity(EntityType::PLAYER);
 	name.create("EntityManager");
-	
 }
 
 
@@ -36,6 +35,7 @@ j1Entity* j1EntityManager::CreateEntity(EntityType type, int posx, int posy)
 	{
 	case EntityType::PLAYER:
 		entity = new j1Player();
+		player = (j1Player*)entity;
 		break;
 	case EntityType::ENEMY_WATTER:
 		entity = new EnemyAigua();
@@ -68,8 +68,8 @@ j1Entity* j1EntityManager::CreateEntity(EntityType type, int posx, int posy)
 
 void j1EntityManager::DestroyEntity(j1Entity* delete_entity)
 {
-	RELEASE(delete_entity);
-	//entities_list.clear();
+	entities_list.clear();
+	CreateEntity(EntityType::PLAYER, 20,250);
 }
 
 bool j1EntityManager::Awake(pugi::xml_node& config)

@@ -406,6 +406,29 @@ bool j1Player::Update(float dt) {
 
 	}
 
+	if (body == nullptr) {
+		//// Load All CONDITIONS //// 
+		Current_Animation = idle;
+		position.x = 50;
+		position.y = 200;
+
+		//// Load All Graphics //// 
+		normal_graphics = App->tex->Load("textures/PlayerNormal.png");
+		fire_graphics = App->tex->Load("textures/PlayerFire.png");
+		plant_graphics = App->tex->Load("textures/PlayerPlant.png");
+		ice_graphics = App->tex->Load("textures/PlayerSnow.png");
+		watter_graphics = App->tex->Load("textures/PlayerWatter.png");
+		current_graphics = normal_graphics;
+
+		//// Load All SOUNDS & COLLISIONS //// 
+		jumpingsound = App->audio->LoadFx("audio/fx/jump.wav");
+		deathsound = App->audio->LoadFx("audio/fx/death.wav");
+		walkingsound = App->audio->LoadFx("audio/fx/walk.wav");
+		portalsound = App->audio->LoadFx("audio/fx/portal.wav");
+		body = App->collision->AddCollider({ (int)position.x,(int)position.y,18,32 }, COLLIDER_PLAYER, this);
+
+		speed_player = 0.5;
+	}
 
 	body->rect.x = position.x + 5;
 	body->rect.y = position.y;
@@ -698,8 +721,6 @@ void j1Player::ChangeToLevel1() {
 	App->scene->justtouchcheckpoint = false;
 	position.x = positionxinit;
 	position.y = positionyinit;
-
-
 }
 
 void j1Player::ChangeToLevel2() {
