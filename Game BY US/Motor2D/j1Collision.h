@@ -68,6 +68,7 @@ public:
 	bool Update();
 	bool PostUpdate() { DebugDraw(); return true; };
 	bool CleanUp();
+	bool CleanUpEnemies();
 	bool CleanBackMapPlayer(int x);
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	bool debug = false;

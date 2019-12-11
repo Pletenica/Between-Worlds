@@ -36,7 +36,7 @@
     <collidergroundice one="175" two="223" three="271" wall="319"/>
     <othercolliders death="158" liana="94" corriente="479"/>
     <pathfinding id="543"/>
-    <enemies liana="542" fire="605" ice="606" watter="541"/>
+    <enemies liana="542" fire="605" ice="606" watter="541" player= "607"/>
   </map>
 
   <scene>

@@ -28,6 +28,7 @@ int gidenemyliana;
 int gidenemyfire;
 int gidenemywatter;
 int gidenemyice;
+int gidplayer;
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -61,6 +62,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	gidenemyfire = config.child("enemies").attribute("fire").as_int();
 	gidenemywatter = config.child("enemies").attribute("watter").as_int();
 	gidenemyice = config.child("enemies").attribute("ice").as_int();
+	gidplayer= config.child("enemies").attribute("player").as_int();
 
 	return ret;
 }
@@ -120,7 +122,7 @@ void j1Map::Draw()
 							App->collision->AddCollider({ pos.x,pos.y + 10,32,32 }, COLLIDER_DEATH, this);
 						}
 
-						if (tile_id != gidpathfinding && tile_id != gidenemyfire && tile_id != gidenemywatter && tile_id != gidenemyice && tile_id != gidenemyliana) {
+						if (tile_id != gidpathfinding && tile_id != gidenemyfire && tile_id != gidenemywatter && tile_id != gidenemyice && tile_id != gidenemyliana && tile_id != gidplayer) {
 							if (App->scene->changelevel == false) {
 								if (App->entities->player->dimensionnormal == true) {
 									if (count_layers < 6) {
@@ -632,6 +634,11 @@ void j1Map::CreateEnemies(int gid, float x, float y) {
 	if (gid == gidenemyice) {
 		App->entities->CreateEntity(EntityType::ENEMY_ICE, x, y);
 	}
+	/*
+	if (gid == gidplayer) {
+		App->entities->CreateEntity(EntityType::PLAYER, x, y);
+	}
+	*/
 }
 
 void j1Map::DoEnemies()

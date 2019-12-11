@@ -2,6 +2,12 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Player.h"
+#include "j1Entity.h"
+#include "j1EntityManager.h"
+#include "EnemyAigua.h"
+#include "EnemyLiana.h"
+#include "EnemyIce.h"
+#include "EnemyFire.h"
 #include "j1Collision.h"
 
 j1Collision::j1Collision()
@@ -250,6 +256,33 @@ bool j1Collision::CleanUp()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if ((colliders[i] != nullptr) && (colliders[i]->type != COLLIDER_PLAYER) && (colliders[i]->type != COLLIDER_CAMERA) && (colliders[i]->type != COLLIDER_CAMERA_LLEFT) && (colliders[i]->type != COLLIDER_CAMERA_LRIGHT) && (colliders[i]->type != COLLIDER_DEATH_ENEMY) && (colliders[i]->type != COLLIDER_CHECK_ENEMY) && (colliders[i]->type != COLLIDER_TO_KILL_ENEMY))
+		{
+			delete colliders[i];
+			colliders[i] = nullptr;
+		}
+	}
+
+	return true;
+}
+
+// Called before quitting
+bool j1Collision::CleanUpEnemies()
+{
+	int count = 0;
+	while (App->entities->entities_list.At(count) != nullptr) {
+
+		int k = 1;
+
+		if (App->entities->entities_list.At(count)->data->type != EntityType::PLAYER)
+		{
+			App->entities->DestroyEntity(App->entities->entities_list.At(count)->data);
+		}
+		count++;
+	}
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if ((colliders[i] != nullptr) && ((colliders[i]->type == COLLIDER_CHECK_ENEMY) || (colliders[i]->type == COLLIDER_DEATH_ENEMY) || (colliders[i]->type == COLLIDER_CHECK_ENEMY)))
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
