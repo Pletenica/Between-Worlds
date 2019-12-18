@@ -261,7 +261,7 @@ bool j1Collision::CleanUp()
 			delete colliders[i];
 			colliders[i] = nullptr;
 		}
-		if ((colliders[i] != nullptr) && ((colliders[i]->type == COLLIDER_CHECK_ENEMY) || (colliders[i]->type == COLLIDER_PLAYER) || (colliders[i]->type == COLLIDER_DEATH_ENEMY) || (colliders[i]->type == COLLIDER_CHECK_ENEMY)))
+		if ((colliders[i] != nullptr) && ((colliders[i]->type == COLLIDER_CHECK_ENEMY)  || (colliders[i]->type == COLLIDER_DEATH_ENEMY) || (colliders[i]->type == COLLIDER_CHECK_ENEMY)))
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
@@ -276,7 +276,9 @@ bool j1Collision::CleanUpEnemies()
 {
 	int count = 0;
 	while (App->entities->entities_list.At(count) != nullptr) {
-		App->entities->DestroyEntity(App->entities->entities_list.At(count)->data);
+		if (App->entities->entities_list.At(count)->data->type != EntityType::PLAYER) {
+			App->entities->DestroyEntity(App->entities->entities_list.At(count)->data);
+		}
 		count++;
 	}
 

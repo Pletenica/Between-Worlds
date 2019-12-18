@@ -6,7 +6,7 @@
 #include "j1EntityManager.h"
 
 j1Entity::j1Entity(EntityType type) {
-
+	this->type = type;
 }
 
 bool j1Entity::Awake(pugi::xml_node&) {

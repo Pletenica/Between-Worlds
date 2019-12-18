@@ -43,7 +43,7 @@ EnemyFire::~EnemyFire()
 {}
 
 bool EnemyFire::CleanUp() {
-
+	App->tex->UnLoad(texture);
 	return true;
 }
 

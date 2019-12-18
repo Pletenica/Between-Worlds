@@ -165,6 +165,7 @@ bool j1EntityManager::CleanUp()
 {
 	for (int i = entities_list.count() - 1; i >= 0; i--)
 	{
+		//entities_list.At(i)->data->CleanUp();
 		entities_list.del(entities_list.At(i));
 	}
 	entities_list.clear();

@@ -98,17 +98,13 @@ bool j1Player::Start()
 	portalsound = App->audio->LoadFx("audio/fx/portal.wav");
 	body = App->collision->AddCollider({ (int)position.x,(int)position.y,18,32 }, COLLIDER_PLAYER, this);
 
-
+	type = EntityType::PLAYER;
 	return true;
 }
 
 //Clean Up
 bool j1Player::CleanUp() {
 	App->audio->StopFx();
-	//App->audio->UnLoadChunk(jumpingsound);
-	//App->audio->UnLoadChunk(deathsound);
-	//App->audio->UnLoadChunk(walkingsound);
-	//App->audio->UnLoadChunk(portalsound);
 	App->tex->UnLoad(current_graphics);
 	App->tex->UnLoad(fire_graphics);
 	App->tex->UnLoad(plant_graphics);
@@ -124,7 +120,7 @@ bool j1Player::Update(float dt) {
 	BROFILER_CATEGORY("PlayerPreUpdate", Profiler::Color::Chartreuse)
 	right = false;
 	left = false;
-	speed_player = speed_player_aux;
+	speed_player = 0.5;
 	speed_player = speed_player * dt * 500;
 	speed_player_jump = speed_player_jump_aux;
 	speed_player_jump = speed_player_jump * dt * 100;

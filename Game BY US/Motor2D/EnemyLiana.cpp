@@ -35,6 +35,10 @@ EnemyLiana::~EnemyLiana()
 {}
 
 bool EnemyLiana::CleanUp() {
+	App->tex->UnLoad(texture);
+	body->to_delete = true;
+	body = nullptr;
+	texture = nullptr;
 
 	return true;
 }

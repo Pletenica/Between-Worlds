@@ -41,7 +41,7 @@ EnemyAigua::~EnemyAigua()
 {}
 
 bool EnemyAigua::CleanUp(){
-
+	App->tex->UnLoad(texture);
 	return true;
 }
 

@@ -303,6 +303,7 @@ bool j1Map::CleanUp()
 	// Clean up the pugui tree
 	map_file.reset();
 	App->collision->CleanUp();
+
 	return true;
 }
 

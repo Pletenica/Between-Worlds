@@ -42,7 +42,7 @@ EnemyIce::~EnemyIce()
 {}
 
 bool EnemyIce::CleanUp() {
-
+	App->tex->UnLoad(texture);
 	return true;
 }
 
