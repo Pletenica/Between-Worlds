@@ -26,6 +26,8 @@ public:
 public:
 	SDL_Texture* menu_graphics = nullptr;
 	Animation logo_anim;
+	Animation heart_anim;
+	Animation gray_heart_anim;
 };
 
 #endif // __j1MENU_H__

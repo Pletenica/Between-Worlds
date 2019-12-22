@@ -371,6 +371,7 @@ bool j1Player::Update(float dt) {
 
 	//////// DEATH ////////
 	if (deadbool == true) {
+		
 		if (App->audio->PlayFx(deathsound, 0) == false) {
 			App->audio->PlayFx(deathsound, 0);
 		}
@@ -381,6 +382,7 @@ bool j1Player::Update(float dt) {
 		stop_right = true;
 		G = 1;
 		if (dead.finished == 1) {
+			if (lifes > 0) lifes--;
 			if (App->scene->changelevel == false) {
 				ChangeToLevel1();
 			}
@@ -388,7 +390,6 @@ bool j1Player::Update(float dt) {
 				ChangeToLevel2();
 			}
 		}
-
 	}
 
 	body->rect.x = position.x + 5;

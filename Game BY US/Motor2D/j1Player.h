@@ -46,7 +46,6 @@ public:
 
 	float positionxinit;
 	float positionyinit;
-	//fPoint position;
 	int mult;
 	int jump_max = 80;
 	Collider* body;
@@ -98,7 +97,7 @@ public:
 	unsigned int jumpingsound;
 	unsigned int deathsound;
 
-
+	int lifes = 3;
 };
 
 #endif

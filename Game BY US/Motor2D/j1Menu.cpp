@@ -20,6 +20,14 @@ j1Menu::j1Menu() : j1Module()
 	logo_anim.PushBack({ 0, 55, 187, 55 });
 	logo_anim.speed = 0.2f;
 
+	/////HEART ANIMATION//////
+	heart_anim.PushBack({ 187, 0, 25, 25 });
+	heart_anim.speed = 0.2f;
+
+	/////HEART ANIMATION//////
+	gray_heart_anim.PushBack({ 187, 25, 25, 25 });
+	gray_heart_anim.speed = 0.2f;
+
 	name.create("menu");
 
 }
@@ -69,7 +77,14 @@ bool j1Menu::PostUpdate()
 		ret = App->entities->player->exitgame = false;
 
 	App->render->Blit(menu_graphics, 0, 0, &(logo_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+	
+	for (int i = 0; i < 3; i++) {
+		App->render->Blit(menu_graphics, 330 + i * 20, 5, &(gray_heart_anim.GetCurrentFrame()), 0.0f, 0, 0, 0, SDL_FLIP_NONE);
+	}
 
+	for (int i = 0; i < App->entities->player->lifes; i++) {
+		App->render->Blit(menu_graphics, 330 + i*20, 5, &(heart_anim.GetCurrentFrame()), 0.0f, 0, 0, 0, SDL_FLIP_NONE);
+	}
 	return ret;
 }
 
