@@ -8,8 +8,8 @@
 	
   <EntityManager>
   <player>
-    <gravity Ginit="1" JumpVel="12" Gmax="17"/>
-    <speed movement="0.4" iceinercy="1" movementinair="2"/>
+    <gravity Ginit="9.8" JumpVel="35" Gmax="50"/>
+    <speed movement="0.35" iceinercy="0.7" movementinair="1.5"/>
     <position positionxinit="50" positionyinit="250"/>
   </player>
   </EntityManager>

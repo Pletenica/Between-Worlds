@@ -66,9 +66,9 @@ bool j1Player::Awake(pugi::xml_node& config)
 	Ginit = config.child("player").child("gravity").attribute("Ginit").as_float(1);
 	jump_vel = config.child("player").child("gravity").attribute("JumpVel").as_float(12);
 	G_max = config.child("player").child("gravity").attribute("Gmax").as_float(17);
-	speed_player_aux = config.child("player").child("speed").attribute("movement").as_float(2);
-	speed_player_ice_aux = config.child("player").child("speed").attribute("iceinercy").as_int(1);
-	speed_player_jump_aux = config.child("player").child("speed").attribute("movementinair").as_int(2);
+	speed_player_aux = config.child("player").child("speed").attribute("movement").as_float();
+	speed_player_ice_aux = config.child("player").child("speed").attribute("iceinercy").as_float();
+	speed_player_jump_aux = config.child("player").child("speed").attribute("movementinair").as_float();
 	positionxinit = config.child("player").child("position").attribute("positionxinit").as_int(2);
 	positionyinit = config.child("player").child("position").attribute("positionyinit").as_int(2);
 
@@ -120,7 +120,7 @@ bool j1Player::Update(float dt) {
 	BROFILER_CATEGORY("PlayerPreUpdate", Profiler::Color::Chartreuse)
 	right = false;
 	left = false;
-	speed_player = 0.5;
+	speed_player = speed_player_aux;
 	speed_player = speed_player * dt * 500;
 	speed_player_jump = speed_player_jump_aux;
 	speed_player_jump = speed_player_jump * dt * 100;
@@ -147,7 +147,6 @@ bool j1Player::Update(float dt) {
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		flip = SDL_FLIP_NONE;
 	}
-
 
 	//////// GOD MODE ////////
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
@@ -188,7 +187,6 @@ bool j1Player::Update(float dt) {
 		}
 	}
 
-
 	//////// INPUTS WHEN TOUCHES GROUND ////////
 	if (isinair ==false && !isinliana && !godmode && !dimensionagua) {
 
@@ -218,7 +216,6 @@ bool j1Player::Update(float dt) {
 			if (App->audio->PlayFx(walkingsound, 0) == true || App->audio->PlayFx(walkingsound, 0) == false) {
 				App->audio->PlayFx(jumpingsound, 0);
 			}
-			G_max = position.y - 80;
 		}
 	}
 
@@ -258,6 +255,8 @@ bool j1Player::Update(float dt) {
 	//////// LIANA ////////
 	if (isinliana == true) {
 		isjumping = false;
+		isinair = false;
+		G = 10;
 		isdoublejumping = false;
 		Current_Animation.GetCurrentFrame() = liana.GetCurrentFrame();
 		position.y += speed_player / 10;
@@ -275,9 +274,8 @@ bool j1Player::Update(float dt) {
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 			position.y -= 10;
 		}
-		isinair = false;
-	}
 
+	}
 
 	//////// JUMPING ////////
 	if (isjumping == true) {
@@ -290,16 +288,13 @@ bool j1Player::Update(float dt) {
 					if (App->audio->PlayFx(walkingsound, 0) == true || App->audio->PlayFx(walkingsound, 0) == false) {
 						App->audio->PlayFx(jumpingsound, 0);
 					}
-					G_max = position.y - 80;
 					G = Ginit;
 				}
 				isinair = false;
 				ice_left = false;
 				ice_right = false;
 				
-				if (position.y < G_max) {
-					G = G + 5;
-				}
+				G+=1*dt*100;
 				position.y += (G - jump_vel)*dt * 20;
 
 				if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !stop_left) {
@@ -312,7 +307,7 @@ bool j1Player::Update(float dt) {
 			}
 		}
 		else {
-			G = 1;
+			G = 5;
 			isinair = true;
 			isjumping = false;
 			isdoublejumping = false;
@@ -328,9 +323,7 @@ bool j1Player::Update(float dt) {
 			ice_left = false;
 			ice_right = false;
 
-			if (position.y < G_max) {
-				G = G + 5;
-			}
+			G += 1 * dt * 100;
 			position.y += (G - jump_vel)*dt * 20;
 
 			if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && !stop_left) {
@@ -342,13 +335,12 @@ bool j1Player::Update(float dt) {
 			}
 		}
 		else {
-			G = 1;
+			G = 5;
 			isinair = true;
 			isjumping = false;
 			isdoublejumping = false;
 		}
 	}
-
 
 	//////// AIR ////////
 	if (isinair==true && isinliana==false) {
@@ -368,17 +360,14 @@ bool j1Player::Update(float dt) {
 			Current_Animation.GetCurrentFrame() = walk.GetCurrentFrame();
 			flip = SDL_FLIP_NONE;
 		}
-		G++;
-		position.y += G;
+		
+		position.y += G*dt * 50;
 	}
-
 
 	//////// INPUT FAILS ////////
 	if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) {
 		Current_Animation.GetCurrentFrame() = idle.GetCurrentFrame();
 	}
-
-
 
 	//////// DEATH ////////
 	if (deadbool == true) {
@@ -390,7 +379,7 @@ bool j1Player::Update(float dt) {
 		stop_left = true;
 		stop_jump = true;
 		stop_right = true;
-
+		G = 1;
 		if (dead.finished == 1) {
 			if (App->scene->changelevel == false) {
 				ChangeToLevel1();
@@ -402,35 +391,9 @@ bool j1Player::Update(float dt) {
 
 	}
 
-	if (body == nullptr) {
-		//// Load All CONDITIONS //// 
-		Current_Animation = idle;
-		position.x = 50;
-		position.y = 200;
-
-		//// Load All Graphics //// 
-		normal_graphics = App->tex->Load("textures/PlayerNormal.png");
-		fire_graphics = App->tex->Load("textures/PlayerFire.png");
-		plant_graphics = App->tex->Load("textures/PlayerPlant.png");
-		ice_graphics = App->tex->Load("textures/PlayerSnow.png");
-		watter_graphics = App->tex->Load("textures/PlayerWatter.png");
-		current_graphics = normal_graphics;
-
-		//// Load All SOUNDS & COLLISIONS //// 
-		jumpingsound = App->audio->LoadFx("audio/fx/jump.wav");
-		deathsound = App->audio->LoadFx("audio/fx/death.wav");
-		walkingsound = App->audio->LoadFx("audio/fx/walk.wav");
-		portalsound = App->audio->LoadFx("audio/fx/portal.wav");
-		body = App->collision->AddCollider({ (int)position.x,(int)position.y,18,32 }, COLLIDER_PLAYER, this);
-
-		speed_player = 0.5;
-	}
-
 	body->rect.x = position.x + 5;
 	body->rect.y = position.y;
 	
-	   
-
 	if (dimensionhielo == true) {
 		if ((ice_left == true)&& (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT)) {
 			position.x -= speed_player_ice;
@@ -463,8 +426,6 @@ bool j1Player::PreUpdate()
 	if (dimensionnormal == true) {
 		current_graphics = normal_graphics;
 	}
-
-
 
 	return true;
 }
@@ -655,6 +616,7 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 				stop_right = true;
 				stop_left = true;
 				stop_jump = true;
+				position.y = other->rect.y-20;
 			}
 		}
 		if (other->type == COLLIDER_DEATH_ENEMY) {
@@ -770,7 +732,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.child("playerworld").append_attribute("ice") = dimensionhielo;
 	data.child("playerworld").append_attribute("normal") = dimensionnormal;
 	data.append_child("playerattribute");
-	data.child("playerattribute").append_attribute("godmode") = godmode;
+	//data.child("playerattribute").append_attribute("godmode") = godmode;
 	data.child("playerattribute").append_attribute("ice_right") = ice_right;
 	data.child("playerattribute").append_attribute("ice_left") = ice_left;
 	data.child("playerattribute").append_attribute("left") = left;
@@ -787,7 +749,7 @@ bool j1Player::Load(pugi::xml_node& data)
 	right=data.child("playerattribute").attribute("right").as_bool();
 	left = data.child("playerattribute").attribute("left").as_bool();
 	position.x = data.child("playerposition").attribute("x").as_float();
-	position.y = data.child("playerposition").attribute("y").as_float()-15;
+	position.y = data.child("playerposition").attribute("y").as_float()-30;
 	positionxinit = data.child("playerposition").attribute("x_init").as_float();
 	positionyinit = data.child("playerposition").attribute("y_init").as_float();
 	dimensionnormal = data.child("playerworld").attribute("normal").as_bool();
@@ -795,9 +757,9 @@ bool j1Player::Load(pugi::xml_node& data)
 	dimensionfuego = data.child("playerworld").attribute("fire").as_bool();
 	dimensionplanta = data.child("playerworld").attribute("plant").as_bool();
 	dimensionhielo = data.child("playerworld").attribute("ice").as_bool();
-	godmode = data.child("playerattribute").attribute("godmode").as_bool();
+	//godmode = data.child("playerattribute").attribute("godmode").as_bool();
 	ice_right = data.child("playerattribute").attribute("ice_right").as_bool();
 	ice_left = data.child("playerattribute").attribute("ice_left").as_bool();
-
+	G = 5;
 	return true;
 }
