@@ -145,6 +145,7 @@
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
+    <ClCompile Include="j1GuiElement.cpp" />
     <ClCompile Include="j1GuiManager.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -167,6 +168,10 @@
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UIImage.cpp" />
+    <ClCompile Include="UIText.cpp" />
+    <ClCompile Include="UIWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnemyAigua.h" />
@@ -177,6 +182,7 @@
     <ClInclude Include="j1Entity.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1Fonts.h" />
+    <ClInclude Include="j1GuiElement.h" />
     <ClInclude Include="j1GuiManager.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Menu.h" />
@@ -201,6 +207,10 @@
     <ClInclude Include="p2SString.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UIImage.h" />
+    <ClInclude Include="UIText.h" />
+    <ClInclude Include="UIWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

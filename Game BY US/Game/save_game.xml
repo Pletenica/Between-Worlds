@@ -11,7 +11,7 @@
 	</scene>
 	<collision />
 	<fonts />
-	<GuiManager />
+	<gui />
 	<EntityManager>
 		<player id="0">
 			<player />
