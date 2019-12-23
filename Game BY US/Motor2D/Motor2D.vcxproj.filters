@@ -73,6 +73,12 @@
     <ClCompile Include="j1Menu.cpp">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1GuiManager.cpp">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -165,6 +171,12 @@
     <ClInclude Include="j1Menu.h">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1GuiManager.h">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -187,6 +199,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Entities">
       <UniqueIdentifier>{304a4cb4-20c9-4174-bec3-c08cc498da2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\UI">
+      <UniqueIdentifier>{619b4bac-7788-49c5-a421-33641b206e2d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

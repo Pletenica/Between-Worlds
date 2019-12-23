@@ -16,6 +16,8 @@
 #include "j1Collision.h"
 #include "j1PathFinding.h"
 #include "j1EntityManager.h"
+#include "j1GuiManager.h"
+#include "j1Fonts.h"
 #include "j1App.h"
 
 // Constructor
@@ -37,6 +39,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	map = new j1Map();
 	menu = new j1Menu();
+	guimanager = new j1GuiManager();
+	fonts = new j1Fonts();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -48,6 +52,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(scene);
 	AddModule(collision);
+	AddModule(fonts);
+	AddModule(guimanager);
 	AddModule(entities);
 	AddModule(menu);
 

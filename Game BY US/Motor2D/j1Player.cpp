@@ -156,6 +156,7 @@ bool j1Player::Update(float dt) {
 		}
 		else {
 			isinair = false;
+			G = 7;
 			App->entities->player->godmode = true;
 
 		}

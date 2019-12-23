@@ -10,6 +10,8 @@
 		<scene camx="0" real_camx="0" actualscene="false" />
 	</scene>
 	<collision />
+	<fonts />
+	<GuiManager />
 	<EntityManager>
 		<player id="0">
 			<player />

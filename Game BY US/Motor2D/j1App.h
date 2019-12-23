@@ -17,6 +17,8 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 class j1EntityManager;
+class j1GuiManager;
+class j1Fonts;
 class j1Collision;
 class j1Animation;
 class j1PathFinding;
@@ -95,6 +97,8 @@ public:
 	j1Animation*		animation;
 	j1PathFinding*		pathfinding;	
 	j1EntityManager*	entities;
+	j1GuiManager*		guimanager;
+	j1Fonts*			fonts;
 	bool				fpsCapON = true;
 
 private:

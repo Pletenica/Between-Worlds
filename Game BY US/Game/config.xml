@@ -37,6 +37,7 @@
     <othercolliders death="158" liana="94" corriente="479"/>
     <pathfinding id="543"/>
     <enemies liana="542" fire="605" ice="606" watter="541" player= "607"/>
+    <coins gold="671" silver="735" bronce="799"/>
   </map>
 
   <scene>
