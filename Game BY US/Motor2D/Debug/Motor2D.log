@@ -1,0 +1,10 @@
+﻿  j1Scene.cpp
+d:\documents\github\plataform_game\game by us\motor2d\j1scene.cpp(286): warning C4244: '+=': conversión de 'double' a 'int'; posible pérdida de datos
+d:\documents\github\plataform_game\game by us\motor2d\j1scene.cpp(291): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+d:\documents\github\plataform_game\game by us\motor2d\j1scene.cpp(412): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+d:\documents\github\plataform_game\game by us\motor2d\j1scene.cpp(413): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+  Motor2D.vcxproj -> D:\Documents\GitHub\Plataform_Game\Game BY US\Debug\Motor 2D.exe

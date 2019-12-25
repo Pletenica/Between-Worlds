@@ -1,0 +1,19 @@
+﻿  j1Animation.h
+  j1Collision.cpp
+  j1Enemies.cpp
+  j1Main.cpp
+  j1App.cpp
+  j1Audio.cpp
+  j1Input.cpp
+  j1Map.cpp
+d:\documents\github\plataform_game\game\motor2d\j1map.cpp(74): warning C4018: '<': no coinciden signed/unsigned
+d:\documents\github\plataform_game\game\motor2d\j1map.cpp(75): warning C4018: '<': no coinciden signed/unsigned
+  j1Player.cpp
+  j1Scene.cpp
+  p2Log.cpp
+  j1Render.cpp
+  j1Textures.cpp
+  j1Window.cpp
+  pugixml.cpp
+  Generando código...
+  Motor2D.vcxproj -> D:\Documents\GitHub\Plataform_Game\Game\Debug\Motor 2D.exe
