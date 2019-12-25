@@ -48,7 +48,7 @@ public:
 	float positionyinit;
 	int mult;
 	int jump_max = 80;
-	Collider* body;
+	//Collider* body;
 	Collider*movecamright;
 	float Ginit;
 	float G = Ginit;
@@ -98,6 +98,7 @@ public:
 	unsigned int deathsound;
 
 	int lifes = 3;
+	int num_coins = 0;
 };
 
 #endif

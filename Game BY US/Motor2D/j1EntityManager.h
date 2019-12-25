@@ -7,33 +7,21 @@
 #include "j1Animation.h"
 #include "j1Entity.h"
 #include "j1Player.h"
-
+#include "Coins.h"
+#include "p2DynArray.h"
 
 class j1EntityManager : public j1Module
 {
 public:
 	j1Player* player;
+	int number_coins = 0;
+	//Coins* coin1;
+	//Coins* coin2;
+	p2DynArray<Coins*> coins_array;
 	p2List<j1Entity*> entities_list;
 	pugi::xml_node config;
 	bool enemiesdone2 = false;
 	bool enemiesdone1 = false;
-	//EnemyIce* enemy_ice1;
-	//EnemyIce* enemy_ice2;
-	//EnemyIce* enemy_ice3;
-	//EnemyLiana* enemy_liana1;
-	//EnemyLiana* enemy_liana2;
-	//EnemyLiana* enemy_liana3;
-	//EnemyLiana* enemy_liana4;
-	//EnemyLiana* enemy_liana5;
-	//
-	//EnemyAigua* enemy_aigua1;
-	//EnemyAigua* enemy_aigua2;
-	//EnemyAigua* enemy_aigua3;
-	//EnemyAigua* enemy_aigua4;
-	//EnemyFire* enemy_fire1;
-	//EnemyFire * enemy_fire2;
-
-
 
 public:
 

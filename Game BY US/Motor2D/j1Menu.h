@@ -3,6 +3,8 @@
 
 #include "j1Module.h"
 #include "j1Animation.h"
+#include "j1GuiManager.h"
+
 
 struct SDL_Texture;
 struct Collider;
@@ -28,6 +30,10 @@ public:
 
 	SDL_Texture* menu_graphics = nullptr;
 	Animation logo_anim;
+
+public:
+	SDL_Rect textdonerect;
+	j1GuiElement* guielement_textdone;
 
 };
 

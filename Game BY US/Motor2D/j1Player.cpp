@@ -684,7 +684,7 @@ void j1Player::ChangeToLevel1() {
 }
 
 void j1Player::ChangeToLevel2() {
-	App->collision->CleanUpEnemies();
+	App->collision->CleanUp();
 	ice_right = false;
 	ice_left = false;
 	dimensionnormal = true;

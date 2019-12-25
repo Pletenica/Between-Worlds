@@ -11,6 +11,9 @@
 #include "j1Menu.h"
 #include "j1Scene.h"
 #include "j1UiInGame.h"
+#include "j1GuiManager.h"
+#include "j1GuiElement.h"
+#include "UIImage.h"
 
 j1Menu::j1Menu() : j1Module()
 {
@@ -38,10 +41,16 @@ bool j1Menu::Awake(pugi::xml_node& config)
 	return ret;
 }
 
+
+
 // Called before the first frame
 bool j1Menu::Start()
 {
 	menu_graphics = App->tex->Load("textures/UI/Menu.png");
+	textdonerect.x = 60;
+	textdonerect.y = 300;
+
+	App->guimanager->CreateUIElement(true, GuiType::TEXT, guielement_textdone, textdonerect, textdonerect, "Game done by Roger Pérez Romera & Josep Sànchez Arbona");
 
 	return true;
 }
@@ -78,7 +87,7 @@ bool j1Menu::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = App->entities->player->exitgame = false;
 
-	App->render->Blit(menu_graphics, 0, 0, &(logo_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+	App->render->Blit(menu_graphics, 15, 10, &(logo_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
 	
 	return ret;
 }

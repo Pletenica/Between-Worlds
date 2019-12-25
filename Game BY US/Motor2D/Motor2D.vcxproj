@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Coins.cpp" />
     <ClCompile Include="EnemyAigua.cpp" />
     <ClCompile Include="EnemyFire.cpp" />
     <ClCompile Include="EnemyIce.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="UIWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Coins.h" />
     <ClInclude Include="EnemyAigua.h" />
     <ClInclude Include="EnemyFire.h" />
     <ClInclude Include="EnemyIce.h" />

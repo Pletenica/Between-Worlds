@@ -13,6 +13,7 @@ enum class EntityType
 {
 	NONE,
 	PLAYER,
+	COINS,
 	ENEMY_LIANA,
 	ENEMY_FIRE,
 	ENEMY_WATTER,

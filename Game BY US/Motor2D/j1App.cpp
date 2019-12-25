@@ -52,13 +52,16 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(pathfinding);
+
 	AddModule(scene);
 	scene->active = false;
-	AddModule(collision);
-	AddModule(fonts);
-	AddModule(guimanager);
 	AddModule(entities);
 	entities->active = false;
+	AddModule(collision);
+
+	AddModule(fonts);
+	AddModule(guimanager);
+
 	AddModule(menu);
 	AddModule(uiingame);
 	uiingame->active = false;
@@ -231,7 +234,7 @@ void j1App::FinishUpdate()
 	static char title[256];
 	//sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
 	//	avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
-	sprintf_s(title, 256, "Between Worlds: FPS: %i || Avg.FPS: %.2f || Ms of the last Frame %02u || Cap %s || Vsync %s", frames_on_last_update, avg_fps, last_frame_ms, fpsCapON ? "ON" : "OFF", App->render->vsyncbool ? "ON" : "OFF");
+	sprintf_s(title, 256, "Between Worlds: FPS: %i || Avg.FPS: %.2f || Ms of the last Frame %02u || Cap %s || Vsync %s || Coins %i", frames_on_last_update, avg_fps, last_frame_ms, fpsCapON ? "ON" : "OFF", App->render->vsyncbool ? "ON" : "OFF", App->entities->player->num_coins);
 	App->win->SetTitle(title);
 
 	if (framerate > 0 && last_frame_ms < framerate && fpsCapON)

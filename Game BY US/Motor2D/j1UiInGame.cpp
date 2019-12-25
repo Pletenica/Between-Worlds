@@ -45,17 +45,15 @@ bool j1UiInGame::Awake(pugi::xml_node& config)
 
 	return ret;
 }
-SDL_Rect rect;
-j1GuiElement* guielement;
+
 // Called before the first frame
 bool j1UiInGame::Start()
 {
-	rect.x = 100;
-	rect.y = 100;
+
 
 	ui_graphics = App->tex->Load("textures/UI/UiInGame.png");
 
-	App->guimanager->CreateUIElement(true, GuiType::TEXT, guielement, rect, rect, "Roger me la chupa crack.");
+
 
 	return true;
 }

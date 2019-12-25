@@ -12,6 +12,7 @@ enum COLLIDER_TYPE
 	COLLIDER_ACTION,
 	COLLIDER_LIMIT,
 	COLLIDER_SUELO,
+	COLLIDER_COINS,
 	COLLIDER_LIANA,
 	COLLIDER_PLAYER,
 	COLLIDER_DEATH,
@@ -68,6 +69,7 @@ public:
 	bool Update();
 	bool PostUpdate() { DebugDraw(); return true; };
 	bool CleanUp();
+	bool DestroyCollider(Collider*col);
 	bool CleanUpEnemies();
 	bool CleanBackMapPlayer(int x);
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);

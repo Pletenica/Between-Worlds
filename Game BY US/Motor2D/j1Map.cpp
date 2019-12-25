@@ -29,6 +29,7 @@ int gidenemyfire;
 int gidenemywatter;
 int gidenemyice;
 int gidplayer;
+int gidgoldcoin;
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -63,6 +64,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	gidenemywatter = config.child("enemies").attribute("watter").as_int();
 	gidenemyice = config.child("enemies").attribute("ice").as_int();
 	gidplayer= config.child("enemies").attribute("player").as_int();
+	gidgoldcoin = config.child("coins").attribute("gold_coin").as_int();
 
 	return ret;
 }
@@ -636,8 +638,8 @@ void j1Map::CreateEnemies(int gid, float x, float y) {
 		App->entities->CreateEntity(EntityType::ENEMY_ICE, x, y);
 	}
 	/*
-	if (gid == gidplayer) {
-		App->entities->CreateEntity(EntityType::PLAYER, x, y);
+	if (gid == gidgoldcoin) {
+		App->entities->CreateEntity(EntityType::COINS, x, y);
 	}
 	*/
 }

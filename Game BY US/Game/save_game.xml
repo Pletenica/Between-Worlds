@@ -9,9 +9,6 @@
 	<scene>
 		<scene camx="0" real_camx="0" actualscene="false" />
 	</scene>
-	<collision />
-	<fonts />
-	<gui />
 	<EntityManager>
 		<player id="0">
 			<player />
@@ -19,7 +16,24 @@
 			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
 			<playerattribute ice_right="false" ice_left="false" left="false" right="false" body_col_x="50" body_col_y="250" />
 		</player>
+		<Coins id="1" />
+		<Coins id="2" />
+		<Coins id="3" />
+		<Coins id="4" />
+		<Coins id="5" />
+		<Coins id="6" />
+		<Coins id="7" />
+		<Coins id="8" />
+		<Coins id="9" />
+		<Coins id="10" />
+		<Coins id="11" />
+		<Coins id="12" />
+		<Coins id="13" />
+		<Coins id="14" />
 	</EntityManager>
+	<collision />
+	<fonts />
+	<gui />
 	<menu />
 	<uiingame />
 	<renderer>

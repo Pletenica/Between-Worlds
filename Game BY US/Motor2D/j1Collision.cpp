@@ -22,6 +22,9 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_LIMIT][COLLIDER_ACTION] = true;
 	matrix[COLLIDER_LIMIT][COLLIDER_PLAYER] = true;
 
+	matrix[COLLIDER_COINS][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_COINS] = true;
+
 	matrix[COLLIDER_SUELO][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_AGUA] = true;
 	matrix[COLLIDER_SUELO][COLLIDER_PORTAL_FUEGO] = true;
@@ -204,6 +207,9 @@ void j1Collision::DebugDraw()
 		case COLLIDER_ACTION: // yellow
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
+		case COLLIDER_COINS: // yellow
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
+			break;
 		case COLLIDER_SUELO: //yellow
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
@@ -256,7 +262,7 @@ bool j1Collision::CleanUp()
 	
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if ((colliders[i] != nullptr) && (colliders[i]->type != COLLIDER_PLAYER) && (colliders[i]->type != COLLIDER_CAMERA) && (colliders[i]->type != COLLIDER_CAMERA_LLEFT) && (colliders[i]->type != COLLIDER_CAMERA_LRIGHT) && (colliders[i]->type != COLLIDER_DEATH_ENEMY) && (colliders[i]->type != COLLIDER_CHECK_ENEMY) && (colliders[i]->type != COLLIDER_TO_KILL_ENEMY))
+		if ((colliders[i] != nullptr) && (colliders[i]->type != COLLIDER_PLAYER) && (colliders[i]->type != COLLIDER_CAMERA) && (colliders[i]->type != COLLIDER_CAMERA_LLEFT) && (colliders[i]->type != COLLIDER_CAMERA_LRIGHT) && (colliders[i]->type != COLLIDER_DEATH_ENEMY) && (colliders[i]->type != COLLIDER_CHECK_ENEMY) && (colliders[i]->type != COLLIDER_TO_KILL_ENEMY) && (colliders[i]->type != COLLIDER_COINS))
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
@@ -272,16 +278,25 @@ bool j1Collision::CleanUp()
 }
 
 // Called before quitting
+bool j1Collision::DestroyCollider(Collider* col)
+{
+	delete(col);
+	col = nullptr;
+	return true;
+}
+
+// Called before quitting
 bool j1Collision::CleanUpEnemies()
 {
 	int count = 0;
-	while (App->entities->entities_list.At(count) != nullptr) {
-		if (App->entities->entities_list.At(count)->data->type != EntityType::PLAYER) {
-			App->entities->DestroyEntity(App->entities->entities_list.At(count)->data);
+	for (int i=0;i<App->entities->entities_list.count();i++) {
+		if (App->entities->entities_list.At(i)->data != NULL) {
+			if (App->entities->entities_list.At(count)->data->type != EntityType::PLAYER) {
+				App->entities->DestroyEntity(App->entities->entities_list.At(i)->data);
+			}
 		}
-		count++;
 	}
-
+	
 	return true;
 }
 
