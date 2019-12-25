@@ -26,7 +26,7 @@ public:
 	bool CleanUp();
 
 	const SDL_Texture* GetAtlas() const;
-	j1GuiElement* CreateUIElement(GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite = { 0,0,0,0 }, p2SString str = "", SDL_Rect sprite2 = { 0,0,0,0 }, SDL_Rect sprite3 = { 0,0,0,0 });
+	j1GuiElement* CreateUIElement(bool ismenu, GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite = { 0,0,0,0 }, p2SString str = "", SDL_Rect sprite2 = { 0,0,0,0 }, SDL_Rect sprite3 = { 0,0,0,0 });
 	bool DeleteUIElement(j1GuiElement*);
 
 private:

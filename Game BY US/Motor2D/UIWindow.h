@@ -7,13 +7,16 @@
 class WindowUI :public j1GuiElement
 {
 public:
-	WindowUI(GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite, bool d);
+	WindowUI(bool ismenu, GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite, bool d);
 
 	// Destructor
 	virtual ~WindowUI() {}
 
 	// Called after all Updates
 	bool PostUpdate();
+
+private:
+	bool boolmenu;
 };
 
 #endif // __UIWINDOW_H__

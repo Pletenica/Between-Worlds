@@ -24,6 +24,8 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 public:
+	bool isinmenu = true;
+
 	SDL_Texture* menu_graphics = nullptr;
 	Animation logo_anim;
 

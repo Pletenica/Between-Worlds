@@ -7,7 +7,7 @@
 class TextUI :public j1GuiElement
 {
 public:
-	TextUI(GuiType type, j1GuiElement* p, SDL_Rect r, p2SString str, bool d);
+	TextUI(bool ismenu, GuiType type, j1GuiElement* p, SDL_Rect r, p2SString str, bool d);
 
 	// Destructor
 	virtual ~TextUI() {}
@@ -17,6 +17,9 @@ public:
 
 public:
 	p2SString stri;
+
+private:
+	bool boolmenu;
 };
 
 #endif // __UITEXT_H__

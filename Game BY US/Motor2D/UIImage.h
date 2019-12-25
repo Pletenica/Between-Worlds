@@ -7,13 +7,16 @@
 class ImageUI :public j1GuiElement
 {
 public:
-	ImageUI(GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite, bool d);
+	ImageUI(bool ismenu, GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite, bool d);
 
 	// Destructor
 	virtual ~ImageUI() {}
 
 	// Called after all Updates
 	bool PostUpdate();
+
+private:
+	bool boolmenu;
 };
 
 #endif // __UIIMAGE_H__

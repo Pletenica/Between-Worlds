@@ -71,6 +71,7 @@ bool j1Menu::PostUpdate()
 		App->entities->active = true;
 		App->uiingame->active = true;
 		App->menu->active = false;
+		isinmenu = false;
 	}
 
 

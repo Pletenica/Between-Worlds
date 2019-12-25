@@ -7,6 +7,7 @@
 #include "j1Input.h"
 #include "j1Window.h"
 #include "j1GuiManager.h"
+#include "j1Menu.h"
 
 #include "UIText.h"
 #include "UIWindow.h"
@@ -92,22 +93,22 @@ const SDL_Texture* j1GuiManager::GetAtlas() const
 
 // class Gui ---------------------------------------------------
 
-j1GuiElement* j1GuiManager::CreateUIElement(GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite, p2SString str, SDL_Rect sprite2, SDL_Rect sprite3)
+j1GuiElement* j1GuiManager::CreateUIElement(bool ismenu, GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite, p2SString str, SDL_Rect sprite2, SDL_Rect sprite3)
 {
 	j1GuiElement* ui;
 	switch (type)
 	{
 	case GuiType::BUTTON:
-		ui = new ButtonUI(GuiType::BUTTON, p, r, sprite, sprite2, sprite3, true);
+		ui = new ButtonUI(ismenu,GuiType::BUTTON, p, r, sprite, sprite2, sprite3, true);
 		break;
 	case GuiType::IMAGE:
-		ui = new ImageUI(GuiType::IMAGE, p, r, sprite, true);
+		ui = new ImageUI(ismenu, GuiType::IMAGE, p, r, sprite, true);
 		break;
 	case GuiType::WINDOW:
-		ui = new WindowUI(GuiType::WINDOW, p, r, sprite, true);
+		ui = new WindowUI(ismenu, GuiType::WINDOW, p, r, sprite, true);
 		break;
 	case GuiType::TEXT:
-		ui = new TextUI(GuiType::TEXT, p, r, str, false);
+		ui = new TextUI(ismenu, GuiType::TEXT, p, r, str, false);
 		break;
 	}
 	gui_element_list.add(ui);

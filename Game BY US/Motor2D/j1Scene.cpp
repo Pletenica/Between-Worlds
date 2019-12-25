@@ -334,6 +334,7 @@ bool j1Scene::PostUpdate()
 		App->uiingame->active = false;
 		App->collision->CleanUp();
 		App->menu->active = true;
+		App->menu->isinmenu = true;
 	}
 
 	if (changelevel == false) {

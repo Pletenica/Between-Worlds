@@ -8,7 +8,7 @@ class ButtonUI :public j1GuiElement
 {
 public:
 
-	ButtonUI(GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite, SDL_Rect spriten2, SDL_Rect spriten3, bool d);
+	ButtonUI(bool ismenu, GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite, SDL_Rect spriten2, SDL_Rect spriten3, bool d);
 	virtual ~ButtonUI() {}
 
 
@@ -23,6 +23,9 @@ public:
 	SDL_Rect sprite3;
 	bool pushed;
 	bool over;
+
+private:
+	bool boolmenu;
 };
 
 #endif //__UIBUTTON_H__

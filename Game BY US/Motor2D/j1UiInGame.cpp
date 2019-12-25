@@ -10,6 +10,10 @@
 #include "j1Window.h"
 #include "j1UiInGame.h"
 #include "j1Scene.h"
+#include "j1GuiManager.h"
+#include "j1GuiElement.h"
+#include "UIImage.h"
+#include "j1Menu.h"
 
 j1UiInGame::j1UiInGame() : j1Module()
 {
@@ -41,11 +45,17 @@ bool j1UiInGame::Awake(pugi::xml_node& config)
 
 	return ret;
 }
-
+SDL_Rect rect;
+j1GuiElement* guielement;
 // Called before the first frame
 bool j1UiInGame::Start()
 {
+	rect.x = 100;
+	rect.y = 100;
+
 	ui_graphics = App->tex->Load("textures/UI/UiInGame.png");
+
+	App->guimanager->CreateUIElement(true, GuiType::TEXT, guielement, rect, rect, "Roger me la chupa crack.");
 
 	return true;
 }

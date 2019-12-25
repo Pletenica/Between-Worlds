@@ -133,6 +133,8 @@ public:
 	int positionplayerinitx;
 	int positionplayerinity;
 
+
+
 	private:
 		SDL_Texture* pathfinding_tex;
 };
