@@ -1,5 +1,5 @@
-#ifndef __j1MENU_H__
-#define __j1MENU_H__
+#ifndef __j1UIINGAME_H__
+#define __j1UIINGAME_H__
 
 #include "j1Module.h"
 #include "j1Animation.h"
@@ -7,11 +7,11 @@
 struct SDL_Texture;
 struct Collider;
 
-class j1Menu : public j1Module
+class j1UiInGame : public j1Module
 {
 public:
-	j1Menu();
-	virtual ~j1Menu();
+	j1UiInGame();
+	virtual ~j1UiInGame();
 
 	bool Awake(pugi::xml_node& config);
 	bool Start();
@@ -24,9 +24,9 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 public:
-	SDL_Texture* menu_graphics = nullptr;
-	Animation logo_anim;
-
+	SDL_Texture* ui_graphics = nullptr;
+	Animation heart_anim;
+	Animation gray_heart_anim;
 };
 
-#endif // __j1MENU_H__
+#endif // __j1UIINGAME_H__

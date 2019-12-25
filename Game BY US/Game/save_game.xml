@@ -21,6 +21,7 @@
 		</player>
 	</EntityManager>
 	<menu />
+	<uiingame />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>

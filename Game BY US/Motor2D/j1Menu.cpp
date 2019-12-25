@@ -10,6 +10,7 @@
 #include "j1Window.h"
 #include "j1Menu.h"
 #include "j1Scene.h"
+#include "j1UiInGame.h"
 
 j1Menu::j1Menu() : j1Module()
 {
@@ -20,14 +21,6 @@ j1Menu::j1Menu() : j1Module()
 	logo_anim.PushBack({ 0, 110, 187, 55 });
 	logo_anim.PushBack({ 0, 55, 187, 55 });
 	logo_anim.speed = 0.2f;
-
-	/////HEART ANIMATION//////
-	heart_anim.PushBack({ 187, 0, 25, 25 });
-	heart_anim.speed = 0.2f;
-
-	/////HEART ANIMATION//////
-	gray_heart_anim.PushBack({ 187, 25, 25, 25 });
-	gray_heart_anim.speed = 0.2f;
 
 	name.create("menu");
 }
@@ -48,7 +41,7 @@ bool j1Menu::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Menu::Start()
 {
-	menu_graphics = App->tex->Load("textures/Menu.png");
+	menu_graphics = App->tex->Load("textures/UI/Menu.png");
 
 	return true;
 }
@@ -76,6 +69,7 @@ bool j1Menu::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 		App->scene->active = true;
 		App->entities->active = true;
+		App->uiingame->active = true;
 		App->menu->active = false;
 	}
 
@@ -85,13 +79,6 @@ bool j1Menu::PostUpdate()
 
 	App->render->Blit(menu_graphics, 0, 0, &(logo_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
 	
-	for (int i = 0; i < 3; i++) {
-		App->render->Blit(menu_graphics, 330 + i * 20, 5, &(gray_heart_anim.GetCurrentFrame()), 0.0f, 0, 0, 0, SDL_FLIP_NONE);
-	}
-
-	for (int i = 0; i < App->entities->player->lifes; i++) {
-		App->render->Blit(menu_graphics, 330 + i*20, 5, &(heart_anim.GetCurrentFrame()), 0.0f, 0, 0, 0, SDL_FLIP_NONE);
-	}
 	return ret;
 }
 

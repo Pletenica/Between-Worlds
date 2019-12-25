@@ -16,6 +16,7 @@
 #include "EnemyIce.h"
 #include "EnemyFire.h"
 #include "j1Scene.h"
+#include "j1UiInGame.h"
 #include "j1Menu.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -330,6 +331,7 @@ bool j1Scene::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 		App->scene->active = false;
 		App->entities->active = false;
+		App->uiingame->active = false;
 		App->collision->CleanUp();
 		App->menu->active = true;
 	}
