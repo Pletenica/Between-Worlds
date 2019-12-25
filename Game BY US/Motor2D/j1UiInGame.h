@@ -3,6 +3,8 @@
 
 #include "j1Module.h"
 #include "j1Animation.h"
+#include "p2DynArray.h"
+#include "Coins.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -23,7 +25,12 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	void CreateFirstWorldCoins();
+	void CreateSecondWorldCoins();
+
 public:
+	int number_coins = 0;
+	p2DynArray<Coins*> coins_array;
 	SDL_Texture* ui_graphics = nullptr;
 	Animation heart_anim;
 	Animation gray_heart_anim;

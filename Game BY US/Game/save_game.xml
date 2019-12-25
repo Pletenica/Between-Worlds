@@ -7,14 +7,14 @@
 	<map />
 	<pathfinding />
 	<scene>
-		<scene camx="0" real_camx="0" actualscene="false" />
+		<scene camx="0" real_camx="0" actualscene="true" />
 	</scene>
 	<EntityManager>
 		<player id="0">
 			<player />
-			<playerposition x="50" y="250" x_init="50" y_init="250" />
+			<playerposition x="55.9500008" y="250" x_init="50" y_init="250" />
 			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
-			<playerattribute ice_right="false" ice_left="false" left="false" right="false" body_col_x="50" body_col_y="250" />
+			<playerattribute ice_right="false" ice_left="false" left="false" right="true" body_col_x="60" body_col_y="250" />
 		</player>
 		<Coins id="1" />
 		<Coins id="2" />
@@ -30,6 +30,77 @@
 		<Coins id="12" />
 		<Coins id="13" />
 		<Coins id="14" />
+		<Coins id="15" />
+		<Coins id="16" />
+		<Coins id="17" />
+		<Coins id="18" />
+		<Coins id="19" />
+		<Coins id="20" />
+		<Coins id="21" />
+		<Coins id="22" />
+		<Coins id="23" />
+		<Coins id="24" />
+		<Coins id="25" />
+		<Coins id="26" />
+		<Coins id="27" />
+		<Coins id="28" />
+		<Coins id="29" />
+		<Coins id="30" />
+		<Coins id="31" />
+		<Coins id="32" />
+		<Coins id="33" />
+		<Coins id="34" />
+		<Coins id="35" />
+		<Coins id="36" />
+		<Coins id="37" />
+		<Coins id="38" />
+		<Coins id="39" />
+		<Coins id="40" />
+		<Coins id="41" />
+		<Coins id="42" />
+		<Coins id="43" />
+		<Coins id="44" />
+		<Coins id="45" />
+		<Coins id="46" />
+		<Coins id="47" />
+		<Coins id="48" />
+		<Coins id="49" />
+		<Coins id="50" />
+		<Coins id="51" />
+		<Coins id="52" />
+		<Coins id="53" />
+		<Coins id="54" />
+		<Coins id="55" />
+		<Coins id="56" />
+		<Coins id="57" />
+		<Coins id="58" />
+		<Coins id="59" />
+		<Coins id="60" />
+		<Coins id="61" />
+		<Coins id="62" />
+		<Coins id="63" />
+		<Coins id="64" />
+		<Coins id="65" />
+		<Coins id="66" />
+		<Coins id="67" />
+		<Coins id="68" />
+		<Coins id="69" />
+		<Coins id="70" />
+		<Coins id="71" />
+		<Coins id="72" />
+		<Coins id="73" />
+		<Coins id="74" />
+		<Coins id="75" />
+		<Coins id="76" />
+		<Coins id="77" />
+		<Coins id="78" />
+		<Coins id="79" />
+		<Coins id="80" />
+		<Coins id="81" />
+		<Coins id="82" />
+		<Coins id="83" />
+		<Coins id="84" />
+		<Coins id="85" />
 	</EntityManager>
 	<collision />
 	<fonts />

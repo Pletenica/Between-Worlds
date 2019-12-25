@@ -91,23 +91,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 bool j1EntityManager::Start()
 {
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 200, 190), number_coins++);
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 290, 180), number_coins++);
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 322, 148), number_coins++);
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 354, 116), number_coins++);
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 386, 100), number_coins++);
-
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 575, 90), number_coins++);
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 605, 80), number_coins++);
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 630, 100), number_coins++);
-
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 695, 130), number_coins++);
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 710, 100), number_coins++);
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 725, 130), number_coins++);
-
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 800, 100), number_coins++);
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 900, 140), number_coins++);
-	coins_array.Insert((Coins*)CreateEntity(EntityType::COINS, 860, 50), number_coins++);
+	
 
 	for (int i = 0; i < entities_list.count(); i++){
 		if (entities_list.At(i) != nullptr) entities_list.At(i)->data->Start();

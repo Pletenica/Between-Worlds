@@ -14,10 +14,7 @@ class j1EntityManager : public j1Module
 {
 public:
 	j1Player* player;
-	int number_coins = 0;
-	//Coins* coin1;
-	//Coins* coin2;
-	p2DynArray<Coins*> coins_array;
+
 	p2List<j1Entity*> entities_list;
 	pugi::xml_node config;
 	bool enemiesdone2 = false;

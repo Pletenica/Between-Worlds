@@ -7,6 +7,7 @@
 #include "j1Player.h"
 #include "j1Scene.h"
 #include "j1Map.h"
+#include "j1UiInGame.h"
 #include <math.h>
 #include "j1EntityManager.h"
 #include "EnemyAigua.h"
@@ -14,6 +15,7 @@
 #include "EnemyIce.h"
 #include "EnemyLiana.h"
 #include "SDL/include/SDL_timer.h"
+#include "p2DynArray.h"
 #include "../Game/Brofiler/Brofiler.h"
 
 j1Player::j1Player() :j1Entity(EntityType::PLAYER)
@@ -654,6 +656,7 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 
 void j1Player::ChangeToLevel1() {
 	App->collision->CleanUpEnemies();
+	App->uiingame->coins_array.Clear();
 	ice_right = false;
 	ice_left = false;
 	dimensionnormal = true;
