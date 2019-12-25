@@ -9,6 +9,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Menu.h"
+#include "j1Scene.h"
 
 j1Menu::j1Menu() : j1Module()
 {
@@ -29,7 +30,6 @@ j1Menu::j1Menu() : j1Module()
 	gray_heart_anim.speed = 0.2f;
 
 	name.create("menu");
-
 }
 
 // Destructor
@@ -72,6 +72,13 @@ bool j1Menu::Update(float dt)
 bool j1Menu::PostUpdate()
 {
 	bool ret = true;
+
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+		App->scene->active = true;
+		App->entities->active = true;
+		App->menu->active = false;
+	}
+
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = App->entities->player->exitgame = false;
