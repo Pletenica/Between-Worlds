@@ -12,7 +12,7 @@
 	<EntityManager>
 		<player id="0">
 			<player />
-			<playerposition x="55.9500008" y="250" x_init="50" y_init="250" />
+			<playerposition x="55.7750015" y="250" x_init="50" y_init="250" />
 			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
 			<playerattribute ice_right="false" ice_left="false" left="false" right="true" body_col_x="60" body_col_y="250" />
 		</player>
