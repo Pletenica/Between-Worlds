@@ -53,7 +53,7 @@ bool j1UiInGame::Start()
 
 	ui_graphics = App->tex->Load("textures/UI/UiInGame.png");
 
-	CreateFirstWorldCoins();
+	CreateSecondWorldCoins();
 
 	return true;
 }
@@ -235,5 +235,113 @@ void j1UiInGame::CreateFirstWorldCoins()
 
 void j1UiInGame::CreateSecondWorldCoins()
 {
+	//NORMAL WORLD 1
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 200, 200), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 232, 168), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 264, 136), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 296, 104), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 326, 104), number_coins++);
 
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 395, 130), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 395, 160), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 395, 190), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 490, 150), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 600, 200), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 625, 175), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 655, 155), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 700, 200), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 725, 175), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 755, 155), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 860, 200), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 875, 170), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 895, 155), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1000, 170), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1000, 140), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1120, 55), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1235, 80), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1260, 55), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1280, 85), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1290, 120), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1295, 160), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1370, 200), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1470, 155), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1705, 145), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1735, 145), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1705, 235), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1735, 235), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1835, 235), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1865, 235), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 1927, 110), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2025, 110), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2055, 110), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2025, 235), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2055, 235), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2140, 200), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2170, 200), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2240, 70), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2270, 40), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2395, 150), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2425, 150), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2500, 65), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2500, 35), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2600, 35), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2600, 65), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2745, 90), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2775, 90), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2745, 217), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2775, 217), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2920, 217), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2950, 217), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2920, 90), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 2950, 90), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3095, 90), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3125, 90), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3095, 217), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3125, 217), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3270, 90), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3270, 217), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3300, 90), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3300, 217), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3427, 135), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3580, 170), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3605, 145), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3630, 170), number_coins++);
+
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3700, 170), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3725, 145), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3750, 130), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3775, 145), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3800, 170), number_coins++);
+
+	//coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3900, 230), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3930, 230), number_coins++);
+	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3960, 230), number_coins++);
 }

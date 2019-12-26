@@ -7,14 +7,14 @@
 	<map />
 	<pathfinding />
 	<scene>
-		<scene camx="0" real_camx="0" actualscene="true" />
+		<scene camx="1609" real_camx="-3218" actualscene="true" />
 	</scene>
 	<EntityManager>
 		<player id="0">
 			<player />
-			<playerposition x="55.7750015" y="250" x_init="50" y_init="250" />
+			<playerposition x="1815.22302" y="113.675079" x_init="50" y_init="250" />
 			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
-			<playerattribute ice_right="false" ice_left="false" left="false" right="true" body_col_x="60" body_col_y="250" />
+			<playerattribute ice_right="false" ice_left="false" left="false" right="false" body_col_x="1820" body_col_y="113" />
 		</player>
 		<Coins id="1" />
 		<Coins id="2" />
@@ -92,15 +92,6 @@
 		<Coins id="74" />
 		<Coins id="75" />
 		<Coins id="76" />
-		<Coins id="77" />
-		<Coins id="78" />
-		<Coins id="79" />
-		<Coins id="80" />
-		<Coins id="81" />
-		<Coins id="82" />
-		<Coins id="83" />
-		<Coins id="84" />
-		<Coins id="85" />
 	</EntityManager>
 	<collision />
 	<fonts />
@@ -108,6 +99,6 @@
 	<menu />
 	<uiingame />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-3218" y="0" />
 	</renderer>
 </game_state>
