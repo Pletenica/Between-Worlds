@@ -15,7 +15,7 @@ public:
 	Coins();
 	virtual ~Coins();
 
-	bool Update(float dt);
+	bool PostUpdate();
 
 	void OnCollision(Collider*, Collider*);
 

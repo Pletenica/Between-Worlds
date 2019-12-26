@@ -14,6 +14,7 @@
 #include "EnemyFire.h"
 #include "EnemyIce.h"
 #include "EnemyLiana.h"
+#include "j1UiInGame.h"
 #include "SDL/include/SDL_timer.h"
 #include "p2DynArray.h"
 #include "../Game/Brofiler/Brofiler.h"
@@ -655,8 +656,12 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 }
 
 void j1Player::ChangeToLevel1() {
+
+	App->uiingame->CleanUpCoinsArray();
+	App->uiingame->CreateFirstWorldCoins();
+
 	App->collision->CleanUpEnemies();
-	App->uiingame->coins_array.Clear();
+	//App->uiingame->coins_array.clear();
 	ice_right = false;
 	ice_left = false;
 	dimensionnormal = true;
@@ -687,7 +692,10 @@ void j1Player::ChangeToLevel1() {
 }
 
 void j1Player::ChangeToLevel2() {
-	App->collision->CleanUp();
+	App->uiingame->CleanUpCoinsArray();
+	App->uiingame->CreateSecondWorldCoins();
+
+	App->collision->CleanUpEnemies();
 	ice_right = false;
 	ice_left = false;
 	dimensionnormal = true;

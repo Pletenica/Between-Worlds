@@ -7,16 +7,16 @@
 
 #include "p2Defs.h"
 
-#define DYN_ARRAY_BLOCK_SIZE 100
+#define DYN_ARRAY_BLOCK_SIZE 16
 
 template<class VALUE>
 class p2DynArray
 {
 private:
 
-	VALUE*			data;
-	unsigned int	mem_capacity;
-	unsigned int	num_elements;
+	VALUE*			data = nullptr;
+	unsigned int	mem_capacity = 0u;
+	unsigned int	num_elements = 0u;
 
 public:
 
@@ -40,7 +40,7 @@ public:
 	// Operators
 	VALUE& operator[](unsigned int index)
 	{
-		ASSERT(index < num_elements);
+		assert(index < num_elements);
 		return data[index];
 	}
 
@@ -52,10 +52,10 @@ public:
 
 	const p2DynArray<VALUE>& operator+= (const p2DynArray<VALUE>& array)
 	{
-		if(num_elements + array.num_elements > mem_capacity)
+		if (num_elements + array.num_elements > mem_capacity)
 			Alloc(num_elements + array.num_elements);
 
-		for(uint i = 0; i < array.num_elements; ++i)
+		for (uint i = 0; i < array.num_elements; ++i)
 			data[num_elements++] = array.data[i];
 
 		return(*this);
@@ -64,7 +64,7 @@ public:
 	// Data Management
 	void PushBack(const VALUE& element)
 	{
-		if(num_elements >= mem_capacity)
+		if (num_elements >= mem_capacity)
 		{
 			Alloc(mem_capacity + DYN_ARRAY_BLOCK_SIZE);
 		}
@@ -72,9 +72,32 @@ public:
 		data[num_elements++] = element;
 	}
 
+	bool RemoveAt(uint x) {
+
+		for (int i = 0; i < num_elements; i++)
+		{
+			if (i == x)
+			{
+				for (; i < num_elements - 1; i++)
+				{
+					// Assign the next element to current location.             
+					data[i] = data[i + 1];
+				}
+
+				// Remove the last element as it has been moved to previous index.
+				data[num_elements - 1] = 0;
+				num_elements = num_elements - 1;
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	bool Pop(VALUE& result)
 	{
-		if(num_elements > 0)
+		if (num_elements > 0)
 		{
 			result = data[--num_elements];
 			return true;
@@ -89,19 +112,19 @@ public:
 
 	bool Insert(const VALUE& element, unsigned int position)
 	{
-		if(position > num_elements)
+		if (position > num_elements)
 			return false;
 
-		if(position == num_elements)
+		if (position == num_elements)
 		{
 			PushBack(element);
 			return true;
 		}
 
-		if(num_elements + 1 > mem_capacity)
+		if (num_elements + 1 > mem_capacity)
 			Alloc(mem_capacity + DYN_ARRAY_BLOCK_SIZE);
 
-		for(unsigned int i = num_elements; i > position; --i)
+		for (unsigned int i = num_elements; i > position; --i)
 		{
 			data[i] = data[i - 1];
 		}
@@ -114,13 +137,13 @@ public:
 
 	bool Insert(const p2DynArray<VALUE>& array, unsigned int position)
 	{
-		if(position > num_elements)
+		if (position > num_elements)
 			return false;
 
-		if(num_elements + array.num_elements > mem_capacity)
+		if (num_elements + array.num_elements > mem_capacity)
 			Alloc(num_elements + array.num_elements + 1);
 
-		for(unsigned int i = position; i < position + array.num_elements; ++i)
+		for (unsigned int i = position; i < position + array.num_elements; ++i)
 		{
 			data[i + array.num_elements] = data[i];
 			data[i] = array[i - position];
@@ -133,10 +156,10 @@ public:
 	VALUE* At(unsigned int index)
 	{
 		VALUE* result = NULL;
-		
-		if(index < num_elements)
+
+		if (index < num_elements)
 			return result = &data[index];
-		
+
 		return result;
 	}
 
@@ -144,7 +167,7 @@ public:
 	{
 		VALUE* result = NULL;
 
-		if(index < num_elements)
+		if (index < num_elements)
 			return result = &data[index];
 
 		return result;
@@ -167,13 +190,13 @@ public:
 		int ret = 0;
 		bool swapped = true;
 
-		while(swapped)
+		while (swapped)
 		{
 			swapped = false;
-			for(unsigned int i = 0; i < num_elements - 2; ++i)
+			for (unsigned int i = 0; i < num_elements - 2; ++i)
 			{
 				++ret;
-				if(data[i] > data[i + 1])
+				if (data[i] > data[i + 1])
 				{
 					SWAP(data[i], data[i + 1]);
 					swapped = true;
@@ -191,14 +214,14 @@ public:
 		unsigned int count;
 		unsigned int last = num_elements - 2;
 
-		while(last > 0)
+		while (last > 0)
 		{
 			count = last;
 			last = 0;
-			for(unsigned int i = 0; i < count; ++i)
+			for (unsigned int i = 0; i < count; ++i)
 			{
 				++ret;
-				if(data[i] > data[i + 1])
+				if (data[i] > data[i + 1])
 				{
 					SWAP(data[i], data[i + 1]);
 					last = i;
@@ -216,15 +239,15 @@ public:
 		int gap = num_elements - 1;
 		float shrink = 1.3f;
 
-		while(swapped || gap > 1)
+		while (swapped || gap > 1)
 		{
 			gap = MAX(1, gap / shrink);
 
 			swapped = false;
-			for(unsigned int i = 0; i + gap < num_elements - 1; ++i)
+			for (unsigned int i = 0; i + gap < num_elements - 1; ++i)
 			{
 				++ret;
-				if(data[i] > data[i + gap])
+				if (data[i] > data[i + gap])
 				{
 					SWAP(data[i], data[i + gap]);
 					swapped = true;
@@ -238,9 +261,9 @@ public:
 	void Flip()
 	{
 		VALUE* start = &data[0];
-		VALUE* end = &data[num_elements-1];
+		VALUE* end = &data[num_elements - 1];
 
-		while(start < end)
+		while (start < end)
 			SWAP(*start++, *end--);
 	}
 
@@ -256,9 +279,9 @@ private:
 
 		num_elements = MIN(mem_capacity, num_elements);
 
-		if(tmp != NULL)
+		if (tmp != NULL)
 		{
-			for(unsigned int i = 0; i < num_elements; ++i)
+			for (unsigned int i = 0; i < num_elements; ++i)
 				data[i] = tmp[i];
 
 			delete[] tmp;

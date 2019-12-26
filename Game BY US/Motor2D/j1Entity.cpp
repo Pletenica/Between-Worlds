@@ -22,8 +22,10 @@ bool j1Entity::Start() {
 bool j1Entity::CleanUp() {
 	bool ret = true;
 	ret = App->tex->UnLoad(texture);
-	body->to_delete = true;
-	body = nullptr;
+	if (body != nullptr) {
+		body->to_delete = true;
+		body = nullptr;
+	}
 	texture = nullptr;
 	return ret;
 }

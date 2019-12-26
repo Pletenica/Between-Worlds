@@ -37,12 +37,13 @@ Coins::Coins() :j1Entity(EntityType::COINS)
 
 Coins::~Coins()
 {
-	//this->body = NULL;
-	//free(this->body);
+	this->body->to_delete = true;
+	App->tex->UnLoad(this->texture);
+	have_to_destroy = true;
 }
 
 
-bool Coins::Update(float dt) {
+bool Coins::PostUpdate() {
 	BROFILER_CATEGORY("EnemiesPreUpdate", Profiler::Color::Chartreuse)
 
 	App->render->Blit(texture, (int)position.x, (int)position.y, &(idle.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
@@ -51,6 +52,7 @@ bool Coins::Update(float dt) {
 	return true;
 }
 
+
 void Coins::OnCollision(Collider* coin, Collider* player) {
 
 	BROFILER_CATEGORY("PlayerOnCollision", Profiler::Color::MediumAquaMarine)
@@ -58,9 +60,6 @@ void Coins::OnCollision(Collider* coin, Collider* player) {
 		if (player->type == COLLIDER_PLAYER && have_to_destroy==false) {
 			App->entities->player->num_coins++;
 			Coins::~Coins();
-			App->tex->UnLoad(this->texture);
-			this->body->to_delete = true;
-			have_to_destroy = true;
 		}
 	}
 }

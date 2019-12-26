@@ -27,10 +27,11 @@ public:
 
 	void CreateFirstWorldCoins();
 	void CreateSecondWorldCoins();
+	bool CleanUpCoinsArray();
 
 public:
 	int number_coins = 0;
-	p2DynArray<Coins*> coins_array;
+	p2List<Coins*> coins_array;
 	SDL_Texture* ui_graphics = nullptr;
 	Animation heart_anim;
 	Animation gray_heart_anim;

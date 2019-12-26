@@ -101,12 +101,11 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::PreUpdate()
 {
-
-
 	for (int i = 0; i < entities_list.count(); i++)
 	{
-		entities_list.At(i)->data->PreUpdate();
+		if (entities_list.At(i) != nullptr) entities_list.At(i)->data->PreUpdate();
 	}
+
 	return true;
 }
 
