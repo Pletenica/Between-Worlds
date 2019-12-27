@@ -657,11 +657,6 @@ void j1Player::OnCollision(Collider* player, Collider* other) {
 
 void j1Player::ChangeToLevel1() {
 
-	App->uiingame->CleanUpCoinsArray();
-	App->uiingame->CreateFirstWorldCoins();
-
-	App->collision->CleanUpEnemies();
-	//App->uiingame->coins_array.clear();
 	ice_right = false;
 	ice_left = false;
 	dimensionnormal = true;
@@ -673,6 +668,10 @@ void j1Player::ChangeToLevel1() {
 	
 	if (deadbool == true) {
 		App->LoadGame();
+	}
+	if (deadbool == false && App->scene->changelevel==true) {
+		App->uiingame->CleanUpCoinsArray();
+		App->uiingame->CreateFirstWorldCoins();
 	}
 	
 	deadbool = false;
@@ -692,10 +691,6 @@ void j1Player::ChangeToLevel1() {
 }
 
 void j1Player::ChangeToLevel2() {
-	App->uiingame->CleanUpCoinsArray();
-	App->uiingame->CreateSecondWorldCoins();
-
-	App->collision->CleanUpEnemies();
 	ice_right = false;
 	ice_left = false;
 	dimensionnormal = true;
@@ -707,6 +702,10 @@ void j1Player::ChangeToLevel2() {
 	
 	if (deadbool == true) {
 		App->LoadGame();
+	}
+	if (deadbool == false && App->scene->changelevel == false) {
+		App->uiingame->CleanUpCoinsArray();
+		App->uiingame->CreateSecondWorldCoins();
 	}
 	
 	deadbool = false;
@@ -724,14 +723,10 @@ void j1Player::ChangeToLevel2() {
 	App->scene->justtouchcheckpoint = false;
 	position.x = positionxinit;
 	position.y = positionyinit;
-
-
 }
-
 
 bool j1Player::Save(pugi::xml_node& data) const
 {
-
 	data.append_child("player");
 	data.append_child("playerposition");
 	data.child("playerposition").append_attribute("x") = position.x;
@@ -745,7 +740,6 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.child("playerworld").append_attribute("ice") = dimensionhielo;
 	data.child("playerworld").append_attribute("normal") = dimensionnormal;
 	data.append_child("playerattribute");
-	//data.child("playerattribute").append_attribute("godmode") = godmode;
 	data.child("playerattribute").append_attribute("ice_right") = ice_right;
 	data.child("playerattribute").append_attribute("ice_left") = ice_left;
 	data.child("playerattribute").append_attribute("left") = left;
@@ -770,7 +764,6 @@ bool j1Player::Load(pugi::xml_node& data)
 	dimensionfuego = data.child("playerworld").attribute("fire").as_bool();
 	dimensionplanta = data.child("playerworld").attribute("plant").as_bool();
 	dimensionhielo = data.child("playerworld").attribute("ice").as_bool();
-	//godmode = data.child("playerattribute").attribute("godmode").as_bool();
 	ice_right = data.child("playerattribute").attribute("ice_right").as_bool();
 	ice_left = data.child("playerattribute").attribute("ice_left").as_bool();
 	G = 5;

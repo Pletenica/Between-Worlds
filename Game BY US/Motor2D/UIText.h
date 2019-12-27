@@ -14,6 +14,7 @@ public:
 
 	// Called after all Updates
 	bool PostUpdate();
+	void RefreshText(p2SString stringt);
 
 public:
 	p2SString stri;

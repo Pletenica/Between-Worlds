@@ -230,6 +230,7 @@ public:
 		return size;
 	}
 
+
 	bool Cut(unsigned int begin, unsigned int end = 0)
 	{
 		uint len = Length();

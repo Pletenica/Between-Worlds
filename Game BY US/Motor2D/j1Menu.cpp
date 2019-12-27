@@ -89,6 +89,11 @@ j1Menu::j1Menu() : j1Module()
 	settingsbuttonrect3.w = 130;
 	settingsbuttonrect3.h = 26;
 
+	menubackgroundrect.x = 0;
+	menubackgroundrect.y = 0;
+	menubackgroundrect.w = 400;
+	menubackgroundrect.h = 320;
+	
 
 	/////MAIN LOGO ANIMATION//////
 	logo_anim.PushBack({ 0, 0, 187, 55 });
@@ -118,23 +123,33 @@ bool j1Menu::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Menu::Start()
 {
-	menu_graphics = App->tex->Load("textures/UI/Menu.png");
 
+	menu_graphics = App->tex->Load("textures/UI/Menu.png");
+	menu_normal_back_graphics = App->tex->Load("textures/UI/MenuBackgroundNormal.png");
+	menu_plant_back_graphics = App->tex->Load("textures/UI/MenuBackgroundPlant.png");
+	menu_ice_back_graphics = App->tex->Load("textures/UI/MenuBackgroundIce.png");
+	menu_fire_back_graphics = App->tex->Load("textures/UI/MenuBackgroundFire.png");
+	menu_watter_back_graphics = App->tex->Load("textures/UI/MenuBackgroundWatter.png");
 
 	guielement_startbutton =App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_startbutton, startbuttonrect, startbuttonrect1,"", startbuttonrect2, startbuttonrect3);
 	guielement_continuebutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_continuebutton, continuebuttonrect, continuebuttonrect1, "", continuebuttonrect2, continuebuttonrect3);
 	guielement_settingsbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_settingsbutton, settingsbuttonrect, settingsbuttonrect1, "", settingsbuttonrect2, settingsbuttonrect3);
 	guielement_exitbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_exitbutton, exitbuttonrect, exitbuttonrect1, "", exitbuttonrect2, exitbuttonrect3);
 
-	App->guimanager->CreateUIElement(true, GuiType::TEXT, guielement_textdone, textdonerect, textdonerect, "Game done by Roger Pérez Romera & Josep Sànchez Arbona");
-
+	//App->guimanager->CreateUIElement(true, GuiType::TEXT, guielement_textdone, textdonerect, textdonerect, "Game done by Roger Pérez Romera & Josep Sànchez Arbona");
+	menu_current_back_graphics = menu_normal_back_graphics;
 	return true;
 }
 
 // Called each loop iteration
 bool j1Menu::PreUpdate()
 {
-
+	if (guielement_startbutton->over == true) menu_current_back_graphics = menu_plant_back_graphics;
+	else if (guielement_continuebutton->over == true) menu_current_back_graphics = menu_ice_back_graphics;
+	else if (guielement_settingsbutton->over == true) menu_current_back_graphics = menu_fire_back_graphics;
+	else if (guielement_exitbutton->over == true) menu_current_back_graphics = menu_watter_back_graphics;
+	else menu_current_back_graphics = menu_normal_back_graphics;
+	
 	return true;
 }
 
@@ -154,6 +169,10 @@ bool j1Menu::Update(float dt)
 		return false;
 	}
 
+	App->render->Blit(menu_current_back_graphics, 0, 0, &menubackgroundrect, 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+
+	App->render->Blit(menu_graphics, 15, 10, &(logo_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+
 	return true;
 }
 
@@ -166,7 +185,7 @@ bool j1Menu::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = App->entities->player->exitgame = false;
 
-	App->render->Blit(menu_graphics, 15, 10, &(logo_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+
 	
 	return ret;
 }

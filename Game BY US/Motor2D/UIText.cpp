@@ -23,3 +23,7 @@ bool TextUI::PostUpdate() {
 	}
 	return true;
 }
+
+void TextUI::RefreshText(p2SString stringt) {
+	stri = stringt;
+}

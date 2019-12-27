@@ -5,6 +5,8 @@
 #include "j1Animation.h"
 #include "p2DynArray.h"
 #include "Coins.h"
+#include "j1GuiManager.h"
+#include <iostream>
 
 struct SDL_Texture;
 struct Collider;
@@ -35,6 +37,9 @@ public:
 	SDL_Texture* ui_graphics = nullptr;
 	Animation heart_anim;
 	Animation gray_heart_anim;
+
+	SDL_Rect coinsrect;
+	j1GuiElement* guielement_coinstext;
 };
 
 #endif // __j1UIINGAME_H__

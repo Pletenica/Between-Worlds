@@ -28,6 +28,13 @@ public:
 public:
 	bool isinmenu = true;
 
+	SDL_Texture* menu_normal_back_graphics = nullptr;
+	SDL_Texture* menu_fire_back_graphics = nullptr;
+	SDL_Texture* menu_watter_back_graphics = nullptr;
+	SDL_Texture* menu_ice_back_graphics = nullptr;
+	SDL_Texture* menu_plant_back_graphics = nullptr;
+	SDL_Texture* menu_current_back_graphics = nullptr;
+	SDL_Rect menubackgroundrect;
 	SDL_Texture* menu_graphics = nullptr;
 	Animation logo_anim;
 

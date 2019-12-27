@@ -47,6 +47,8 @@ public:
 	// Called before quitting
 	virtual bool CleanUp() { return true; }
 
+	virtual void RefreshText(p2SString){}
+
 	bool Move();
 
 	SDL_Rect GetScreenRect();

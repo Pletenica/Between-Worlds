@@ -13,6 +13,7 @@
 #include "j1GuiManager.h"
 #include "j1GuiElement.h"
 #include "UIImage.h"
+#include "UIText.h"
 #include "j1Menu.h"
 
 j1UiInGame::j1UiInGame() : j1Module()
@@ -55,13 +56,15 @@ bool j1UiInGame::Start()
 
 	CreateFirstWorldCoins();
 
+	guielement_coinstext=App->guimanager->CreateUIElement(false, GuiType::TEXT, guielement_coinstext, coinsrect, coinsrect, "HOLA");
+
 	return true;
 }
 
 // Called each loop iteration
 bool j1UiInGame::PreUpdate()
 {
-
+	guielement_coinstext->RefreshText((p2SString)App->entities->player->num_coins);
 	return true;
 }
 
@@ -82,6 +85,8 @@ bool j1UiInGame::PostUpdate()
 		ret = App->entities->player->exitgame = false;
 
 	
+	if (App->entities->player->lifes <= 0) ret = false;
+
 	for (int i = 0; i < 3; i++) {
 		App->render->Blit(ui_graphics, 330 + i * 20, 5, &(gray_heart_anim.GetCurrentFrame()), 0.0f, 0, 0, 0, SDL_FLIP_NONE);
 	}
@@ -89,6 +94,7 @@ bool j1UiInGame::PostUpdate()
 	for (int i = 0; i < App->entities->player->lifes; i++) {
 		App->render->Blit(ui_graphics, 330 + i * 20, 5, &(heart_anim.GetCurrentFrame()), 0.0f, 0, 0, 0, SDL_FLIP_NONE);
 	}
+
 	return ret;
 }
 
