@@ -99,7 +99,7 @@ j1GuiElement* j1GuiManager::CreateUIElement(bool ismenu, GuiType type, j1GuiElem
 	switch (type)
 	{
 	case GuiType::BUTTON:
-		ui = new ButtonUI(ismenu,GuiType::BUTTON, p, r, sprite, sprite2, sprite3, true);
+		ui = new ButtonUI(ismenu,GuiType::BUTTON, p, r, sprite, sprite2, sprite3, false);
 		break;
 	case GuiType::IMAGE:
 		ui = new ImageUI(ismenu, GuiType::IMAGE, p, r, sprite, true);

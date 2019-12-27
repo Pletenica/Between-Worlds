@@ -35,6 +35,29 @@ public:
 	SDL_Rect textdonerect;
 	j1GuiElement* guielement_textdone;
 
+	SDL_Rect startbuttonrect;
+	SDL_Rect startbuttonrect1;
+	SDL_Rect startbuttonrect2;
+	SDL_Rect startbuttonrect3;
+	j1GuiElement* guielement_startbutton;
+
+	SDL_Rect continuebuttonrect;
+	SDL_Rect continuebuttonrect1;
+	SDL_Rect continuebuttonrect2;
+	SDL_Rect continuebuttonrect3;
+	j1GuiElement* guielement_continuebutton;
+
+	SDL_Rect settingsbuttonrect;
+	SDL_Rect settingsbuttonrect1;
+	SDL_Rect settingsbuttonrect2;
+	SDL_Rect settingsbuttonrect3;
+	j1GuiElement* guielement_settingsbutton;
+
+	SDL_Rect exitbuttonrect;
+	SDL_Rect exitbuttonrect1;
+	SDL_Rect exitbuttonrect2;
+	SDL_Rect exitbuttonrect3;
+	j1GuiElement* guielement_exitbutton;
 };
 
 #endif // __j1MENU_H__

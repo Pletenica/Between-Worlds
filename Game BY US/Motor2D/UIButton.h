@@ -21,8 +21,7 @@ public:
 public:
 	SDL_Rect sprite2;
 	SDL_Rect sprite3;
-	bool pushed;
-	bool over;
+
 
 private:
 	bool boolmenu;

@@ -59,6 +59,8 @@ public:
 
 public:
 	SDL_Rect sprite1;
+	bool pushed;
+	bool over;
 private:
 	SDL_Rect screen_rect;
 	SDL_Rect local_rect;

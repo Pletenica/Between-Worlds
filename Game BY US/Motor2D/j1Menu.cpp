@@ -17,6 +17,78 @@
 
 j1Menu::j1Menu() : j1Module()
 {
+	textdonerect.x = 60;
+	textdonerect.y = 300;
+
+	startbuttonrect.x = 25;
+	startbuttonrect.y = 80;
+	startbuttonrect.w = 85;
+	startbuttonrect.h = 26;
+	startbuttonrect1.x = 187;
+	startbuttonrect1.y = 0;
+	startbuttonrect1.w = 85;
+	startbuttonrect1.h = 26;
+	startbuttonrect2.x = 187;
+	startbuttonrect2.y = 26;
+	startbuttonrect2.w = 85;
+	startbuttonrect2.h = 26;
+	startbuttonrect3.x = 187;
+	startbuttonrect3.y = 52;
+	startbuttonrect3.w = 85;
+	startbuttonrect3.h = 26;
+
+	continuebuttonrect.x = 25;
+	continuebuttonrect.y = 115;
+	continuebuttonrect.w = 130;
+	continuebuttonrect.h = 26;
+	continuebuttonrect1.x = 463;
+	continuebuttonrect1.y = 0;
+	continuebuttonrect1.w = 133;
+	continuebuttonrect1.h = 26;
+	continuebuttonrect2.x = 463;
+	continuebuttonrect2.y = 26;
+	continuebuttonrect2.w = 133;
+	continuebuttonrect2.h = 26;
+	continuebuttonrect3.x = 463;
+	continuebuttonrect3.y = 52;
+	continuebuttonrect3.w = 133;
+	continuebuttonrect3.h = 26;
+
+
+	exitbuttonrect.x = 25;
+	exitbuttonrect.y = 185;
+	exitbuttonrect.w = 61;
+	exitbuttonrect.h = 26;
+	exitbuttonrect1.x = 272;
+	exitbuttonrect1.y = 0;
+	exitbuttonrect1.w = 61;
+	exitbuttonrect1.h = 26;
+	exitbuttonrect2.x = 272;
+	exitbuttonrect2.y = 26;
+	exitbuttonrect2.w = 61;
+	exitbuttonrect2.h = 26;
+	exitbuttonrect3.x = 272;
+	exitbuttonrect3.y = 52;
+	exitbuttonrect3.w = 61;
+	exitbuttonrect3.h = 26;
+
+	settingsbuttonrect.x = 25;
+	settingsbuttonrect.y = 150;
+	settingsbuttonrect.w = 130;
+	settingsbuttonrect.h = 26;
+	settingsbuttonrect1.x = 333;
+	settingsbuttonrect1.y = 0;
+	settingsbuttonrect1.w = 130;
+	settingsbuttonrect1.h = 26;
+	settingsbuttonrect2.x = 333;
+	settingsbuttonrect2.y = 26;
+	settingsbuttonrect2.w = 130;
+	settingsbuttonrect2.h = 26;
+	settingsbuttonrect3.x = 333;
+	settingsbuttonrect3.y = 52;
+	settingsbuttonrect3.w = 130;
+	settingsbuttonrect3.h = 26;
+
 
 	/////MAIN LOGO ANIMATION//////
 	logo_anim.PushBack({ 0, 0, 187, 55 });
@@ -47,8 +119,12 @@ bool j1Menu::Awake(pugi::xml_node& config)
 bool j1Menu::Start()
 {
 	menu_graphics = App->tex->Load("textures/UI/Menu.png");
-	textdonerect.x = 60;
-	textdonerect.y = 300;
+
+
+	guielement_startbutton =App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_startbutton, startbuttonrect, startbuttonrect1,"", startbuttonrect2, startbuttonrect3);
+	guielement_continuebutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_continuebutton, continuebuttonrect, continuebuttonrect1, "", continuebuttonrect2, continuebuttonrect3);
+	guielement_settingsbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_settingsbutton, settingsbuttonrect, settingsbuttonrect1, "", settingsbuttonrect2, settingsbuttonrect3);
+	guielement_exitbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_exitbutton, exitbuttonrect, exitbuttonrect1, "", exitbuttonrect2, exitbuttonrect3);
 
 	App->guimanager->CreateUIElement(true, GuiType::TEXT, guielement_textdone, textdonerect, textdonerect, "Game done by Roger Pérez Romera & Josep Sànchez Arbona");
 
@@ -65,7 +141,18 @@ bool j1Menu::PreUpdate()
 // Called each loop iteration
 bool j1Menu::Update(float dt)
 {
+	if (guielement_startbutton->pushed == true) {
+		App->scene->active = true;
+		App->entities->active = true;
+		App->uiingame->active = true;
+		App->menu->active = false;
+		isinmenu = false;
+	}
 
+
+	if (guielement_exitbutton->pushed == true) {
+		return false;
+	}
 
 	return true;
 }
@@ -74,14 +161,6 @@ bool j1Menu::Update(float dt)
 bool j1Menu::PostUpdate()
 {
 	bool ret = true;
-
-	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-		App->scene->active = true;
-		App->entities->active = true;
-		App->uiingame->active = true;
-		App->menu->active = false;
-		isinmenu = false;
-	}
 
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

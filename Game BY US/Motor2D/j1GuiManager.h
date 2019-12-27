@@ -33,6 +33,7 @@ private:
 	p2List<j1GuiElement*> gui_element_list;
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
+
 };
 
 #endif // __j1GUIMANAGER_H__
