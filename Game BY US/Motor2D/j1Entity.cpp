@@ -21,7 +21,7 @@ bool j1Entity::Start() {
 
 bool j1Entity::CleanUp() {
 	bool ret = true;
-	ret = App->tex->UnLoad(texture);
+	App->tex->UnLoad(texture);
 	if (body != nullptr) {
 		body->to_delete = true;
 		body = nullptr;

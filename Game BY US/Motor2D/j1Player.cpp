@@ -671,7 +671,7 @@ void j1Player::ChangeToLevel1() {
 	}
 	if (deadbool == false && App->scene->changelevel==true) {
 		App->uiingame->CleanUpCoinsArray();
-		App->uiingame->CreateFirstWorldCoins();
+		//App->uiingame->CreateFirstWorldCoins();
 	}
 	
 	deadbool = false;
@@ -688,6 +688,7 @@ void j1Player::ChangeToLevel1() {
 	App->scene->justtouchcheckpoint = false;
 	position.x = positionxinit;
 	position.y = positionyinit;
+	App->SaveGame();
 }
 
 void j1Player::ChangeToLevel2() {
@@ -705,7 +706,7 @@ void j1Player::ChangeToLevel2() {
 	}
 	if (deadbool == false && App->scene->changelevel == false) {
 		App->uiingame->CleanUpCoinsArray();
-		App->uiingame->CreateSecondWorldCoins();
+		//App->uiingame->CreateSecondWorldCoins();
 	}
 	
 	deadbool = false;
@@ -723,6 +724,7 @@ void j1Player::ChangeToLevel2() {
 	App->scene->justtouchcheckpoint = false;
 	position.x = positionxinit;
 	position.y = positionyinit;
+	App->SaveGame();
 }
 
 bool j1Player::Save(pugi::xml_node& data) const

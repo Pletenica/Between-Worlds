@@ -106,12 +106,6 @@ bool EnemyIce::PostUpdate() {
 			flip = SDL_FLIP_NONE;
 		}
 
-	colchecktoplayer->rect.x = (int)position.x - 80;
-	colchecktoplayer->rect.y = (int)position.y - 90;
-	todeathcol->rect.x = (int)position.x + 5;
-	todeathcol->rect.y = (int)position.y;
-	body->rect.x = (int)position.x;
-	body->rect.y = (int)position.y + 3;
 
 	App->render->Blit(texture, (int)position.x, (int)position.y, &(idle.GetCurrentFrame()), 1.0f, angle, 0, 0, flip);
 	isinground = false;
@@ -136,29 +130,13 @@ void EnemyIce::OnCollision(Collider* enemy, Collider* player) {
 
 bool EnemyIce::Save(pugi::xml_node& data) const
 {
-	data.append_child("enemyattribute");
-	data.child("enemyattribute").append_attribute("body_col_x") = body->rect.x;
-	data.child("enemyattribute").append_attribute("body_col_y") = body->rect.y;
-	data.child("enemyattribute").append_attribute("check_col_x") = colchecktoplayer->rect.x;
-	data.child("enemyattribute").append_attribute("check_col_y") = colchecktoplayer->rect.y;
-	data.child("enemyattribute").append_attribute("to_kill_col_x") = todeathcol->rect.x;
-	data.child("enemyattribute").append_attribute("to_kill_col_y") = todeathcol->rect.y;
-	data.append_child("enemyposition");
-	data.child("enemyposition").append_attribute("position_x") = position.x;
-	data.child("enemyposition").append_attribute("position_y") = position.y;
+
 	return true;
 }
 
 bool EnemyIce::Load(pugi::xml_node& data)
 {
-	body->rect.x = data.child("enemyattribute").attribute("body_col_x").as_int();
-	body->rect.y = data.child("enemyattribute").attribute("body_col_y").as_int();
-	colchecktoplayer->rect.x = data.child("enemyattribute").attribute("check_col_x").as_int();
-	colchecktoplayer->rect.y = data.child("enemyattribute").attribute("check_col_y").as_int();
-	todeathcol->rect.x = data.child("enemyattribute").attribute("to_kill_col_x").as_int();
-	todeathcol->rect.y = data.child("enemyattribute").attribute("to_kill_col_y").as_int();
-	position.x = data.child("enemyposition").attribute("position_x").as_float();
-	position.y = data.child("enemyposition").attribute("position_y").as_float();
+
 
 	return true;
 }
