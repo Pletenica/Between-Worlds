@@ -37,6 +37,7 @@ public:
 	SDL_Rect menubackgroundrect;
 	SDL_Texture* menu_graphics = nullptr;
 	Animation logo_anim;
+	Animation idle_player;
 
 public:
 	SDL_Rect textdonerect;

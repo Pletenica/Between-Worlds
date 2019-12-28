@@ -102,6 +102,11 @@ j1Menu::j1Menu() : j1Module()
 	logo_anim.PushBack({ 0, 55, 187, 55 });
 	logo_anim.speed = 0.2f;
 
+	idle_player.PushBack({ 400, 0, 400, 320 });
+	idle_player.PushBack({ 800, 0, 400, 320 });
+	idle_player.PushBack({ 1200, 0, 400, 320 });
+	idle_player.speed = 0.2f;
+
 	name.create("menu");
 }
 
@@ -136,7 +141,7 @@ bool j1Menu::Start()
 	guielement_settingsbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_settingsbutton, settingsbuttonrect, settingsbuttonrect1, "", settingsbuttonrect2, settingsbuttonrect3);
 	guielement_exitbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_exitbutton, exitbuttonrect, exitbuttonrect1, "", exitbuttonrect2, exitbuttonrect3);
 
-	//App->guimanager->CreateUIElement(true, GuiType::TEXT, guielement_textdone, textdonerect, textdonerect, "Game done by Roger Pérez Romera & Josep Sànchez Arbona");
+	App->guimanager->CreateUIElement(true, GuiType::TEXT, guielement_textdone, textdonerect, textdonerect, "Game done by Roger Pérez Romera & Josep Sànchez Arbona");
 	menu_current_back_graphics = menu_normal_back_graphics;
 	return true;
 }
@@ -172,7 +177,7 @@ bool j1Menu::Update(float dt)
 	App->render->Blit(menu_current_back_graphics, 0, 0, &menubackgroundrect, 1.0f, 0, 0, 0, SDL_FLIP_NONE);
 
 	App->render->Blit(menu_graphics, 15, 10, &(logo_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
-
+	App->render->Blit(menu_current_back_graphics, 0, 0, &(idle_player.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
 	return true;
 }
 
