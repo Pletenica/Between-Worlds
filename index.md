@@ -17,7 +17,7 @@ This project was started as an assigment for the Development of Videogames, subj
 * * *
 ## Trailer
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=t4VdEka8zhE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=8rtzu8SsweM&feature=youtu.be" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## [Download ](https://github.com/Pletenica/Between-Worlds/releases) the last release of the game.
 ## See the trailer in [YouTube](https://www.youtube.com/watch?v=nefejW2u2IM&feature=youtu.be) again.
