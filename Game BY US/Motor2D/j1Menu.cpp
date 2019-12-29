@@ -105,7 +105,7 @@ j1Menu::j1Menu() : j1Module()
 	idle_player.PushBack({ 400, 0, 400, 320 });
 	idle_player.PushBack({ 800, 0, 400, 320 });
 	idle_player.PushBack({ 1200, 0, 400, 320 });
-	idle_player.speed = 0.2f;
+	idle_player.speed = 0.1f;
 
 	name.create("menu");
 }
