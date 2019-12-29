@@ -60,7 +60,9 @@ First of all you can start the game or enter in a sarted game, change the settin
 * * *
 ## Trailer
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=8rtzu8SsweM&feature=youtu.be" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="853" height="480" src="https://www.youtube.com/embed/8rtzu8SsweM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+https://www.youtube.com/watch?v=8rtzu8SsweM&feature=youtu.be
 
 ## [Download ](https://github.com/Pletenica/Between-Worlds/releases) the last release of the game.
 ## [See](https://github.com/Pletenica/Between-Worlds) the repository of the game in Github.
