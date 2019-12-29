@@ -11,9 +11,20 @@ This project was started as an assigment for the Development of Videogames, subj
 ![Branching](https://raw.githubusercontent.com/Pletenica/Between-Worlds/master/Web%20Images/Logo.png)
 
 * * *
-## How to play
+## Main Core Subsystems
 
 The objective is to arrive at the last portal in the level without dying, you have to known that every portal that you take will change the world and how it interacts with you, the enemies, the envoirment and the mechanics will be different. So if you want to surpass the challenge you will have to adapt at each world fast and have the main controls clear.
+
+In the game you can move in four directions, walking backwards, forwards, jumping up and jumping down if you're able to do it. You must known that is not possible in most of occasions go backwards in the map for the next reasons: in the game one of the main mechanic is the change of the envoirment where you're playing using the portals that you find in the way. You can choose if you take the portal or not, but if you don't it is possible that you can't go further(this is the case in the four portals in the last releas cause it is a prototype and we wanted to see how every world works with the game and user) so our advice is to choose well your actions.
+
+Once in every different world you will experiment differents challenges: in the plant dimension you will have to use lianas to get through big gaps in the floor and at the same time try to avoid som agressive creatures of that world, in the iced dimension the floor will be slippery so be carefull when you walk there and try to avoid some other creatures with bad intentions, at the fire dimension you will have to make some parkour through some fire rings that we don't have to explain you what happens if you touch them but at the same time some creatures of that world will be after you and finally the dimension were everything is underwater it may not seem dangerous but the creatures under the water will use the streams to catch you if you don't move properly. 
+
+So knowing this you can play the game and accept the challenge, it may be difficult but we have given you some help too: for every level you have some checkpoints and to make it more dynamic you can try to catch every coin in the world to show how good are you playing our game, remember to adapt fast BEETWEEN WORLDS!
+
+
+
+* * *
+## How to play
 
 First of all you can start the game or enter in a sarted game, change the settings and others options in the menu. Once you start the game know that:
 
