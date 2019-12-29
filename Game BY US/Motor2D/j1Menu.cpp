@@ -89,6 +89,40 @@ j1Menu::j1Menu() : j1Module()
 	settingsbuttonrect3.w = 130;
 	settingsbuttonrect3.h = 26;
 
+	githubbuttonrect.x = 357;
+	githubbuttonrect.y = 25;
+	githubbuttonrect.w = 37;
+	githubbuttonrect.h = 37;
+	githubbuttonrect1.x = 187;
+	githubbuttonrect1.y = 78;
+	githubbuttonrect1.w = 37;
+	githubbuttonrect1.h = 37;
+	githubbuttonrect2.x = 224;
+	githubbuttonrect2.y = 78;
+	githubbuttonrect2.w = 37;
+	githubbuttonrect2.h = 37;
+	githubbuttonrect3.x = 261;
+	githubbuttonrect3.y = 78;
+	githubbuttonrect3.w = 37;
+	githubbuttonrect3.h = 37;
+
+	creditsbuttonrect.x = 327;
+	creditsbuttonrect.y = 5;
+	creditsbuttonrect.w = 68;
+	creditsbuttonrect.h = 16;
+	creditsbuttonrect1.x = 298;
+	creditsbuttonrect1.y = 78;
+	creditsbuttonrect1.w = 68;
+	creditsbuttonrect1.h = 16;
+	creditsbuttonrect2.x = 298;
+	creditsbuttonrect2.y = 94;
+	creditsbuttonrect2.w = 68;
+	creditsbuttonrect2.h = 16;
+	creditsbuttonrect3.x = 298;
+	creditsbuttonrect3.y = 110;
+	creditsbuttonrect3.w = 68;
+	creditsbuttonrect3.h = 16;
+
 	menubackgroundrect.x = 0;
 	menubackgroundrect.y = 0;
 	menubackgroundrect.w = 400;
@@ -141,6 +175,10 @@ bool j1Menu::Start()
 	guielement_settingsbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_settingsbutton, settingsbuttonrect, settingsbuttonrect1, "", settingsbuttonrect2, settingsbuttonrect3);
 	guielement_exitbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_exitbutton, exitbuttonrect, exitbuttonrect1, "", exitbuttonrect2, exitbuttonrect3);
 
+	guielement_githubbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_githubbutton, githubbuttonrect, githubbuttonrect1, "", githubbuttonrect2, githubbuttonrect3);
+	guielement_creditsbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_creditsbutton, creditsbuttonrect, creditsbuttonrect1, "", creditsbuttonrect2, creditsbuttonrect3);
+
+
 	App->guimanager->CreateUIElement(true, GuiType::TEXT, guielement_textdone, textdonerect, textdonerect, "Game done by Roger Pérez Romera & Josep Sànchez Arbona");
 	menu_current_back_graphics = menu_normal_back_graphics;
 	return true;
@@ -169,9 +207,12 @@ bool j1Menu::Update(float dt)
 		isinmenu = false;
 	}
 
-
 	if (guielement_exitbutton->pushed == true) {
 		return false;
+	}
+
+	if (guielement_githubbutton->pushed == true) {
+		ShellExecuteA(NULL, "open", "https://pletenica.github.io/Between-Worlds/", NULL , NULL , SW_SHOWNORMAL);
 	}
 
 	App->render->Blit(menu_current_back_graphics, 0, 0, &menubackgroundrect, 1.0f, 0, 0, 0, SDL_FLIP_NONE);

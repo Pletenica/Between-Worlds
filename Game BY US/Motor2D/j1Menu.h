@@ -66,6 +66,21 @@ public:
 	SDL_Rect exitbuttonrect2;
 	SDL_Rect exitbuttonrect3;
 	j1GuiElement* guielement_exitbutton;
+
+	SDL_Rect creditsbuttonrect;
+	SDL_Rect creditsbuttonrect1;
+	SDL_Rect creditsbuttonrect2;
+	SDL_Rect creditsbuttonrect3;
+	j1GuiElement* guielement_creditsbutton;
+
+	SDL_Rect githubbuttonrect;
+	SDL_Rect githubbuttonrect1;
+	SDL_Rect githubbuttonrect2;
+	SDL_Rect githubbuttonrect3;
+	j1GuiElement* guielement_githubbutton;
+
+	bool issettingsmenuopen = false;
+	bool iscreditsmenuopen = false;
 };
 
 #endif // __j1MENU_H__
