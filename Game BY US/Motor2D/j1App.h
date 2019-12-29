@@ -23,6 +23,7 @@ class j1Collision;
 class j1Animation;
 class j1PathFinding;
 class j1UiInGame;
+class j1Transitions;
 
 class j1App
 {
@@ -102,6 +103,7 @@ public:
 	j1GuiManager*		guimanager;
 	j1Fonts*			fonts;
 	j1UiInGame*			uiingame;
+	j1Transitions*		transitions;
 	bool				fpsCapON = true;
 
 private:

@@ -109,6 +109,7 @@
 		<Menu issaved="true" />
 	</menu>
 	<uiingame />
+	<Transitions />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>

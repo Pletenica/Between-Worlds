@@ -21,8 +21,6 @@ enum class GuiType
 	IMAGE,
 	WINDOW,
 	TEXT,
-	INPUT_TEXT,
-	CONSOLE_WINDOW,
 	UNKNOWN
 };
 

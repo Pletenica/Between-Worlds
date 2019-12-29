@@ -58,7 +58,7 @@ void Coins::OnCollision(Collider* coin, Collider* player) {
 	BROFILER_CATEGORY("PlayerOnCollision", Profiler::Color::MediumAquaMarine)
 	if (coin->type == COLLIDER_COINS) {
 		if (player->type == COLLIDER_PLAYER && have_to_destroy==false) {
-			App->audio->PlayFx(coinsound, -1);
+			App->audio->PlayFx(coinsound, 0);
 			App->entities->player->num_coins++;
 			Coins::~Coins();
 		}

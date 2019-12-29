@@ -24,7 +24,6 @@ public:
 	bool isincoltoplayer = false;
 	Animation idle;
 	bool have_to_destroy = false;
-	//Collider* body;
 	unsigned int coinsound;
 };
 

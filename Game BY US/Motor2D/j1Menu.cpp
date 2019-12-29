@@ -13,9 +13,8 @@
 #include "j1UiInGame.h"
 #include "j1GuiManager.h"
 #include "j1GuiElement.h"
+#include "j1Transitions.h"
 #include "UIImage.h"
-
-
 
 j1Menu::j1Menu() : j1Module()
 {
@@ -223,10 +222,7 @@ bool j1Menu::PreUpdate()
 bool j1Menu::Update(float dt)
 {
 	if (guielement_startbutton->pushed == true) {
-		App->scene->active = true;
-		App->entities->active = true;
-		App->uiingame->active = true;
-		App->menu->active = false;
+		App->transitions->ChangeScenesSphere4(this, App->scene, App->entities, App->uiingame);
 		isinmenu = false;
 		App->audio->StopFx();
 		App->audio->PlayMusic("audio/music/back.ogg");
@@ -235,10 +231,9 @@ bool j1Menu::Update(float dt)
 	if (guielement_continuebutton->pushed == true) {
 		App->LoadUniqueModule(this);
 		if (issaved == true) {
-			App->scene->active = true;
+			App->transitions->ChangeScenesSphere(this, App->scene);
 			App->entities->active = true;
 			App->uiingame->active = true;
-			App->menu->active = false;
 			isinmenu = false;
 			App->LoadGame();
 			App->audio->StopFx();

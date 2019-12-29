@@ -21,14 +21,10 @@ j1UiInGame::j1UiInGame() : j1Module()
 
 	/////HEART ANIMATION//////
 	heart_anim.PushBack({ 0, 0, 20, 20 });
-	//heart_anim.PushBack({ 20, 0, 20, 20 });
-	//heart_anim.PushBack({ 40, 0, 20, 20 });
 	heart_anim.speed = 0.01f;
 
 	/////HEART ANIMATION//////
 	gray_heart_anim.PushBack({ 0, 20, 20, 20 });
-	//gray_heart_anim.PushBack({ 20, 20, 20, 20 });
-	//gray_heart_anim.PushBack({ 40, 20, 20, 20 });
 	gray_heart_anim.speed = 0.01f;
 
 	name.create("uiingame");
@@ -50,13 +46,17 @@ bool j1UiInGame::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1UiInGame::Start()
 {
-
+	coinstextrect.x = 10;
+	coinstextrect.y = 5;
+	coinsrect.x = 15;
+	coinsrect.y = 15;
 
 	ui_graphics = App->tex->Load("textures/UI/UiInGame.png");
 
 	CreateFirstWorldCoins();
 
-	guielement_coinstext=App->guimanager->CreateUIElement(false, GuiType::TEXT, guielement_coinstext, coinsrect, coinsrect, "HOLA");
+	guielement_coinstext = App->guimanager->CreateUIElement(false, GuiType::TEXT, guielement_coinstext, coinsrect, coinsrect, "0");
+	guielement_coinstexttext=App->guimanager->CreateUIElement(false, GuiType::TEXT, guielement_coinstexttext, coinstextrect, coinstextrect, "COINS");
 
 	return true;
 }
@@ -64,7 +64,7 @@ bool j1UiInGame::Start()
 // Called each loop iteration
 bool j1UiInGame::PreUpdate()
 {
-	guielement_coinstext->RefreshText((p2SString)App->entities->player->num_coins);
+	guielement_coinstext->RefreshText(stringo.create("%i", App->entities->player->num_coins));
 	return true;
 }
 
@@ -84,7 +84,7 @@ bool j1UiInGame::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = App->entities->player->exitgame = false;
 
-	/*
+	
 	if (App->entities->player->lifes <= 0) ret = false;
 
 	for (int i = 0; i < 3; i++) {
@@ -95,7 +95,6 @@ bool j1UiInGame::PostUpdate()
 		App->render->Blit(ui_graphics, 330 + i * 20, 5, &(heart_anim.GetCurrentFrame()), 0.0f, 0, 0, 0, SDL_FLIP_NONE);
 	}
 
-	*/
 	return ret;
 }
 

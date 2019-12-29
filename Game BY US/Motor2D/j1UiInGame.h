@@ -6,7 +6,7 @@
 #include "p2DynArray.h"
 #include "Coins.h"
 #include "j1GuiManager.h"
-#include <iostream>
+#include <string>
 
 struct SDL_Texture;
 struct Collider;
@@ -40,6 +40,13 @@ public:
 
 	SDL_Rect coinsrect;
 	j1GuiElement* guielement_coinstext;
+
+	SDL_Rect coinstextrect;
+	j1GuiElement* guielement_coinstexttext;
+
+private:
+	p2SString stringo="0";
+	std::string realstring = "0";
 };
 
 #endif // __j1UIINGAME_H__

@@ -103,8 +103,8 @@
     <ClCompile Include="UiInputText.cpp">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClCompile>
-    <ClCompile Include="UIConsole.cpp">
-      <Filter>Desenvolupament  ========\UI</Filter>
+    <ClCompile Include="j1Transitions.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -228,8 +228,8 @@
     <ClInclude Include="UIInputText.h">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClInclude>
-    <ClInclude Include="UIConsole.h">
-      <Filter>Desenvolupament  ========\UI</Filter>
+    <ClInclude Include="j1Transitions.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -164,6 +164,7 @@
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1Timer.cpp" />
+    <ClCompile Include="j1Transitions.cpp" />
     <ClCompile Include="j1UiInGame.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
@@ -171,7 +172,6 @@
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="UIButton.cpp" />
-    <ClCompile Include="UIConsole.cpp" />
     <ClCompile Include="UIImage.cpp" />
     <ClCompile Include="UiInputText.cpp" />
     <ClCompile Include="UIText.cpp" />
@@ -196,6 +196,7 @@
     <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Scene.h" />
     <ClInclude Include="j1Timer.h" />
+    <ClInclude Include="j1Transitions.h" />
     <ClInclude Include="j1UiInGame.h" />
     <ClInclude Include="MemoryLeaks.h" />
     <ClInclude Include="p2DynArray.h" />
@@ -214,7 +215,6 @@
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="UIButton.h" />
-    <ClInclude Include="UIConsole.h" />
     <ClInclude Include="UIImage.h" />
     <ClInclude Include="UIInputText.h" />
     <ClInclude Include="UIText.h" />
