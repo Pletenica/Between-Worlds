@@ -416,6 +416,46 @@ bool j1App::LoadGameNow()
 	return ret;
 }
 
+bool j1App::LoadUniqueModule(j1Module* module)
+{
+	bool ret = false;
+
+	pugi::xml_document data;
+	pugi::xml_node root;
+	load_game = "save_game.xml";
+	pugi::xml_parse_result result = data.load_file(load_game.GetString());
+
+	if (result != NULL)
+	{
+		LOG("Loading new Game State from %s...", load_game.GetString());
+
+		root = data.child("game_state");
+
+		p2List_item<j1Module*>* item = modules.start;
+		ret = true;
+
+		while (item != NULL && ret == true)
+		{
+			if (item->data == module) {
+				ret = item->data->Load(root.child(item->data->name.GetString()));
+				LOG("Name: %s", item->data->name.GetString());
+			}
+			item = item->next;
+		}
+
+		data.reset();
+		if (ret == true)
+			LOG("...finished loading");
+		else
+			LOG("...loading process interrupted with error on module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
+	}
+	else
+		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.GetString(), result.description());
+
+	want_to_load = false;
+	return ret;
+}
+
 bool j1App::SavegameNow() const
 {
 	bool ret = true;

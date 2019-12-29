@@ -81,6 +81,8 @@ public:
 
 	bool issettingsmenuopen = false;
 	bool iscreditsmenuopen = false;
+
+	bool issaved = false;
 };
 
 #endif // __j1MENU_H__

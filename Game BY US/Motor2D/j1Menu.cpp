@@ -15,6 +15,8 @@
 #include "j1GuiElement.h"
 #include "UIImage.h"
 
+
+
 j1Menu::j1Menu() : j1Module()
 {
 	textdonerect.x = 60;
@@ -211,6 +213,18 @@ bool j1Menu::Update(float dt)
 		return false;
 	}
 
+	if (guielement_continuebutton->pushed == true) {
+		App->LoadUniqueModule(this);
+		if (issaved == true) {
+			App->scene->active = true;
+			App->entities->active = true;
+			App->uiingame->active = true;
+			App->menu->active = false;
+			isinmenu = false;
+			App->LoadGame();
+		}
+	}
+
 	if (guielement_githubbutton->pushed == true) {
 		ShellExecuteA(NULL, "open", "https://pletenica.github.io/Between-Worlds/", NULL , NULL , SW_SHOWNORMAL);
 	}
@@ -219,6 +233,8 @@ bool j1Menu::Update(float dt)
 
 	App->render->Blit(menu_graphics, 15, 10, &(logo_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
 	App->render->Blit(menu_current_back_graphics, 0, 0, &(idle_player.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+	
+	
 	return true;
 }
 
@@ -246,10 +262,14 @@ bool j1Menu::CleanUp()
 
 bool j1Menu::Save(pugi::xml_node& data) const
 {
+	data.append_child("Menu");
+	data.child("Menu").append_attribute("issaved") = true;
+	//App->menu->Load(data);
 	return true;
 }
 
 bool j1Menu::Load(pugi::xml_node& data)
 {
+	issaved = data.child("Menu").attribute("issaved").as_bool();
 	return true;
 }

@@ -161,7 +161,7 @@ bool j1Scene::Start()
 	camleftlim = App->collision->AddCollider({ camlimitleft,0,20,350 }, COLLIDER_CAMERA_LLEFT, this);
 	camrightlim = App->collision->AddCollider({ camlimitright,0,20,350 }, COLLIDER_CAMERA_LRIGHT, this);
 
-	App->SaveGame();
+	//App->SaveGame();
 	App->entities->player->dimensionhielo = false;
 	App->audio->PlayMusic("audio/music/back.ogg");
 
@@ -186,7 +186,6 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate()
 {
 
-
 	if (changelevel == false && donecollidersscene1 == false) {
 		//App->SaveGame();
 		///// PORTAL COLLLIDERS SCENE 1/////
@@ -199,7 +198,7 @@ bool j1Scene::PreUpdate()
 		checkpointcol_scene1 = App->collision->AddCollider({ checkpointscene1x,checkpointscene1y,25,26 }, COLLIDER_CHECKPOINT_SCENE, this);
 		App->map->DoEnemies();
 		donecollidersscene1 = true;
-
+		App->SaveGame();
 }
 
 	if (changelevel == true && donecollidersscene2 == false) {
