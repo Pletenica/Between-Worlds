@@ -30,7 +30,7 @@ Coins::Coins() :j1Entity(EntityType::COINS)
 
 	texture = App->tex->Load("textures/UI/UiInGame.png");
 	//body = 
-
+	coinsound= App->audio->LoadFx("audio/fx/CoinSound.wav");
 
 	name.create("Coins");
 }
@@ -58,6 +58,7 @@ void Coins::OnCollision(Collider* coin, Collider* player) {
 	BROFILER_CATEGORY("PlayerOnCollision", Profiler::Color::MediumAquaMarine)
 	if (coin->type == COLLIDER_COINS) {
 		if (player->type == COLLIDER_PLAYER && have_to_destroy==false) {
+			App->audio->PlayFx(coinsound, -1);
 			App->entities->player->num_coins++;
 			Coins::~Coins();
 		}

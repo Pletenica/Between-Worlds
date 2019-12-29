@@ -25,6 +25,7 @@ public:
 	Animation idle;
 	bool have_to_destroy = false;
 	//Collider* body;
+	unsigned int coinsound;
 };
 
 #endif
