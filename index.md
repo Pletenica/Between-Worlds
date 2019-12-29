@@ -52,6 +52,7 @@ First of all you can start the game or enter in a sarted game, change the settin
 
 -F11 Cap FPS (Cap to 30 fps or not)
 
+- "º" Use this key to go back to the menu.
 
 * * *
 ## Members
