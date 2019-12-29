@@ -5,10 +5,13 @@ This project was started as an assigment for the Development of Videogames, subj
 The idea was to create this mini game where yo must adapt in diferents dimensions to surpass diferents obstacles that you will find in your way home. 
 This two levels are a small example of four differents dimensions where each of them has diferents mechanics. 
 
-We have 4 types of enemies:
+*We have 4 types of enemies:
 - Two that go through the ground (Ice and Fire)
 - One that walks along the lines
 - One that swims
+
+*In this last version we have desactivated the enemies because some of them were causing problems with some mechanics. Due that in this last assignment
+the enemies are not necessary or valuable for the grade and all the others requirements are in game we think these will not affect at the valuation. 
 
 ### Controls
 -W for jump, double jump, climb and swim downwards.
@@ -47,7 +50,7 @@ Special debug keys:
 
 We do not own all of the tilesets, music or sfx presented in this game. Authors credited below
 -Enemies: 
-	All the enemies ART has been made by us.
+	All the enemies ART has been made by us, using Procreate and Photoshop.
 
 -Tilesets: 
 	Lpc Modified by SuperMata from OpenGameArt.org - https://opengameart.org/content/lpc-modified-art
@@ -66,6 +69,10 @@ We do not own all of the tilesets, music or sfx presented in this game. Authors 
 	Roblox Death Sound by ps3aciv from Youtube -https://www.youtube.com/watch?v=iqrbtvBB_tg-
 	ROBLOX- Walking Sound effect by AwesomeGamer999 from Youtube -https://www.youtube.com/watch?v=xyPxvROVZoI-
 	Roblox Old Jumping Sound by Heavy Pupper from Youtube -https://www.youtube.com/watch?v=J8R0rn6bGxw-
+
+-MENU and UI:
+	All menu art and UI elements are made by us, using Procreate and Photoshop.
+
 
 ### License
 
