@@ -38,6 +38,8 @@ Special debug keys:
 
 -F11 Cap FPS (Cap to 30 fps or not)
 
+- "º" use this key to return to the menu if you wish
+
 ### Autors
 -Josep Sànchez Arbona: code and art.
 
