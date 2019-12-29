@@ -25,6 +25,9 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	void DoSettingsWindow();
+	void DoCreditsWindow();
+
 public:
 	bool isinmenu = true;
 
@@ -78,6 +81,15 @@ public:
 	SDL_Rect githubbuttonrect2;
 	SDL_Rect githubbuttonrect3;
 	j1GuiElement* guielement_githubbutton;
+
+	SDL_Rect backbuttonrect;
+	SDL_Rect backbuttonrect1;
+	SDL_Rect backbuttonrect2;
+	SDL_Rect backbuttonrect3;
+	j1GuiElement* guielement_backbutton;
+
+	SDL_Rect creditsrect;
+	SDL_Rect settingsrect;
 
 	bool issettingsmenuopen = false;
 	bool iscreditsmenuopen = false;

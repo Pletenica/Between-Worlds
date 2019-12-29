@@ -174,5 +174,5 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 void j1Audio::StopFx()
 {
-	Mix_HaltChannel(-1);
+	Mix_HaltMusic();
 }

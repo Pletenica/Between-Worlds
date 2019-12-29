@@ -18,7 +18,7 @@ bool TextUI::PostUpdate() {
 	iPoint dif_sprite = { 0,0 };
 	SDL_QueryTexture(App->fonts->Print(stri.GetString()), NULL, NULL, &rect.w, &rect.h);
 	SDL_Rect sprite = j1GuiElement::Check_Printable_Rect(rect, dif_sprite);
-	if (boolmenu == App->menu->isinmenu) {
+	if (boolmenu == App->menu->isinmenu && App->menu->iscreditsmenuopen==false && App->menu->issettingsmenuopen==false) {
 		App->render->Blit(App->fonts->Print(stri.GetString()), GetScreenPos().x + dif_sprite.x, GetScreenPos().y + dif_sprite.y, &sprite, 0.0f, 0, 0, 0, SDL_FLIP_NONE);
 	}
 	return true;

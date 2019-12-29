@@ -125,11 +125,33 @@ j1Menu::j1Menu() : j1Module()
 	creditsbuttonrect3.w = 68;
 	creditsbuttonrect3.h = 16;
 
+	backbuttonrect.x = 360;
+	backbuttonrect.y = 280;
+	backbuttonrect.w = 68;
+	backbuttonrect.h = 16;
+	backbuttonrect1.x = 365;
+	backbuttonrect1.y = 78;
+	backbuttonrect1.w = 21;
+	backbuttonrect1.h = 21;
+	backbuttonrect2.x = 386;
+	backbuttonrect2.y = 78;
+	backbuttonrect2.w = 21;
+	backbuttonrect2.h = 21;
+	backbuttonrect3.x = 407;
+	backbuttonrect3.y = 78;
+	backbuttonrect3.w = 21;
+	backbuttonrect3.h = 21;
+
 	menubackgroundrect.x = 0;
 	menubackgroundrect.y = 0;
 	menubackgroundrect.w = 400;
 	menubackgroundrect.h = 320;
 	
+
+	creditsrect.x = 0;
+	creditsrect.y = 165;
+	creditsrect.w = 400;
+	creditsrect.h = 320;
 
 	/////MAIN LOGO ANIMATION//////
 	logo_anim.PushBack({ 0, 0, 187, 55 });
@@ -159,12 +181,10 @@ bool j1Menu::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-
-
 // Called before the first frame
 bool j1Menu::Start()
 {
-
+	App->audio->PlayMusic("audio/music/Menu.ogg");
 	menu_graphics = App->tex->Load("textures/UI/Menu.png");
 	menu_normal_back_graphics = App->tex->Load("textures/UI/MenuBackgroundNormal.png");
 	menu_plant_back_graphics = App->tex->Load("textures/UI/MenuBackgroundPlant.png");
@@ -180,6 +200,7 @@ bool j1Menu::Start()
 	guielement_githubbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_githubbutton, githubbuttonrect, githubbuttonrect1, "", githubbuttonrect2, githubbuttonrect3);
 	guielement_creditsbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_creditsbutton, creditsbuttonrect, creditsbuttonrect1, "", creditsbuttonrect2, creditsbuttonrect3);
 
+	guielement_backbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_backbutton, backbuttonrect, backbuttonrect1, "CL", backbuttonrect2, backbuttonrect3);
 
 	App->guimanager->CreateUIElement(true, GuiType::TEXT, guielement_textdone, textdonerect, textdonerect, "Game done by Roger Pérez Romera & Josep Sànchez Arbona");
 	menu_current_back_graphics = menu_normal_back_graphics;
@@ -207,10 +228,8 @@ bool j1Menu::Update(float dt)
 		App->uiingame->active = true;
 		App->menu->active = false;
 		isinmenu = false;
-	}
-
-	if (guielement_exitbutton->pushed == true) {
-		return false;
+		App->audio->StopFx();
+		App->audio->PlayMusic("audio/music/back.ogg");
 	}
 
 	if (guielement_continuebutton->pushed == true) {
@@ -222,18 +241,46 @@ bool j1Menu::Update(float dt)
 			App->menu->active = false;
 			isinmenu = false;
 			App->LoadGame();
+			App->audio->StopFx();
+			App->audio->PlayMusic("audio/music/back.ogg");
 		}
+	}
+
+	if (guielement_settingsbutton->pushed == true) {
+		if (issettingsmenuopen == false) {
+			iscreditsmenuopen = false;
+			issettingsmenuopen = true;
+		}
+	}
+
+	if (guielement_exitbutton->pushed == true) {
+		return false;
+	}
+
+	if (guielement_creditsbutton->pushed == true) {
+		if (iscreditsmenuopen == false) {
+			issettingsmenuopen = false;
+			iscreditsmenuopen = true;
+		}
+	}
+
+	if ((guielement_backbutton->pushed == true)&&(iscreditsmenuopen==true || issettingsmenuopen==true)) {
+			issettingsmenuopen = false;
+			iscreditsmenuopen = false;
 	}
 
 	if (guielement_githubbutton->pushed == true) {
 		ShellExecuteA(NULL, "open", "https://pletenica.github.io/Between-Worlds/", NULL , NULL , SW_SHOWNORMAL);
 	}
 
-	App->render->Blit(menu_current_back_graphics, 0, 0, &menubackgroundrect, 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+	if (iscreditsmenuopen == false && issettingsmenuopen == false) {
+		App->render->Blit(menu_current_back_graphics, 0, 0, &menubackgroundrect, 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+		App->render->Blit(menu_graphics, 15, 10, &(logo_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+		App->render->Blit(menu_current_back_graphics, 0, 0, &(idle_player.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+	}
 
-	App->render->Blit(menu_graphics, 15, 10, &(logo_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
-	App->render->Blit(menu_current_back_graphics, 0, 0, &(idle_player.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
-	
+	if (issettingsmenuopen == true) DoSettingsWindow();
+	if (iscreditsmenuopen == true) DoCreditsWindow();
 	
 	return true;
 }
@@ -272,4 +319,14 @@ bool j1Menu::Load(pugi::xml_node& data)
 {
 	issaved = data.child("Menu").attribute("issaved").as_bool();
 	return true;
+}
+
+void j1Menu::DoSettingsWindow()
+{
+
+}
+
+void j1Menu::DoCreditsWindow()
+{
+	App->render->Blit(menu_graphics, 0, 0, &creditsrect, 1.0f, 0, 0, 0, SDL_FLIP_NONE);
 }

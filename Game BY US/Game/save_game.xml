@@ -12,9 +12,9 @@
 	<EntityManager>
 		<player id="0">
 			<player />
-			<playerposition x="121.224976" y="214.5" x_init="50" y_init="250" />
+			<playerposition x="50" y="250" x_init="50" y_init="250" />
 			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
-			<playerattribute ice_right="false" ice_left="false" left="false" right="false" body_col_x="126" body_col_y="214" />
+			<playerattribute ice_right="false" ice_left="false" left="false" right="false" body_col_x="55" body_col_y="250" />
 		</player>
 		<Coins id="1" />
 		<Coins id="2" />

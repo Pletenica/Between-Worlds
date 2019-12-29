@@ -6,7 +6,7 @@
 #include "j1Menu.h"
 
 
-ButtonUI::ButtonUI(bool ismenu, GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite, SDL_Rect spriten2, SDL_Rect spriten3, bool d) :j1GuiElement(type, r, p, d) {
+ButtonUI::ButtonUI(bool ismenu, GuiType type, j1GuiElement* p, SDL_Rect r, SDL_Rect sprite, SDL_Rect spriten2, SDL_Rect spriten3, p2SString string, bool d) :j1GuiElement(type, r, p, d) {
 	name.create("ButtonUI");
 	sprite1 = sprite;
 	sprite2 = spriten2;
@@ -14,23 +14,26 @@ ButtonUI::ButtonUI(bool ismenu, GuiType type, j1GuiElement* p, SDL_Rect r, SDL_R
 	over = false;
 	pushed = false;
 	boolmenu = ismenu;
+	str = string;
 }
 
 bool ButtonUI::PostUpdate() {
 	SDL_Rect sprite;
 	iPoint dif_sprite = { 0,0 };
-	if (boolmenu == App->menu->isinmenu) {
-		if (pushed == true) {
-			sprite = j1GuiElement::Check_Printable_Rect(sprite3, dif_sprite);
-		}
-		else if (over == true) {
-			sprite = j1GuiElement::Check_Printable_Rect(sprite2, dif_sprite);
-		}
-		else {
-			sprite = j1GuiElement::Check_Printable_Rect(sprite1, dif_sprite);
-		}
-		App->render->Blit((SDL_Texture*)App->menu->menu_graphics, GetScreenPos().x + dif_sprite.x, GetScreenPos().y + dif_sprite.y, &sprite, 0.0f, 0, 0, 0, SDL_FLIP_NONE);
+	if ((App->menu->iscreditsmenuopen == false && App->menu->issettingsmenuopen == false && str != "CL")|| str=="CL"&&(App->menu->iscreditsmenuopen == true || App->menu->issettingsmenuopen == true)) {
+		if (boolmenu == App->menu->isinmenu) {
+			if (pushed == true) {
+				sprite = j1GuiElement::Check_Printable_Rect(sprite3, dif_sprite);
+			}
+			else if (over == true) {
+				sprite = j1GuiElement::Check_Printable_Rect(sprite2, dif_sprite);
+			}
+			else {
+				sprite = j1GuiElement::Check_Printable_Rect(sprite1, dif_sprite);
+			}
+			App->render->Blit((SDL_Texture*)App->menu->menu_graphics, GetScreenPos().x + dif_sprite.x, GetScreenPos().y + dif_sprite.y, &sprite, 0.0f, 0, 0, 0, SDL_FLIP_NONE);
 
+		}
 	}
 	return true;
 }

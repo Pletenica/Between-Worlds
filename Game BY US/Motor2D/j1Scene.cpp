@@ -163,7 +163,7 @@ bool j1Scene::Start()
 
 	//App->SaveGame();
 	App->entities->player->dimensionhielo = false;
-	App->audio->PlayMusic("audio/music/back.ogg");
+
 
 	//Pathinding
 	if (App->map->Load("Scene01.tmx") == true)
