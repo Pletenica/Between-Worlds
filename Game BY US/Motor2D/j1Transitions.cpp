@@ -61,66 +61,76 @@ j1Transitions::~j1Transitions()
 
 bool j1Transitions::PostUpdate()
 {
-	if (isintransition == true) {
+	if (isintransition4 == true) {
 		App->render->Blit(graphics, 0, 0, &(current_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
 
 		ChangeScenesSphere4(module1, module2, module3, module4);
 	}
+	if (isintransition2 == true) {
+		App->render->Blit(graphics, 0, 0, &(current_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+
+		ChangeScenesSphere(module1, module2, module3, module4);
+	}
+
 	return true;
 }
 
-void j1Transitions::ChangeScenesSphere(j1Module*module1, j1Module*module2)
+void j1Transitions::ChangeScenesSphere(j1Module*module1, j1Module*module2, j1Module* module3, j1Module*module4)
 {
-	if (isintransition == false) {
-		this->module1 = module1;
-		this->module2 = module2;
-		current_anim = fadein;
-	}
-	isintransition = true;
-
-	if (current_anim.finished == 1 && isfadingout==false) {
-		module1->active = false;
-		module2->active = true;
-		current_anim.Reset();
-		current_anim = fadeout;
-		isfadingout = true;
-	}
-
-	if (fadeout.finished == 1 || current_anim.finished==1) {
-		current_anim.finished = 0;
-		fadeout.finished = 0;
-		fadein.finished = 0;
-		isfadingout = false;
-		isintransition = false;
-	}
-}
-
-void j1Transitions::ChangeScenesSphere4(j1Module*module1, j1Module*module2, j1Module* module3, j1Module*module4)
-{
-	if (isintransition == false) {
+	if (isintransition2 == false) {
 		this->module1 = module1;
 		this->module2 = module2;
 		this->module3 = module3;
 		this->module4 = module4;
 		current_anim = fadein;
 	}
-	isintransition = true;
+	isintransition2 = true;
 
-	if (current_anim.finished == 1 && isfadingout == false) {
+	if (current_anim.finished == 1 && isfadingout2==false) {
+		module1->active = false;
+		module2->active = false;
+		module3->active = false;
+		module4->active = true;
+		current_anim.Reset();
+		current_anim = fadeout;
+		isfadingout2 = true;
+	}
+
+	if (fadeout.finished == 1 || current_anim.finished==1) {
+		current_anim.finished = 0;
+		fadeout.finished = 0;
+		fadein.finished = 0;
+		isfadingout2 = false;
+		isintransition2 = false;
+	}
+}
+
+void j1Transitions::ChangeScenesSphere4(j1Module*module1, j1Module*module2, j1Module* module3, j1Module*module4)
+{
+	if (isintransition4 == false) {
+		this->module1 = module1;
+		this->module2 = module2;
+		this->module3 = module3;
+		this->module4 = module4;
+		current_anim = fadein;
+	}
+	isintransition4 = true;
+
+	if (current_anim.finished == 1 && isfadingout4 == false) {
 		module1->active = false;
 		module2->active = true;
 		module3->active = true;
 		module4->active = true;
 		current_anim.Reset();
 		current_anim = fadeout;
-		isfadingout = true;
+		isfadingout4 = true;
 	}
 
 	if (fadeout.finished == 1 || current_anim.finished == 1) {
 		current_anim.finished = 0;
 		fadeout.finished = 0;
 		fadein.finished = 0;
-		isfadingout = false;
-		isintransition = false;
+		isfadingout4 = false;
+		isintransition4 = false;
 	}
 }

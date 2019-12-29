@@ -4,8 +4,8 @@
 #include "j1Module.h"
 #include "SDL\include\SDL_pixels.h"
 
-#define DEFAULT_FONT "fonts/open_sans/OpenSans-Regular.ttf"
-#define DEFAULT_FONT_SIZE 10
+#define DEFAULT_FONT "fonts/provicali/Provicali.otf"
+#define DEFAULT_FONT_SIZE 17
 
 struct SDL_Texture;
 struct _TTF_Font;

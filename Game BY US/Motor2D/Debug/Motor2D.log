@@ -1,2 +1,36 @@
-﻿  Coins.cpp
+﻿  j1Menu.cpp
+  j1Player.cpp
+d:\documents\github\plataform_game\game by us\motor2d\j1player.cpp(77): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+d:\documents\github\plataform_game\game by us\motor2d\j1player.cpp(78): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+d:\documents\github\plataform_game\game by us\motor2d\j1player.cpp(411): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+d:\documents\github\plataform_game\game by us\motor2d\j1player.cpp(412): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+d:\documents\github\plataform_game\game by us\motor2d\j1player.cpp(465): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+d:\documents\github\plataform_game\game by us\motor2d\j1player.cpp(602): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+d:\documents\github\plataform_game\game by us\motor2d\j1player.cpp(636): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+d:\documents\github\plataform_game\game by us\motor2d\j1player.cpp(648): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+  Generando código...
   Motor2D.vcxproj -> D:\Documents\GitHub\Plataform_Game\Game BY US\Debug\Motor 2D.exe

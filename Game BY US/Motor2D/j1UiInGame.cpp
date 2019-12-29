@@ -15,6 +15,7 @@
 #include "UIImage.h"
 #include "UIText.h"
 #include "j1Menu.h"
+#include "j1Transitions.h"
 
 j1UiInGame::j1UiInGame() : j1Module()
 {
@@ -46,10 +47,10 @@ bool j1UiInGame::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1UiInGame::Start()
 {
-	coinstextrect.x = 10;
-	coinstextrect.y = 5;
-	coinsrect.x = 15;
-	coinsrect.y = 15;
+	coinstextrect.x = 5;
+	coinstextrect.y = 2;
+	coinsrect.x = 5;
+	coinsrect.y = 17;
 
 	ui_graphics = App->tex->Load("textures/UI/UiInGame.png");
 
@@ -85,7 +86,7 @@ bool j1UiInGame::PostUpdate()
 		ret = App->entities->player->exitgame = false;
 
 	
-	if (App->entities->player->lifes <= 0) ret = false;
+
 
 	for (int i = 0; i < 3; i++) {
 		App->render->Blit(ui_graphics, 330 + i * 20, 5, &(gray_heart_anim.GetCurrentFrame()), 0.0f, 0, 0, 0, SDL_FLIP_NONE);
@@ -243,7 +244,7 @@ void j1UiInGame::CreateFirstWorldCoins()
 
 void j1UiInGame::CreateSecondWorldCoins()
 {
-	/*
+	
 	//NORMAL WORLD 1
 	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 200, 200), number_coins++);
 	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 232, 168), number_coins++);
@@ -352,7 +353,6 @@ void j1UiInGame::CreateSecondWorldCoins()
 
 	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3930, 230), number_coins++);
 	coins_array.Insert((Coins*)App->entities->CreateEntity(EntityType::COINS, 3960, 230), number_coins++);
-*/
 }
 
 bool j1UiInGame::CleanUpCoinsArray() {

@@ -15,6 +15,8 @@
 #include "EnemyIce.h"
 #include "EnemyLiana.h"
 #include "j1UiInGame.h"
+#include "j1Menu.h"
+#include "j1Transitions.h"
 #include "SDL/include/SDL_timer.h"
 #include "p2DynArray.h"
 #include "../Game/Brofiler/Brofiler.h"
@@ -387,6 +389,18 @@ bool j1Player::Update(float dt) {
 		G = 1;
 		if (dead.finished == 1) {
 			if (lifes > 0) lifes--;
+			if (App->entities->player->lifes <= 0) {
+				App->uiingame->active = false;
+				App->entities->active = false;
+				App->scene->active = false;
+				App->menu->active = true;
+				App->menu->isinmenu = true;
+				App->audio->StopFx();
+				App->audio->PlayMusic("audio/music/Menu.ogg");
+				num_coins = 0;
+				lifes = 3;
+			}
+
 			if (App->scene->changelevel == false) {
 				ChangeToLevel1();
 			}
@@ -671,7 +685,7 @@ void j1Player::ChangeToLevel1() {
 	}
 	if (deadbool == false && App->scene->changelevel==true) {
 		App->uiingame->CleanUpCoinsArray();
-		//App->uiingame->CreateFirstWorldCoins();
+		App->uiingame->CreateFirstWorldCoins();
 	}
 	
 	deadbool = false;
@@ -706,7 +720,7 @@ void j1Player::ChangeToLevel2() {
 	}
 	if (deadbool == false && App->scene->changelevel == false) {
 		App->uiingame->CleanUpCoinsArray();
-		//App->uiingame->CreateSecondWorldCoins();
+		App->uiingame->CreateSecondWorldCoins();
 	}
 	
 	deadbool = false;

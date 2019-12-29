@@ -18,7 +18,6 @@ Coins::Coins() :j1Entity(EntityType::COINS)
 {
 	type = EntityType::COINS;
 
-
 	/////IDLE ANIMATION//////
 	idle.PushBack({ 0, 40, 20, 20 });
 	idle.PushBack({ 20, 40, 20, 20 });
@@ -44,7 +43,7 @@ Coins::~Coins()
 
 
 bool Coins::PostUpdate() {
-	BROFILER_CATEGORY("EnemiesPreUpdate", Profiler::Color::Chartreuse)
+	BROFILER_CATEGORY("CoinsPreUpdate", Profiler::Color::Chartreuse)
 
 	App->render->Blit(texture, (int)position.x, (int)position.y, &(idle.GetCurrentFrame()), 1.0f, 0, 0, 0, flip);
 	isincoltoplayer = false;
@@ -54,8 +53,7 @@ bool Coins::PostUpdate() {
 
 
 void Coins::OnCollision(Collider* coin, Collider* player) {
-
-	BROFILER_CATEGORY("PlayerOnCollision", Profiler::Color::MediumAquaMarine)
+	BROFILER_CATEGORY("CoinsOnCollision", Profiler::Color::MediumAquaMarine)
 	if (coin->type == COLLIDER_COINS) {
 		if (player->type == COLLIDER_PLAYER && have_to_destroy==false) {
 			App->audio->PlayFx(coinsound, 0);

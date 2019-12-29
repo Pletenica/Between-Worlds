@@ -18,9 +18,6 @@
 
 j1Menu::j1Menu() : j1Module()
 {
-	textdonerect.x = 60;
-	textdonerect.y = 300;
-
 	startbuttonrect.x = 25;
 	startbuttonrect.y = 80;
 	startbuttonrect.w = 85;
@@ -201,7 +198,6 @@ bool j1Menu::Start()
 
 	guielement_backbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_backbutton, backbuttonrect, backbuttonrect1, "CL", backbuttonrect2, backbuttonrect3);
 
-	App->guimanager->CreateUIElement(true, GuiType::TEXT, guielement_textdone, textdonerect, textdonerect, "Game done by Roger Pérez Romera & Josep Sànchez Arbona");
 	menu_current_back_graphics = menu_normal_back_graphics;
 	return true;
 }
@@ -226,18 +222,18 @@ bool j1Menu::Update(float dt)
 		isinmenu = false;
 		App->audio->StopFx();
 		App->audio->PlayMusic("audio/music/back.ogg");
+		guielement_startbutton->pushed = false;
 	}
 
 	if (guielement_continuebutton->pushed == true) {
 		App->LoadUniqueModule(this);
 		if (issaved == true) {
-			App->transitions->ChangeScenesSphere(this, App->scene);
-			App->entities->active = true;
-			App->uiingame->active = true;
+			App->transitions->ChangeScenesSphere4(this, App->scene, App->entities, App->uiingame);
 			isinmenu = false;
 			App->LoadGame();
 			App->audio->StopFx();
 			App->audio->PlayMusic("audio/music/back.ogg");
+			guielement_continuebutton->pushed = false;
 		}
 	}
 
@@ -245,10 +241,12 @@ bool j1Menu::Update(float dt)
 		if (issettingsmenuopen == false) {
 			iscreditsmenuopen = false;
 			issettingsmenuopen = true;
+			guielement_settingsbutton->pushed = false;
 		}
 	}
 
 	if (guielement_exitbutton->pushed == true) {
+		guielement_exitbutton->pushed = false;
 		return false;
 	}
 
@@ -256,6 +254,7 @@ bool j1Menu::Update(float dt)
 		if (iscreditsmenuopen == false) {
 			issettingsmenuopen = false;
 			iscreditsmenuopen = true;
+			guielement_creditsbutton->pushed = false;
 		}
 	}
 

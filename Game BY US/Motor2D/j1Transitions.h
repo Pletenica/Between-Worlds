@@ -13,7 +13,7 @@ public:
 
 	bool Start();
 	bool PostUpdate();
-	void ChangeScenesSphere(j1Module*module1, j1Module*module2);
+	void ChangeScenesSphere(j1Module*module1, j1Module*module2, j1Module*module3, j1Module*module4);
 	void ChangeScenesSphere4(j1Module*module1, j1Module*module2, j1Module*module3, j1Module*module4);
 
 public:
@@ -21,8 +21,10 @@ public:
 
 private:
 	SDL_Texture* graphics = nullptr;
-	bool isintransition = false;
-	bool isfadingout = false;
+	bool isintransition4 = false;
+	bool isfadingout4 = false;
+	bool isintransition2 = false;
+	bool isfadingout2 = false;
 	Animation fadein;
 	Animation current_anim;
 	Animation fadeout;
