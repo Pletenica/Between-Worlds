@@ -27,6 +27,7 @@ public:
 	void OnCollision(Collider*, Collider*);
 	void ChangeToLevel1();
 	void ChangeToLevel2();
+	void BackToMenu();
 
 public:
 	SDL_Texture* current_graphics = nullptr;

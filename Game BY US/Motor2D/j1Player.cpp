@@ -390,15 +390,7 @@ bool j1Player::Update(float dt) {
 		if (dead.finished == 1) {
 			if (lifes > 0) lifes--;
 			if (App->entities->player->lifes <= 0) {
-				App->uiingame->active = false;
-				App->entities->active = false;
-				App->scene->active = false;
-				App->menu->active = true;
-				App->menu->isinmenu = true;
-				App->audio->StopFx();
-				App->audio->PlayMusic("audio/music/Menu.ogg");
-				num_coins = 0;
-				lifes = 3;
+				BackToMenu();
 			}
 
 			if (App->scene->changelevel == false) {
@@ -413,6 +405,12 @@ bool j1Player::Update(float dt) {
 	body->rect.x = position.x + 5;
 	body->rect.y = position.y;
 	
+
+	if (App->input->GetKey(SDL_SCANCODE_GRAVE) == KEY_DOWN) {
+		BackToMenu();
+	}
+
+
 	if (dimensionhielo == true) {
 		if ((ice_left == true)&& (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT)) {
 			position.x -= speed_player_ice;
@@ -784,4 +782,16 @@ bool j1Player::Load(pugi::xml_node& data)
 	ice_left = data.child("playerattribute").attribute("ice_left").as_bool();
 	G = 5;
 	return true;
+}
+
+void j1Player::BackToMenu() {
+	App->uiingame->active = false;
+	App->entities->active = false;
+	App->scene->active = false;
+	App->menu->active = true;
+	App->menu->isinmenu = true;
+	App->audio->StopFx();
+	App->audio->PlayMusic("audio/music/Menu.ogg");
+	num_coins = 0;
+	lifes = 3;
 }

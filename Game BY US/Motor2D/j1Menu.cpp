@@ -149,6 +149,11 @@ j1Menu::j1Menu() : j1Module()
 	creditsrect.w = 400;
 	creditsrect.h = 320;
 
+	settingsrect.x = 400;
+	settingsrect.y = 165;
+	settingsrect.w = 400;
+	settingsrect.h = 320;
+
 	/////MAIN LOGO ANIMATION//////
 	logo_anim.PushBack({ 0, 0, 187, 55 });
 	logo_anim.PushBack({ 0, 55, 187, 55 });
@@ -199,6 +204,13 @@ bool j1Menu::Start()
 	guielement_backbutton = App->guimanager->CreateUIElement(true, GuiType::BUTTON, guielement_backbutton, backbuttonrect, backbuttonrect1, "CL", backbuttonrect2, backbuttonrect3);
 
 	menu_current_back_graphics = menu_normal_back_graphics;
+
+	guielement_startbutton->pushed = false;
+	guielement_continuebutton->pushed = false;
+	guielement_creditsbutton->pushed = false;
+	guielement_settingsbutton->pushed = false;
+	guielement_exitbutton->pushed = false;
+	guielement_githubbutton->pushed = false;
 	return true;
 }
 
@@ -317,7 +329,7 @@ bool j1Menu::Load(pugi::xml_node& data)
 
 void j1Menu::DoSettingsWindow()
 {
-
+	App->render->Blit(menu_graphics, 0, 0, &settingsrect, 1.0f, 0, 0, 0, SDL_FLIP_NONE);
 }
 
 void j1Menu::DoCreditsWindow()

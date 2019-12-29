@@ -4,6 +4,7 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "j1Scene.h"
 #include "j1Transitions.h"
 
 j1Transitions::j1Transitions() : j1Module()
@@ -62,12 +63,12 @@ j1Transitions::~j1Transitions()
 bool j1Transitions::PostUpdate()
 {
 	if (isintransition4 == true) {
-		App->render->Blit(graphics, 0, 0, &(current_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+		App->render->Blit(graphics, App->scene->cameraxinvert, 0, &(current_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
 
 		ChangeScenesSphere4(module1, module2, module3, module4);
 	}
 	if (isintransition2 == true) {
-		App->render->Blit(graphics, 0, 0, &(current_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
+		App->render->Blit(graphics, App->scene->cameraxinvert, 0, &(current_anim.GetCurrentFrame()), 1.0f, 0, 0, 0, SDL_FLIP_NONE);
 
 		ChangeScenesSphere(module1, module2, module3, module4);
 	}

@@ -16,7 +16,7 @@
 			<playerworld watter="false" fire="false" plant="false" ice="false" normal="true" />
 			<playerattribute ice_right="false" ice_left="false" left="false" right="false" body_col_x="55" body_col_y="250" />
 		</player>
-		<Øñ† id="1" />
+		<Coins id="1" />
 		<Coins id="2" />
 		<Coins id="3" />
 		<Coins id="4" />
