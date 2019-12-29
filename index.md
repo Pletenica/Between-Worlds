@@ -21,7 +21,7 @@ Once in every different world you will experiment differents challenges: in the 
 
 So knowing this you can play the game and accept the challenge, it may be difficult but we have given you some help too: for every level you have some checkpoints and to make it more dynamic you can try to catch every coin in the world to show how good are you playing our game, remember to adapt fast BEETWEEN WORLDS!
 
-
+![Branching](https://raw.githubusercontent.com/Pletenica/Between-Worlds/master/Web%20Images/Trailer.png)
 
 * * *
 ## How to play
